@@ -18,6 +18,41 @@ Este projeto é uma aplicação web desenvolvida com as seguintes tecnologias:
 
 O propósito específico da aplicação "Ailoop" não está detalhado nos arquivos de configuração ou README analisados. O projeto parece ter sido iniciado usando a plataforma "Lovable".
 
+## Redesign Visual (Baseado em Vídeo - Iniciado 2024-XX-XX)
+
+### Briefing Resumido
+
+O objetivo é re-estilizar visualmente as seções existentes do projeto React/Vite, inspirando-se estritamente na estética visual e dinâmica do site OpenHome apresentado no vídeo de referência. O foco é criar um visual único, "impressionista", com alto impacto visual, utilizando:
+
+*   **Estilo Geral:** Alto contraste (fundos escuros `#0A0A0A` / claros `#F8F8F4`), acentos neon (Roxo `#A020F0`, Ciano `#00FFFF`, Verde Limão `#ADFF2F`, Laranja `#FFA500`), texto branco/preto, bordas finas.
+*   **Tipografia:** Combinação de Serifada elegante (Títulos), Sans-serif limpa (Corpo) e Monospace/Pixel (Detalhes).
+*   **Layout:** Grid/Flexbox, espaçamento generoso, padrões (Hero centralizado, conteúdo em 2 colunas).
+*   **Animações Chave (Framer Motion/GSAP/CSS):**
+    *   Waveform/Ondas Neon (Hero)
+    *   Scroll-Triggered (Fade/Slide-in, Revelação de Títulos)
+    *   Card Flip 3D (com Imagem Glitch/Scanline e Texto Pixelado)
+    *   Desenho de Linha SVG
+    *   Grid/Ícone Morphing
+    *   Hovers sutis e Transições de Página/Estado (Fade/Blur).
+*   **Componentes UI:** Botões (Texto + Seta `→`, borda fina neon/bw), Cards (Variações: Conteúdo, Flip 3D, Ícone Grid).
+*   **Prioridades:** Performance, Responsividade, Acessibilidade, Modularidade.
+
+### Log de Implementação (Redesign)
+
+*   **Configuração Base:**
+    *   ✅ Adicionada estrutura de pastas ao Briefing.
+    *   ✅ Definidas cores personalizadas (brand, neon) em `tailwind.config.js`.
+    *   ✅ Definidas famílias de fontes personalizadas (serif, sans, mono) em `tailwind.config.js`.
+    *   ✅ Corrigidos erros de sintaxe em `tailwind.config.js`.
+    *   ✅ Aplicado fundo escuro (`bg-brand-dark`) e texto branco (`text-brand-white`) como base no `body` (`src/index.css`).
+    *   ✅ Corrigido uso de classes `@apply` com cores inválidas (`ailoop-*` -> `neon-*`) em `src/index.css`.
+*   **Hero Section (`src/components/HeroSection.tsx`):**
+    *   ✅ Aplicada tipografia (serif no `<h1>`, sans no `<p>`).
+    *   ✅ Ajustadas cores do texto (`text-brand-white`, `text-white/80`, `text-neon-cyan` no span).
+    *   ✅ Re-estilizados botões com bordas finas (neon e branca), texto neon/branco e ícone de seta `→` animado.
+    *   ✅ Criado componente `WaveformAnimation` (`src/components/animations/WaveformAnimation.tsx`) usando SVG e Framer Motion para animar múltiplas ondas neon com `translateX`.
+    *   ✅ Integrado `WaveformAnimation` na `HeroSection`.
+
 ## Sugestões de Bibliotecas de Animação (Intermediárias/Avançadas)
 
 Considerando a stack React/Tailwind, as seguintes bibliotecas podem ser avaliadas:

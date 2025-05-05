@@ -5,9 +5,12 @@ import * as THREE from 'three';
 import { motion } from 'framer-motion';
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from 'lucide-react';
+// Importações para Post-processing
+import { EffectComposer, Bloom, Selection, Select } from '@react-three/postprocessing';
+import { KernelSize } from 'postprocessing';
 
-// Cor emissiva Neon Purple
-const emissiveColor = new THREE.Color(0xA020F0);
+// // Cor emissiva Neon Purple (Removida - usaremos Bloom)
+// const emissiveColor = new THREE.Color(0xA020F0);
 
 // Componente para o modelo 3D com direção de rotação, posição e efeitos visuais
 const ModelViewer = ({ rotationDirection = 1, positionOffset = [0, 0, 0] }: { rotationDirection?: number, positionOffset?: [number, number, number] }) => {
@@ -18,17 +21,16 @@ const ModelViewer = ({ rotationDirection = 1, positionOffset = [0, 0, 0] }: { ro
   // Clonar a cena para ter instâncias independentes
   const clonedScene = scene.clone();
 
-  // Aplicar efeito emissivo quando a cena clonada estiver pronta
-  useEffect(() => {
-    clonedScene.traverse((child) => {
-      if (child instanceof THREE.Mesh && child.material instanceof THREE.MeshStandardMaterial) {
-        // Verifica se é MeshStandardMaterial para ter a propriedade emissive
-        child.material.emissive = emissiveColor;
-        child.material.emissiveIntensity = 1.5; // Ajuste a intensidade conforme necessário
-        child.material.needsUpdate = true; // Importante para aplicar a mudança
-      }
-    });
-  }, [clonedScene]); // Executa quando clonedScene muda
+  // // Aplicar efeito emissivo (Removido - substituído por Bloom)
+  // useEffect(() => {
+  //   clonedScene.traverse((child) => {
+  //     if (child instanceof THREE.Mesh && child.material instanceof THREE.MeshStandardMaterial) {
+  //       child.material.emissive = emissiveColor;
+  //       child.material.emissiveIntensity = 1.5;
+  //       child.material.needsUpdate = true;
+  //     }
+  //   });
+  // }, [clonedScene]);
 
   // Rotação e Oscilação
   useFrame((state, delta) => {
@@ -38,18 +40,19 @@ const ModelViewer = ({ rotationDirection = 1, positionOffset = [0, 0, 0] }: { ro
       modelRef.current.rotation.y += delta * 0.2 * rotationDirection;
 
       // Oscilação vertical sutil
-      const oscillation = Math.sin(time.current * 1.5) * 0.08; // Amplitude e velocidade da oscilação
+      const oscillation = Math.sin(time.current * 1.5) * 0.08;
       modelRef.current.position.y = -1.5 + positionOffset[1] + oscillation;
     }
   });
 
   return (
-    <primitive 
-      ref={modelRef} 
+    // Envolvido por <Select> no componente pai para o Bloom seletivo
+    <primitive
+      ref={modelRef}
       object={clonedScene} // Usa a cena clonada
-      scale={4.5} 
+      scale={4.5}
       // Posição inicial (sem oscilação, que é aplicada no useFrame)
-      position={[positionOffset[0], -1.5 + positionOffset[1], positionOffset[2]]} 
+      position={[positionOffset[0], -1.5 + positionOffset[1], positionOffset[2]]}
     />
   );
 };
@@ -71,21 +74,41 @@ const ShowcaseSection: React.FC = () => {
        {/* <div className="absolute inset-0 bg-black/30 pointer-events-none"></div> */}
 
       <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center relative z-10">
-        {/* Coluna Esquerda: Canvas Único com Dois Modelos */}
-        <div className="h-96 md:h-[500px] w-full relative"> 
-          <Canvas camera={{ position: [0, 1, 10], fov: 50 }}> {/* Afastei um pouco a câmera (z=10) */}
-            <ambientLight intensity={0.8} />
-            <directionalLight position={[5, 8, 5]} intensity={1.5} />
-            <React.Suspense fallback={null}>
-              {/* Modelo 1: Rotação direita, deslocado para esquerda */}
-              <ModelViewer rotationDirection={1} positionOffset={[-2.5, 0, 0]} /> 
-              {/* Modelo 2: Rotação esquerda, deslocado para direita */}
-              <ModelViewer rotationDirection={-1} positionOffset={[2.5, 0, 0]} />
-            </React.Suspense>
-            {/* Pode adicionar OrbitControls aqui se quiser permitir interação */}
-            {/* <OrbitControls enableZoom={false} enablePan={false} /> */}
+        {/* Coluna Esquerda: Canvas Único com Dois Modelos e Bloom */}
+        <div className="h-96 md:h-[500px] w-full relative">
+          <Canvas camera={{ position: [0, 1, 10], fov: 50 }}>
+            <ambientLight intensity={0.5} /> {/* Reduzi um pouco a luz ambiente */ }
+            <directionalLight position={[5, 8, 5]} intensity={1.0} /> {/* Reduzi um pouco a luz direcional */ }
+
+            {/* Selection para habilitar o Selective Bloom */ }
+            <Selection>
+              {/* EffectComposer para aplicar efeitos */ }
+              <EffectComposer autoClear={false}>
+                <Bloom
+                  luminanceThreshold={0.2} // Ajuste para controlar o que brilha (valores mais baixos brilham mais coisas)
+                  luminanceSmoothing={0.1} // Suavização do threshold
+                  intensity={1.2}        // Intensidade do brilho
+                  kernelSize={KernelSize.MEDIUM} // Tamanho do kernel do blur (SMALL, MEDIUM, LARGE, VERY_LARGE, HUGE)
+                  mipmapBlur={true}         // Usa mipmaps para um blur mais performático e suave
+                />
+              </EffectComposer>
+
+              {/* Suspense para carregamento do modelo */}
+              <React.Suspense fallback={null}>
+                {/* Modelo 1 envolvido por Select */ }
+                <Select enabled>
+                  <ModelViewer rotationDirection={1} positionOffset={[-2.5, 0, 0]} />
+                </Select>
+                {/* Modelo 2 envolvido por Select */ }
+                <Select enabled>
+                  <ModelViewer rotationDirection={-1} positionOffset={[2.5, 0, 0]} />
+                </Select>
+              </React.Suspense>
+            </Selection>
+
+            {/* <OrbitControls /> */ } {/* Mantido comentado */}
           </Canvas>
-          <div className="absolute inset-0"></div>
+          {/* <div className="absolute inset-0"></div> */ } {/* Comentado pois pode interferir com post-processing */}
         </div>
 
         {/* Coluna Direita: Conteúdo Atualizado */}
@@ -110,7 +133,7 @@ const ShowcaseSection: React.FC = () => {
             variant="outline"
             className="mt-6 bg-transparent border-neon-purple text-neon-purple hover:bg-neon-purple/10 hover:text-neon-purple group text-base"
           >
-            <span className="mr-2">🔍</span> {/* Emoji adicionado */}
+            <span className="mr-2">🔍</span> {/* Emoji adicionado */ }
             Todos os Serviços
             <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
           </Button>

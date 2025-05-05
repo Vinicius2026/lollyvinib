@@ -3,6 +3,8 @@ import { /* Button */ AnimatedButton } from "@/components/animated/AnimatedButto
 import { MessageSquare, Calendar } from 'lucide-react';
 // Importar o SVG de colaboração
 import LiveCollaborationIllustration from '@/assets/illustrations/undraw_live-collaboration_i8an.svg?react';
+import { motion } from 'framer-motion';
+import { fadeInUp } from '@/lib/motion/config';
 
 // Placeholder removido
 /*
@@ -44,7 +46,13 @@ const CTASection: React.FC = () => {
       </div>
 
       <div className="container mx-auto max-w-4xl relative z-10">
-        <div className="relative fractured-frame bg-white/[0.03] backdrop-blur-sm border border-white/10 rounded-[2.5rem] p-8 md:p-12 overflow-hidden">
+        <motion.div 
+          className="relative fractured-frame bg-white/[0.03] backdrop-blur-sm border border-white/10 rounded-[2.5rem] p-8 md:p-12 overflow-hidden"
+          variants={fadeInUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }}
+        >
           {/* Asymmetrical background shapes */}
           <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-ailoop-neon-blue/10 to-transparent rounded-full filter blur-3xl opacity-30 -translate-y-1/2 translate-x-1/2"></div>
           <div className="absolute -bottom-20 -left-20 w-64 h-64 bg-gradient-to-br from-ailoop-purple/10 to-transparent rounded-full filter blur-3xl opacity-30"></div>
@@ -107,12 +115,44 @@ const CTASection: React.FC = () => {
                 <span className="text-lg">Agendar uma conversa</span>
               </AnimatedButton>
             </div>
+
+            {/* Seção: Para quem é o Chat Agente - Layout Ajustado */}
+            <motion.div 
+              className="mt-16 pt-8 border-t border-white/10"
+              variants={fadeInUp} 
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.1 }}
+              transition={{ delay: 0.2 }}
+            >
+              <h3 className="text-2xl font-semibold text-center mb-8 bg-clip-text text-transparent bg-gradient-to-r from-white via-ailoop-neon-blue to-white">
+                Para quem é o nosso Chat Agente?
+              </h3>
+              {/* Alterado para justify-start e lista reordenada */}
+              <div className="flex flex-wrap justify-start gap-3">
+                {[ 
+                  'E-commerce', 'Agências de Marketing', 'Infoprodutores', 'Clínicas Médicas', 
+                  'Clínicas Odontológicas', 'Restaurantes/Delivery', 'Corretores de Imóveis', 
+                  'Empresas SaaS', 'Consultores', 'Profissionais Liberais', 'Advogados', 
+                  'Contadores', 'Serviços Locais', 'Academias', 'Salões de Beleza', 
+                  'Escolas/Cursos', 'Hotéis/Pousadas'
+                ].map((publico) => (
+                  <span 
+                    key={publico}
+                    className="bg-white/5 border border-white/15 rounded-full px-4 py-1.5 text-sm text-gray-300 backdrop-blur-sm cursor-default hover:bg-white/10 hover:border-white/25 transition-colors"
+                  >
+                    {publico}
+                  </span>
+                ))}
+              </div>
+            </motion.div>
+            {/* Fim da Seção */}
             
             {/* Geometric accent element */}
             <div className="absolute -bottom-2 -right-2 w-16 h-16 bg-transparent border-r-2 border-b-2 border-ailoop-orange/30 rounded-br-xl"></div>
             <div className="absolute -top-2 -left-2 w-16 h-16 bg-transparent border-l-2 border-t-2 border-ailoop-neon-blue/30 rounded-tl-xl"></div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

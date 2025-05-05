@@ -50,6 +50,9 @@ Considerando a stack React/Tailwind, as seguintes bibliotecas podem ser avaliada
 - ✅ Implementadas animações de hover e clique nos botões
 - ✅ Adicionados efeitos de transição suave
 - ✅ Modificadas cores dos botões para melhor consistência visual
+- ✅ Padronizado estilo dos botões principais (Hero, Navbar, CTA) para tema "luxuoso/transparente" (fundo escuro semi-transparente, borda sutil, blur).
+- ✅ Refinados efeitos de hover nos botões de preço (ServicesSection) com diferenciação para premium.
+- ✅ Ajustado texto e ícones dos botões na HeroSection.
 
 ### 2. Layout e Design
 - ✅ Redesenhada a seção "Por que escolher a AILOOP"
@@ -57,12 +60,43 @@ Considerando a stack React/Tailwind, as seguintes bibliotecas podem ser avaliada
   - Implementado design similar ao banner "WHATSAPP ATENDIMENTO HUMANIZADO AI∞LAB"
   - Melhorada a apresentação visual dos diferenciais
   - Adicionados efeitos de hover e animações nos cards
+- ✅ Adicionado efeito de brilho (glow) aos ícones na WhyUsSection.
+- ✅ Adicionada subseção "Para quem é o Chat Agente?" na CTASection com lista de públicos estilizada.
+- ✅ Inserida estrutura (placeholders) para faixa de logos de tecnologia na TechPanel.
 
 ### 3. Animações e Efeitos
 - ✅ Implementadas animações usando Framer Motion
   - Adicionado efeito fadeInUp nos elementos
   - Configurado staggering para carregamento suave dos componentes
   - Otimizadas transições e interações
+- ✅ Verificada e aplicada animação de entrada (`fadeInUp` com Framer Motion) nas seções principais (Hero, TechPanel, CTA) para consistência.
+
+## Contexto Atual e Próximos Passos Imediatos
+
+*   **Estado:** O site possui animações de entrada consistentes na maioria das seções, botões com estilo padronizado e refinado, e novos elementos visuais/informativos (glow nos ícones, seção de público, placeholders de logos).
+*   **Próximos Passos:**
+    *   Inserir os códigos SVG reais dos logos de tecnologia nos placeholders da `TechPanel`.
+    *   Aplicar animação de entrada `fadeInUp` ao componente `Footer`.
+    *   Revisar a consistência visual geral e a responsividade após as mudanças.
+
+## Estrutura de Arquivos e Pastas (Base)
+
+A estrutura principal do projeto dentro do diretório `src` é organizada da seguinte forma:
+
+*   `src/`
+    *   `assets/`: Contém arquivos de mídia estáticos (imagens, SVGs, etc.).
+    *   `components/`: Contém componentes React reutilizáveis da UI.
+        *   `ui/`: Componentes base da biblioteca shadcn/ui.
+        *   `shared/`: Componentes compartilhados específicos da aplicação (ex: Header, Footer).
+        *   `sections/`: Componentes que representam seções específicas das páginas (ex: HeroSection, ServicesSection).
+    *   `hooks/`: Contém custom hooks React.
+    *   `lib/`: Contém funções utilitárias e configurações de bibliotecas (ex: `utils.ts`, `shadcn.ts`).
+    *   `pages/`: Contém os componentes que representam as páginas completas da aplicação.
+    *   `App.tsx`: Componente raiz da aplicação, geralmente configura o roteamento.
+    *   `main.tsx`: Ponto de entrada da aplicação React.
+    *   `index.css`: Arquivo CSS global, frequentemente usado para estilos base e configurações do Tailwind.
+
+*Nota: Esta estrutura pode variar ligeiramente dependendo da evolução do projeto.*
 
 ## Próximas Implementações
 

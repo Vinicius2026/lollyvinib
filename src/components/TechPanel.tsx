@@ -1,6 +1,19 @@
-
 import React from 'react';
 import { Brain, Cpu, Database, ShieldCheck, Zap, Code, MessageSquare, Globe } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { fadeInUp } from '@/lib/motion/config';
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.1
+    }
+  }
+};
+const itemVariants = fadeInUp;
 
 const TechPanel: React.FC = () => {
   return (
@@ -90,7 +103,13 @@ const TechPanel: React.FC = () => {
           </div>
           
           {/* Tech Panel Display */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-24 p-8 bg-gradient-to-br from-black/50 to-ailoop-blue/30 rounded-2xl backdrop-blur-md border border-ailoop-neon-blue/20 shadow-xl relative">
+          <motion.div 
+            className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-24 p-8 bg-gradient-to-br from-black/50 to-ailoop-blue/30 rounded-2xl backdrop-blur-md border border-ailoop-neon-blue/20 shadow-xl relative"
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.1 }}
+          >
             {/* Holographic interface elements */}
             <div className="absolute -top-6 left-12 p-2 bg-black/50 border border-ailoop-neon-blue/30 rounded text-ailoop-neon-blue text-xs font-mono">
               <div className="flex items-center space-x-1">
@@ -107,7 +126,7 @@ const TechPanel: React.FC = () => {
             </div>
             
             {/* Dashboard Items */}
-            <div className="dashboard-item">
+            <motion.div variants={itemVariants} className="dashboard-item">
               <div className="icon-container">
                 <Cpu className="dashboard-icon" />
               </div>
@@ -120,9 +139,9 @@ const TechPanel: React.FC = () => {
                 </div>
                 <span>92%</span>
               </div>
-            </div>
+            </motion.div>
             
-            <div className="dashboard-item">
+            <motion.div variants={itemVariants} className="dashboard-item">
               <div className="icon-container">
                 <Database className="dashboard-icon" />
               </div>
@@ -135,9 +154,9 @@ const TechPanel: React.FC = () => {
                 </div>
                 <span>87%</span>
               </div>
-            </div>
+            </motion.div>
             
-            <div className="dashboard-item">
+            <motion.div variants={itemVariants} className="dashboard-item">
               <div className="icon-container">
                 <ShieldCheck className="dashboard-icon" />
               </div>
@@ -150,9 +169,9 @@ const TechPanel: React.FC = () => {
                 </div>
                 <span>99%</span>
               </div>
-            </div>
+            </motion.div>
             
-            <div className="dashboard-item">
+            <motion.div variants={itemVariants} className="dashboard-item">
               <div className="icon-container">
                 <Code className="dashboard-icon" />
               </div>
@@ -165,9 +184,9 @@ const TechPanel: React.FC = () => {
                 </div>
                 <span>84%</span>
               </div>
-            </div>
+            </motion.div>
             
-            <div className="dashboard-item">
+            <motion.div variants={itemVariants} className="dashboard-item">
               <div className="icon-container">
                 <Zap className="dashboard-icon" />
               </div>
@@ -180,9 +199,9 @@ const TechPanel: React.FC = () => {
                 </div>
                 <span>96%</span>
               </div>
-            </div>
+            </motion.div>
             
-            <div className="dashboard-item col-span-1 md:col-span-3">
+            <motion.div variants={itemVariants} className="dashboard-item col-span-1 md:col-span-3">
               <div className="w-full h-10 bg-black/30 rounded-lg overflow-hidden font-mono text-xs text-ailoop-neon-blue p-2">
                 <div className="typing-text">
                   {"{'>'"} Inicializando sistemas avançados de IA... <span className="text-green-400">OK</span><br/>
@@ -190,8 +209,60 @@ const TechPanel: React.FC = () => {
                   {"{'>'"} AILOOP: Pronto para revolucionar o seu negócio com IA avançada.
                 </div>
               </div>
+            </motion.div>
+          </motion.div>
+          {/* Fim do Dashboard Grid */}
+
+          {/* Nova Faixa de Logos de Tecnologia */}
+          <motion.div 
+            className="mt-16"
+            variants={fadeInUp} // Animação de entrada
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.1 }}
+            transition={{ delay: 0.3 }} // Delay após o painel
+          >
+            <div className="flex flex-wrap justify-center items-center gap-x-8 gap-y-4 md:gap-x-12 lg:gap-x-16">
+              {/* Placeholder para Logos SVG - Substitua pelo conteúdo SVG real */}
+              
+              {/* Exemplo: OpenAI (ou Ícone de IA genérico) */}
+              <div title="OpenAI / AI" className="h-8 w-auto text-gray-400 opacity-70 hover:opacity-100 transition-opacity duration-300">
+                {/* Cole seu SVG aqui (ex: <svg>...</svg>) */}
+                {/* Alternativa: Usar um ícone Lucide como <Brain size={32} /> */}
+              </div>
+
+              {/* Exemplo: Cloud */}
+              <div title="Cloud Technology" className="h-8 w-auto text-gray-400 opacity-70 hover:opacity-100 transition-opacity duration-300">
+                {/* Cole seu SVG aqui */}
+                {/* Alternativa: Usar um ícone Lucide como <Cloud size={32} /> */}
+              </div>
+
+              {/* Exemplo: Gemini (ou Google AI) */}
+              <div title="Google Gemini / AI" className="h-8 w-auto text-gray-400 opacity-70 hover:opacity-100 transition-opacity duration-300">
+                {/* Cole seu SVG aqui */}
+              </div>
+
+              {/* Exemplo: Node.js */}
+              <div title="Node.js" className="h-8 w-auto text-gray-400 opacity-70 hover:opacity-100 transition-opacity duration-300">
+                {/* Cole seu SVG aqui */}
+              </div>
+
+              {/* Exemplo: Next.js */}
+              <div title="Next.js" className="h-8 w-auto text-gray-400 opacity-70 hover:opacity-100 transition-opacity duration-300">
+                {/* Cole seu SVG aqui */}
+              </div>
+              
+              {/* Exemplo: React */}
+              <div title="React" className="h-8 w-auto text-gray-400 opacity-70 hover:opacity-100 transition-opacity duration-300">
+                {/* Cole seu SVG aqui */}
+              </div>
+
+              {/* Adicione mais logos conforme necessário (TypeScript, Tailwind, Adobe, etc.) */}
+
             </div>
-          </div>
+          </motion.div>
+          {/* Fim da Faixa de Logos */}
+
         </div>
       </div>
       

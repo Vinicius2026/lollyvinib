@@ -20,19 +20,19 @@ const itemVariants = fadeInUp;
 
 const WhyUsSection: React.FC = () => {
   return (
-    <section id="why-us" className="bg-ailoop-dark-blue py-24 px-4 relative overflow-hidden min-h-[80vh]">
+    <section id="why-us" className="py-24 px-4 relative overflow-hidden min-h-[70vh]">
       {/* Decorative elements - lines and shapes */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 left-1/5 w-32 h-32 border-2 border-ailoop-neon-blue/30 rounded-full"></div>
-        <div className="absolute top-3/4 right-1/5 w-64 h-64 border border-ailoop-purple/20 rounded-full"></div>
-        <div className="absolute bottom-1/3 left-1/3 w-96 h-96 border border-ailoop-pink/10 -rotate-12 rounded-3xl"></div>
+        <div className="absolute top-1/4 left-1/5 w-32 h-32 border-2 border-ailoop-neon-blue/10 rounded-full"></div>
+        <div className="absolute top-3/4 right-1/5 w-64 h-64 border border-ailoop-purple/5 rounded-full"></div>
+        <div className="absolute bottom-1/3 left-1/3 w-96 h-96 border border-ailoop-pink/5 -rotate-12 rounded-3xl"></div>
         
-        <div className="absolute top-1/2 left-0 w-full h-px bg-gradient-to-r from-transparent via-ailoop-neon-blue/20 to-transparent"></div>
-        <div className="absolute top-0 right-1/3 w-px h-full bg-gradient-to-b from-transparent via-ailoop-purple/20 to-transparent"></div>
-        <div className="absolute top-0 left-2/3 w-px h-full bg-gradient-to-b from-transparent via-ailoop-pink/20 to-transparent"></div>
+        <div className="absolute top-1/2 left-0 w-full h-px bg-gradient-to-r from-transparent via-ailoop-neon-blue/10 to-transparent"></div>
+        <div className="absolute top-0 right-1/3 w-px h-full bg-gradient-to-b from-transparent via-ailoop-purple/10 to-transparent"></div>
+        <div className="absolute top-0 left-2/3 w-px h-full bg-gradient-to-b from-transparent via-ailoop-pink/10 to-transparent"></div>
         
-        <div className="absolute top-24 right-24 w-20 h-1 bg-ailoop-neon-blue/50 rotate-45"></div>
-        <div className="absolute bottom-36 left-12 w-32 h-1 bg-ailoop-purple/50 -rotate-12"></div>
+        <div className="absolute top-24 right-24 w-20 h-1 bg-ailoop-neon-blue/20 rotate-45"></div>
+        <div className="absolute bottom-36 left-12 w-32 h-1 bg-ailoop-purple/20 -rotate-12"></div>
         <div className="absolute top-32 left-1/2 w-16 h-16 bg-ailoop-pink/5 rounded-full blur-xl"></div>
       </div>
 
@@ -62,68 +62,73 @@ const WhyUsSection: React.FC = () => {
           viewport={{ once: true, amount: 0.1 }} // Animar quando 10% visível
         >
           {/* Feature 1 - IA de verdade */}
-          <motion.div variants={itemVariants} className="feature-card group">
-            <div className="feature-icon bg-black shadow-[0_0_12px_3px] shadow-cyan-500/20">
-              <Sparkles className="w-7 h-7 text-[#FFD700]" />
+          <motion.div variants={itemVariants} className="relative group p-6 bg-black/50 border border-gray-800 rounded-2xl transition-all duration-300 hover:border-gray-600 hover:bg-black/70 overflow-hidden">
+            <div className="relative z-10">
+              <div className="mb-4 inline-block p-3 bg-gray-900 border border-gray-700 rounded-xl shadow-md group-hover:border-yellow-400/50 transition-colors duration-300">
+                <Sparkles className="w-6 h-6 text-[#FFD700] transition-colors duration-300 group-hover:text-yellow-300" />
+              </div>
+              <h3 className="text-xl font-semibold text-white mb-3 transition-colors duration-300 group-hover:text-yellow-300">IA de verdade</h3>
+              <p className="text-gray-400">
+                Sem robozinho travado. Nossa IA entende contexto, conversa naturalmente e toma decisões inteligentes.
+              </p>
             </div>
-            <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-yellow-500/5 via-yellow-600/5 to-black/10 opacity-0 group-hover:opacity-100 transition-all duration-700 rounded-2xl"></div>
-            <h3 className="text-xl font-semibold text-white mb-3 group-hover:text-[#FFD700] transition-colors">IA de verdade</h3>
-            <p className="text-gray-300">
-              Sem robozinho travado. Nossa IA entende contexto, conversa naturalmente e toma decisões inteligentes.
-            </p>
-            <div className="absolute -bottom-2 -right-2 w-12 h-12 border border-[#FFD700]/40 rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+            <div className="absolute inset-0 bg-gradient-to-br from-yellow-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-50 transition-opacity duration-500"></div>
           </motion.div>
           
           {/* Feature 2 - Atendimento personalizado */}
-          <motion.div variants={itemVariants} className="feature-card group">
-            <div className="feature-icon bg-black shadow-[0_0_12px_3px] shadow-cyan-500/20">
-              <Sparkles className="w-7 h-7 text-[#FFD700]" />
+          <motion.div variants={itemVariants} className="relative group p-6 bg-black/50 border border-gray-800 rounded-2xl transition-all duration-300 hover:border-gray-600 hover:bg-black/70 overflow-hidden">
+            <div className="relative z-10">
+              <div className="mb-4 inline-block p-3 bg-gray-900 border border-gray-700 rounded-xl shadow-md group-hover:border-yellow-400/50 transition-colors duration-300">
+                <Sparkles className="w-6 h-6 text-[#FFD700] transition-colors duration-300 group-hover:text-yellow-300" />
+              </div>
+              <h3 className="text-xl font-semibold text-white mb-3 transition-colors duration-300 group-hover:text-yellow-300">Atendimento personalizado</h3>
+              <p className="text-gray-400">
+                Cada negócio é único. Criamos soluções sob medida para suas necessidades específicas.
+              </p>
             </div>
-            <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-yellow-500/5 via-yellow-600/5 to-black/10 opacity-0 group-hover:opacity-100 transition-all duration-700 rounded-2xl"></div>
-            <h3 className="text-xl font-semibold text-white mb-3 group-hover:text-[#FFD700] transition-colors">Atendimento personalizado</h3>
-            <p className="text-gray-300">
-              Cada negócio é único. Criamos soluções sob medida para suas necessidades específicas.
-            </p>
-            <div className="absolute -bottom-2 -right-2 w-12 h-12 border border-[#FFD700]/40 rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+            <div className="absolute inset-0 bg-gradient-to-br from-yellow-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-50 transition-opacity duration-500"></div>
           </motion.div>
           
           {/* Feature 3 - Equipe com experiência real */}
-          <motion.div variants={itemVariants} className="feature-card group">
-            <div className="feature-icon bg-black shadow-[0_0_12px_3px] shadow-cyan-500/20">
-              <Sparkles className="w-7 h-7 text-[#FFD700]" />
+          <motion.div variants={itemVariants} className="relative group p-6 bg-black/50 border border-gray-800 rounded-2xl transition-all duration-300 hover:border-gray-600 hover:bg-black/70 overflow-hidden">
+            <div className="relative z-10">
+              <div className="mb-4 inline-block p-3 bg-gray-900 border border-gray-700 rounded-xl shadow-md group-hover:border-yellow-400/50 transition-colors duration-300">
+                <Sparkles className="w-6 h-6 text-[#FFD700] transition-colors duration-300 group-hover:text-yellow-300" />
+              </div>
+              <h3 className="text-xl font-semibold text-white mb-3 transition-colors duration-300 group-hover:text-yellow-300">Equipe com experiência real</h3>
+              <p className="text-gray-400">
+                Profissionais que já gerenciaram milhões em investimentos e sabem como entregar resultados.
+              </p>
             </div>
-            <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-yellow-500/5 via-yellow-600/5 to-black/10 opacity-0 group-hover:opacity-100 transition-all duration-700 rounded-2xl"></div>
-            <h3 className="text-xl font-semibold text-white mb-3 group-hover:text-[#FFD700] transition-colors">Equipe com experiência real</h3>
-            <p className="text-gray-300">
-              Profissionais que já gerenciaram milhões em investimentos e sabem como entregar resultados.
-            </p>
-            <div className="absolute -bottom-2 -right-2 w-12 h-12 border border-[#FFD700]/40 rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+            <div className="absolute inset-0 bg-gradient-to-br from-yellow-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-50 transition-opacity duration-500"></div>
           </motion.div>
           
           {/* Feature 4 - Resultados rápidos e escaláveis */}
-          <motion.div variants={itemVariants} className="feature-card group sm:translate-x-0 md:translate-x-1/2 lg:translate-x-0">
-            <div className="feature-icon bg-black shadow-[0_0_12px_3px] shadow-cyan-500/20">
-              <Sparkles className="w-7 h-7 text-[#FFD700]" />
+          <motion.div variants={itemVariants} className="relative group p-6 bg-black/50 border border-gray-800 rounded-2xl transition-all duration-300 hover:border-gray-600 hover:bg-black/70 overflow-hidden md:translate-x-1/2 lg:translate-x-0">
+            <div className="relative z-10">
+              <div className="mb-4 inline-block p-3 bg-gray-900 border border-gray-700 rounded-xl shadow-md group-hover:border-yellow-400/50 transition-colors duration-300">
+                <Sparkles className="w-6 h-6 text-[#FFD700] transition-colors duration-300 group-hover:text-yellow-300" />
+              </div>
+              <h3 className="text-xl font-semibold text-white mb-3 transition-colors duration-300 group-hover:text-yellow-300">Resultados rápidos e escaláveis</h3>
+              <p className="text-gray-400">
+                Nossa metodologia permite implementar soluções rapidamente e escalar conforme seu negócio cresce.
+              </p>
             </div>
-            <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-yellow-500/5 via-yellow-600/5 to-black/10 opacity-0 group-hover:opacity-100 transition-all duration-700 rounded-2xl"></div>
-            <h3 className="text-xl font-semibold text-white mb-3 group-hover:text-[#FFD700] transition-colors">Resultados rápidos e escaláveis</h3>
-            <p className="text-gray-300">
-              Nossa metodologia permite implementar soluções rapidamente e escalar conforme seu negócio cresce.
-            </p>
-            <div className="absolute -bottom-2 -right-2 w-12 h-12 border border-[#FFD700]/40 rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+            <div className="absolute inset-0 bg-gradient-to-br from-yellow-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-50 transition-opacity duration-500"></div>
           </motion.div>
           
           {/* Feature 5 - Transparência e estrutura própria */}
-          <motion.div variants={itemVariants} className="feature-card group sm:translate-x-0 md:translate-x-1/2 lg:translate-x-0">
-            <div className="feature-icon bg-black shadow-[0_0_12px_3px] shadow-cyan-500/20">
-              <Sparkles className="w-7 h-7 text-[#FFD700]" />
+          <motion.div variants={itemVariants} className="relative group p-6 bg-black/50 border border-gray-800 rounded-2xl transition-all duration-300 hover:border-gray-600 hover:bg-black/70 overflow-hidden md:translate-x-1/2 lg:translate-x-0">
+            <div className="relative z-10">
+              <div className="mb-4 inline-block p-3 bg-gray-900 border border-gray-700 rounded-xl shadow-md group-hover:border-yellow-400/50 transition-colors duration-300">
+                <Sparkles className="w-6 h-6 text-[#FFD700] transition-colors duration-300 group-hover:text-yellow-300" />
+              </div>
+              <h3 className="text-xl font-semibold text-white mb-3 transition-colors duration-300 group-hover:text-yellow-300">Transparência e estrutura própria</h3>
+              <p className="text-gray-400">
+                Acesso transparente às métricas e resultados. Tecnologia proprietária para máximo desempenho.
+              </p>
             </div>
-            <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-yellow-500/5 via-yellow-600/5 to-black/10 opacity-0 group-hover:opacity-100 transition-all duration-700 rounded-2xl"></div>
-            <h3 className="text-xl font-semibold text-white mb-3 group-hover:text-[#FFD700] transition-colors">Transparência e estrutura própria</h3>
-            <p className="text-gray-300">
-              Acesso transparente às métricas e resultados. Tecnologia proprietária para máximo desempenho.
-            </p>
-            <div className="absolute -bottom-2 -right-2 w-12 h-12 border border-[#FFD700]/40 rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+            <div className="absolute inset-0 bg-gradient-to-br from-yellow-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-50 transition-opacity duration-500"></div>
           </motion.div>
         </motion.div>
       </div>

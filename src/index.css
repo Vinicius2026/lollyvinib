@@ -89,14 +89,16 @@
   }
 
   body {
-    @apply bg-background text-foreground;
-    font-feature-settings: "rlig" 1, "calt" 1;
+    /* @apply bg-background text-foreground; */ /* Comentado o padrão shadcn */
+    @apply bg-brand-dark text-brand-white font-sans; /* Aplicado novo padrão dark */
+    font-feature-settings: "rlig" 1, "calt" 1; /* Mantido de shadcn */
   }
 }
 
 @layer components {
   .btn-primary {
-    @apply px-6 py-3 bg-ailoop-purple hover:bg-opacity-90 text-white font-medium rounded-full transition-all duration-300 shadow-lg hover:shadow-xl;
+    /* @apply px-6 py-3 bg-ailoop-purple hover:bg-opacity-90 text-white font-medium rounded-full transition-all duration-300 shadow-lg hover:shadow-xl; */
+    @apply px-6 py-3 bg-neon-purple hover:bg-opacity-90 text-white font-medium rounded-full transition-all duration-300 shadow-lg hover:shadow-xl; /* Changed to neon-purple */
   }
   
   .btn-outline {
@@ -104,12 +106,13 @@
   }
 
   .service-card {
-    @apply relative p-6 rounded-xl bg-service-card border border-white/10 backdrop-blur-sm shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl hover:scale-[1.01];
+    @apply relative p-6 rounded-xl bg-white/5 border border-white/10 backdrop-blur-sm shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl hover:scale-[1.01];
   }
   
   .service-card::before {
     content: '';
-    @apply absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-ailoop-neon-blue via-ailoop-purple to-ailoop-pink;
+    /* @apply absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-ailoop-neon-blue via-ailoop-purple to-ailoop-pink; */
+    @apply absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-neon-cyan via-neon-purple to-neon-orange; /* Changed gradient colors */
   }
   
   .feature-card {
@@ -130,7 +133,8 @@
   
   .pricing-box::before {
     content: '';
-    @apply absolute inset-0 bg-gradient-to-br from-ailoop-neon-blue/10 to-transparent opacity-0 transition-opacity duration-300;
+    /* @apply absolute inset-0 bg-gradient-to-br from-ailoop-neon-blue/10 to-transparent opacity-0 transition-opacity duration-300; */
+    @apply absolute inset-0 bg-gradient-to-br from-neon-cyan/10 to-transparent opacity-0 transition-opacity duration-300; /* Changed gradient color */
   }
   
   .price-highlight {
@@ -139,7 +143,8 @@
   
   .price-highlight::after {
     content: '';
-    @apply absolute -bottom-1 left-0 right-0 h-0.5 bg-gradient-to-r from-ailoop-neon-blue via-ailoop-purple to-ailoop-pink;
+    /* @apply absolute -bottom-1 left-0 right-0 h-0.5 bg-gradient-to-r from-ailoop-neon-blue via-ailoop-purple to-ailoop-pink; */
+    @apply absolute -bottom-1 left-0 right-0 h-0.5 bg-gradient-to-r from-neon-cyan via-neon-purple to-neon-orange; /* Changed gradient colors */
   }
   
   .loading-text {
@@ -162,7 +167,8 @@
   
   .footer-link::after {
     content: '';
-    @apply absolute bottom-0 left-0 w-0 h-px bg-ailoop-neon-blue transition-all duration-300;
+    /* @apply absolute bottom-0 left-0 w-0 h-px bg-ailoop-neon-blue transition-all duration-300; */
+    @apply absolute bottom-0 left-0 w-0 h-px bg-neon-cyan transition-all duration-300; /* Changed background color */
   }
   
   .footer-link:hover {
@@ -182,17 +188,20 @@
   }
   
   .ai-highlight {
-    @apply text-ailoop-neon-blue relative;
+    /* @apply text-ailoop-neon-blue relative; */
+    @apply text-neon-cyan relative; /* Changed text color */
   }
   
   .ai-highlight::after {
     content: '';
-    @apply absolute bottom-0 left-0 right-0 h-0.5 bg-ailoop-neon-blue;
+    /* @apply absolute bottom-0 left-0 right-0 h-0.5 bg-ailoop-neon-blue; */
+    @apply absolute bottom-0 left-0 right-0 h-0.5 bg-neon-cyan; /* Changed background color */
   }
   
   /* Dashboard items */
   .dashboard-item {
-    @apply p-5 bg-black/30 rounded-lg border border-white/5 transition-all duration-300 hover:border-ailoop-neon-blue/30;
+    /* @apply p-5 bg-black/30 rounded-lg border border-white/5 transition-all duration-300 hover:border-ailoop-neon-blue/30; */
+    @apply p-5 bg-black/30 rounded-lg border border-white/5 transition-all duration-300 hover:border-neon-cyan/30; /* Changed hover border color */
   }
   
   .dashboard-title {
@@ -200,7 +209,8 @@
   }
   
   .dashboard-icon {
-    @apply w-8 h-8 text-ailoop-neon-blue mb-4;
+    /* @apply w-8 h-8 text-ailoop-neon-blue mb-4; */
+    @apply w-8 h-8 text-neon-cyan mb-4; /* Changed text color */
   }
   
   .icon-container {
@@ -209,7 +219,8 @@
   
   .icon-container::after {
     content: '';
-    @apply absolute -bottom-2 left-0 h-0.5 w-8 bg-gradient-to-r from-ailoop-neon-blue to-transparent;
+    /* @apply absolute -bottom-2 left-0 h-0.5 w-8 bg-gradient-to-r from-ailoop-neon-blue to-transparent; */
+    @apply absolute -bottom-2 left-0 h-0.5 w-8 bg-gradient-to-r from-neon-cyan to-transparent; /* Changed gradient color */
   }
   
   .dashboard-stat {
@@ -221,7 +232,8 @@
   }
   
   .stat-value {
-    @apply h-full bg-ailoop-neon-blue rounded-full;
+    /* @apply h-full bg-ailoop-neon-blue rounded-full; */
+    @apply h-full bg-neon-cyan rounded-full; /* Changed background color */
   }
 }
 
@@ -329,7 +341,8 @@
 }
 
 .text-gradient {
-  @apply bg-gradient-to-r from-ailoop-neon-blue via-ailoop-purple to-ailoop-pink text-transparent bg-clip-text;
+  /* @apply bg-gradient-to-r from-ailoop-neon-blue via-ailoop-purple to-ailoop-pink text-transparent bg-clip-text; */
+  @apply bg-gradient-to-r from-neon-cyan via-neon-purple to-neon-orange text-transparent bg-clip-text; /* Changed gradient colors */
 }
 
 .text-gradient-orange {

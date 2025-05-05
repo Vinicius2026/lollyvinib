@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
@@ -27,7 +26,13 @@ const Navbar: React.FC = () => {
             Contato
           </Link>
           
-          <Button className="bg-transparent hover:bg-white hover:bg-opacity-10 text-white border border-white/20 rounded-full">
+          <Button 
+            className="bg-black/20 border border-white/30 text-gray-300 backdrop-blur-sm rounded-lg px-5 py-2 text-sm transition-all duration-300 ease-out hover:bg-white/10 hover:border-white/60 hover:text-white"
+            onClick={() => {
+              const contactSection = document.getElementById('contact');
+              contactSection?.scrollIntoView({ behavior: 'smooth' });
+            }}
+          >
             Falar com especialista
           </Button>
         </div>

@@ -86,12 +86,23 @@ const CTASection: React.FC = () => {
             </div>
             
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-              <AnimatedButton className="btn-primary w-full sm:w-auto flex items-center gap-2 bg-gradient-to-r from-ailoop-neon-blue to-ailoop-purple hover:from-ailoop-neon-blue/90 hover:to-ailoop-purple/90 text-white shadow-lg shadow-ailoop-neon-blue/20 px-8 py-6 rounded-xl transform transition-all hover:scale-105">
+              {/* Botão Primário (WhatsApp) - Estilo Amarelo/Transparente */}
+              <AnimatedButton 
+                className="w-full sm:w-auto flex items-center gap-2 bg-black/20 border border-yellow-400/60 text-gray-200 backdrop-blur-sm rounded-lg px-8 py-4 text-lg transition-all duration-300 ease-out hover:bg-yellow-900/10 hover:border-yellow-400/90 hover:text-yellow-300"
+                // Mantendo scale do customWhileHover original se houver ou adicionando um sutil
+                customWhileHover={{ scale: 1.03 }}
+              >
                 <MessageSquare className="w-6 h-6" />
                 <span className="text-lg">WhatsApp direto</span>
               </AnimatedButton>
               
-              <AnimatedButton variant="outline" className="w-full sm:w-auto flex items-center gap-2 border-2 border-white/30 bg-white/5 hover:bg-white/10 text-white px-8 py-6 rounded-xl shadow-lg backdrop-blur-sm transform transition-all hover:scale-105">
+              {/* Botão Secundário (Agendar) - Estilo Branco/Transparente */}
+              <AnimatedButton 
+                variant="outline" // Pode manter ou remover dependendo do estilo final
+                className="w-full sm:w-auto flex items-center gap-2 bg-black/20 border border-white/30 text-gray-300 backdrop-blur-sm rounded-lg px-8 py-4 text-lg transition-all duration-300 ease-out hover:bg-white/10 hover:border-white/60 hover:text-white"
+                // Mantendo scale do customWhileHover original se houver ou adicionando um sutil
+                customWhileHover={{ scale: 1.03 }}
+              >
                 <Calendar className="w-6 h-6 text-ailoop-neon-blue" />
                 <span className="text-lg">Agendar uma conversa</span>
               </AnimatedButton>

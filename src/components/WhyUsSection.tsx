@@ -1,5 +1,22 @@
 import React from 'react';
 import { Brain, Sparkles } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { fadeInUp } from '@/lib/motion/config';
+
+// Definir variantes do container para stagger (pode ser a mesma de ServicesSection ou customizada)
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+      delayChildren: 0.1
+    }
+  }
+};
+
+// Variante para o item (reutilizando a existente)
+const itemVariants = fadeInUp;
 
 const WhyUsSection: React.FC = () => {
   return (
@@ -36,11 +53,17 @@ const WhyUsSection: React.FC = () => {
 
       {/* Container Principal */}
       <div className="container mx-auto relative z-10 mt-40">
-        {/* Grid de Features */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
+        {/* Aplicar motion.div ao container do grid */}
+        <motion.div 
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }} // Animar quando 10% visível
+        >
           {/* Feature 1 - IA de verdade */}
-          <div className="feature-card group">
-            <div className="feature-icon bg-black">
+          <motion.div variants={itemVariants} className="feature-card group">
+            <div className="feature-icon bg-black shadow-[0_0_12px_3px] shadow-cyan-500/20">
               <Sparkles className="w-7 h-7 text-[#FFD700]" />
             </div>
             <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-yellow-500/5 via-yellow-600/5 to-black/10 opacity-0 group-hover:opacity-100 transition-all duration-700 rounded-2xl"></div>
@@ -49,11 +72,11 @@ const WhyUsSection: React.FC = () => {
               Sem robozinho travado. Nossa IA entende contexto, conversa naturalmente e toma decisões inteligentes.
             </p>
             <div className="absolute -bottom-2 -right-2 w-12 h-12 border border-[#FFD700]/40 rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
-          </div>
+          </motion.div>
           
           {/* Feature 2 - Atendimento personalizado */}
-          <div className="feature-card group">
-            <div className="feature-icon bg-black">
+          <motion.div variants={itemVariants} className="feature-card group">
+            <div className="feature-icon bg-black shadow-[0_0_12px_3px] shadow-cyan-500/20">
               <Sparkles className="w-7 h-7 text-[#FFD700]" />
             </div>
             <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-yellow-500/5 via-yellow-600/5 to-black/10 opacity-0 group-hover:opacity-100 transition-all duration-700 rounded-2xl"></div>
@@ -62,11 +85,11 @@ const WhyUsSection: React.FC = () => {
               Cada negócio é único. Criamos soluções sob medida para suas necessidades específicas.
             </p>
             <div className="absolute -bottom-2 -right-2 w-12 h-12 border border-[#FFD700]/40 rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
-          </div>
+          </motion.div>
           
           {/* Feature 3 - Equipe com experiência real */}
-          <div className="feature-card group">
-            <div className="feature-icon bg-black">
+          <motion.div variants={itemVariants} className="feature-card group">
+            <div className="feature-icon bg-black shadow-[0_0_12px_3px] shadow-cyan-500/20">
               <Sparkles className="w-7 h-7 text-[#FFD700]" />
             </div>
             <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-yellow-500/5 via-yellow-600/5 to-black/10 opacity-0 group-hover:opacity-100 transition-all duration-700 rounded-2xl"></div>
@@ -75,11 +98,11 @@ const WhyUsSection: React.FC = () => {
               Profissionais que já gerenciaram milhões em investimentos e sabem como entregar resultados.
             </p>
             <div className="absolute -bottom-2 -right-2 w-12 h-12 border border-[#FFD700]/40 rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
-          </div>
+          </motion.div>
           
           {/* Feature 4 - Resultados rápidos e escaláveis */}
-          <div className="feature-card group sm:translate-x-0 md:translate-x-1/2 lg:translate-x-0">
-            <div className="feature-icon bg-black">
+          <motion.div variants={itemVariants} className="feature-card group sm:translate-x-0 md:translate-x-1/2 lg:translate-x-0">
+            <div className="feature-icon bg-black shadow-[0_0_12px_3px] shadow-cyan-500/20">
               <Sparkles className="w-7 h-7 text-[#FFD700]" />
             </div>
             <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-yellow-500/5 via-yellow-600/5 to-black/10 opacity-0 group-hover:opacity-100 transition-all duration-700 rounded-2xl"></div>
@@ -88,11 +111,11 @@ const WhyUsSection: React.FC = () => {
               Nossa metodologia permite implementar soluções rapidamente e escalar conforme seu negócio cresce.
             </p>
             <div className="absolute -bottom-2 -right-2 w-12 h-12 border border-[#FFD700]/40 rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
-          </div>
+          </motion.div>
           
           {/* Feature 5 - Transparência e estrutura própria */}
-          <div className="feature-card group sm:translate-x-0 md:translate-x-1/2 lg:translate-x-0">
-            <div className="feature-icon bg-black">
+          <motion.div variants={itemVariants} className="feature-card group sm:translate-x-0 md:translate-x-1/2 lg:translate-x-0">
+            <div className="feature-icon bg-black shadow-[0_0_12px_3px] shadow-cyan-500/20">
               <Sparkles className="w-7 h-7 text-[#FFD700]" />
             </div>
             <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-yellow-500/5 via-yellow-600/5 to-black/10 opacity-0 group-hover:opacity-100 transition-all duration-700 rounded-2xl"></div>
@@ -101,8 +124,8 @@ const WhyUsSection: React.FC = () => {
               Acesso transparente às métricas e resultados. Tecnologia proprietária para máximo desempenho.
             </p>
             <div className="absolute -bottom-2 -right-2 w-12 h-12 border border-[#FFD700]/40 rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   );

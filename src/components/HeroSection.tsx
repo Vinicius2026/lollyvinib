@@ -1,7 +1,6 @@
-
 import React from 'react';
 import { Button } from "@/components/ui/button";
-import { MessageSquare } from 'lucide-react';
+import { ClipboardList } from 'lucide-react';
 
 const HeroSection: React.FC = () => {
   return (
@@ -18,16 +17,22 @@ const HeroSection: React.FC = () => {
             </p>
             
             <div className="flex flex-wrap gap-4">
-              <Button className="btn-primary flex items-center gap-2">
-                <MessageSquare className="w-5 h-5" />
-                Falar com um especialista
+              <Button 
+                className="flex items-center gap-2 bg-black/20 border border-yellow-400/60 text-gray-200 backdrop-blur-sm rounded-lg px-6 py-3 transition-all duration-300 ease-out hover:bg-yellow-900/10 hover:border-yellow-400/90 hover:text-yellow-300"
+                onClick={() => {
+                  const servicesSection = document.getElementById('services');
+                  servicesSection?.scrollIntoView({ behavior: 'smooth' });
+                }}
+              >
+                <ClipboardList className="w-5 h-5" />
+                Nossos planos
               </Button>
               
-              <Button variant="outline" className="btn-outline" onClick={() => {
-                const servicesSection = document.getElementById('services');
-                servicesSection?.scrollIntoView({ behavior: 'smooth' });
-              }}>
-                Conheça nossos serviços
+              <Button 
+                variant="outline"
+                className="flex items-center gap-2 bg-black/20 border border-white/30 text-gray-300 backdrop-blur-sm rounded-lg px-6 py-3 transition-all duration-300 ease-out hover:bg-white/10 hover:border-white/60 hover:text-white"
+              >
+                Testar Agente Assistente
               </Button>
             </div>
           </div>

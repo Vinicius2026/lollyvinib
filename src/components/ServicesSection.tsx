@@ -1,6 +1,23 @@
 import React from 'react';
 import { AnimatedButton } from '@/components/animated/AnimatedButton';
 import { MessageSquare, Users, FileText, Cpu, Database, ShieldCheck } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { fadeInUp } from '@/lib/motion/config';
+
+// Definir variantes do container para stagger
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15, // Atraso entre cada card
+      delayChildren: 0.1 // Atraso antes do primeiro card começar
+    }
+  }
+};
+
+// Variante para o item (reutilizando a existente)
+const itemVariants = fadeInUp;
 
 const ServicesSection: React.FC = () => {
   return (
@@ -28,9 +45,17 @@ const ServicesSection: React.FC = () => {
           <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-16 h-1 bg-gradient-to-r from-ailoop-neon-blue via-ailoop-purple to-ailoop-pink"></div>
         </h2>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {/* Service Card 1 - IA Agente Assistente WhatsApp */}
-          <div className="service-card group relative">
+        {/* Aplicar motion.div ao container do grid */}
+        <motion.div 
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }} // Animar quando 10% visível
+        >
+          {/* Mapear serviços e aplicar motion.div a cada card */}
+          {/* Card 1 - IA Agente */}
+          <motion.div variants={itemVariants} className="service-card group relative">
             <div className="mb-6">
               <div className="w-14 h-14 bg-ailoop-neon-blue/20 rounded-full flex items-center justify-center mb-4 group-hover:animate-pulse-glow">
                 <MessageSquare className="w-7 h-7 text-ailoop-neon-blue" />
@@ -97,7 +122,10 @@ const ServicesSection: React.FC = () => {
             </div>
             
             <div className="flex justify-center">
-              <AnimatedButton className="bg-ailoop-purple hover:bg-ailoop-purple/90 text-white font-medium group-hover:shadow-glow px-8 hover:brightness-110">
+              <AnimatedButton 
+                className="bg-ailoop-purple text-white font-medium px-8 py-3 rounded-lg transition-all duration-300 ease-out hover:bg-purple-600 hover:shadow-[0_0_15px_4px] hover:shadow-purple-500/40"
+                customWhileHover={{ scale: 1.03 }}
+              >
                 Testar Agente
               </AnimatedButton>
             </div>
@@ -105,10 +133,10 @@ const ServicesSection: React.FC = () => {
             {/* Fractured corner decoration */}
             <div className="absolute -top-1 -right-1 w-8 h-8 border-t border-r border-ailoop-neon-blue/30 rounded-tr-lg"></div>
             <div className="absolute -bottom-1 -left-1 w-8 h-8 border-b border-l border-ailoop-neon-blue/30 rounded-bl-lg"></div>
-          </div>
+          </motion.div>
           
-          {/* Service Card 2 */}
-          <div className="service-card group">
+          {/* Card 2 - Gestão de Tráfego */}
+          <motion.div variants={itemVariants} className="service-card group">
             <div className="mb-6">
               <div className="w-14 h-14 bg-ailoop-purple/20 rounded-full flex items-center justify-center mb-4 group-hover:animate-pulse-glow">
                 <Users className="w-7 h-7 text-ailoop-purple" />
@@ -175,8 +203,8 @@ const ServicesSection: React.FC = () => {
             </div>
             
             <AnimatedButton 
-              className="w-full bg-ailoop-purple hover:bg-ailoop-purple/90 text-white font-medium group-hover:shadow-glow-purple hover:brightness-110"
-              customWhileHover={{ scale: 1.03, y: -3, transition: { duration: 0.2 } }}
+              className="w-full bg-ailoop-purple text-white font-medium py-3 rounded-lg transition-all duration-300 ease-out hover:bg-purple-600 hover:shadow-[0_0_15px_4px] hover:shadow-purple-500/40"
+              customWhileHover={{ scale: 1.03 }}
             >
               Ver detalhes
             </AnimatedButton>
@@ -184,10 +212,10 @@ const ServicesSection: React.FC = () => {
             {/* Fractured corner decoration */}
             <div className="absolute -top-1 -left-1 w-8 h-8 border-t border-l border-ailoop-purple/30 rounded-tl-lg"></div>
             <div className="absolute -bottom-1 -right-1 w-8 h-8 border-b border-r border-ailoop-purple/30 rounded-br-lg"></div>
-          </div>
+          </motion.div>
           
-          {/* Service Card 3 - Gestão One Stack */}
-          <div className="service-card group premium-card relative overflow-hidden">
+          {/* Card 3 - Gestão One Stack */}
+          <motion.div variants={itemVariants} className="service-card group premium-card relative overflow-hidden">
             {/* Premium background effect */}
             <div className="absolute inset-0 bg-gradient-to-b from-black to-[#060C26] opacity-70 z-0"></div>
             <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNGRkQ3MDAiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PHBhdGggZD0iTTM2IDM0aDR2MWgtNHptMCAyaDR2MWgtNHptMCAyaDR2MWgtNHptMCAyaDR2MmgtNHptLTIwLTJoNHYxaC00em0wIDJoNHYxaC00em0wIDJoNHYxaC00em0wIDJoNHYyaC00em0tMi0yaDF2MWgtMXptMCAyaDF2MWgtMXptMC0xNmgxdjFoLTF6bTAgMmgxdjFoLTF6TTIgNGgxdjFoLTF6bTAgMmgxdjFoLTF6bTAtNGgxdjFoLTF6IiBvcGFjaXR5PSIuNSIvPjxwYXRoIGQ9Ik0zNCAyMGg0djFoLTR6bTAgMmg0djFoLTR6bTAgMmg0djFoLTR6bTAgMmg0djFoLTR6bS0xNi04aDR2MWgtNHptMCAyaDR2MWgtNHptMCAyaDR2MWgtNHptMCAyaDR2MWgtNHptLTE2LThoNHYxaC00em0wIDJoNHYxaC00em0wIDJoNHYxaC00em0wIDJoNHYxaC00eiIvPjwvZz48L2c+PC9zdmc+')] opacity-30 z-0"></div>
@@ -242,7 +270,7 @@ const ServicesSection: React.FC = () => {
               </ul>
               
               <AnimatedButton 
-                className="w-full bg-gradient-to-r from-[#FFD700] to-[#FFA500] hover:from-[#FFA500] hover:to-[#FFD700] text-black font-medium border border-[#FFD700]/30 shadow-[0_0_15px_rgba(255,215,0,0.3)] transition-all duration-300 hover:shadow-[0_0_25px_rgba(255,215,0,0.5)] hover:brightness-110"
+                className="w-full bg-gradient-to-r from-[#FFD700] to-[#FFA500] hover:from-[#FFA500] hover:to-[#FFD700] text-black font-medium py-3 rounded-lg border border-[#FFD700]/30 shadow-[0_0_15px_rgba(255,215,0,0.3)] transition-all duration-300 ease-out hover:shadow-[0_0_25px_8px] hover:shadow-yellow-400/50 hover:brightness-110"
                 customWhileHover={{ scale: 1.03, y: -3, transition: { duration: 0.2 } }}
               >
                 Ver detalhes
@@ -252,8 +280,8 @@ const ServicesSection: React.FC = () => {
               <div className="absolute -top-1 -right-1 w-8 h-8 border-t border-r border-[#FFD700]/30 rounded-tr-lg"></div>
               <div className="absolute -bottom-1 -left-1 w-8 h-8 border-b border-l border-[#FFD700]/30 rounded-bl-lg"></div>
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </div>
       
       {/* Orange accent element */}

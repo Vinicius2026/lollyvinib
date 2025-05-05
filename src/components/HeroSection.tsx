@@ -6,73 +6,96 @@ import { fadeInUp } from '@/lib/motion/config';
 // import WaveformAnimation from './animations/WaveformAnimation';
 // import ParticlesBackground from './ParticlesBackground';
 // import HeroAnimation3D from './HeroAnimation3D';
-// import Typewriter from 'typewriter-effect';
+import Typewriter from 'typewriter-effect';
 import DarkCloudParticles from './animations/DarkCloudParticles';
-// import { CharacterViewer } from './animations/CharacterViewer'; // Removido
-// import PulsatingElement from './animations/PulsatingElement'; // Removido
+// Removida importação CharacterViewer
 
-// Lista de títulos/serviços
-// const servicesList = [
-//   "Marketing IAL",
-//   "Agente WhatsApp", 
-//   "Tráfego Pago IAL",
-//   "Landing Page Conversão IAL",
-//   "Funis Autopiloto IAL"
-// ];
+// Restaurada lista de serviços original
+const servicesList = [
+  "Marketing IAL",
+  "Agente WhatsApp", 
+  "Tráfego Pago IAL",
+  "Landing Page Conversão IAL",
+  "Funis Autopiloto IAL"
+];
 
 const HeroSection: React.FC = () => {
+
   return (
-    <section
-      id="hero"
-      className="relative flex flex-col items-center justify-center px-4 py-24 md:py-32 text-center overflow-hidden bg-brand-dark min-h-screen" // Removido md:text-left para centralizar
+    <section 
+      id="hero" 
+      // Layout original: flex col, items-center, text-center
+      className="relative flex flex-col items-center justify-center px-4 pt-32 pb-64 md:pb-80 text-center overflow-hidden bg-brand-dark min-h-screen"
     >
       <DarkCloudParticles />
-      {/* <WaveformAnimation /> */}
-      
-      {/* Container principal centralizado */}
+
+      {/* Container Typewriter (Mantido Centralizado) */}
       <motion.div
-        className="container mx-auto relative z-10 flex flex-col items-center gap-6 md:gap-8 mt-12 md:mt-16 max-w-3xl" // Adicionado max-w-3xl e centralizado
+        className="w-full max-w-4xl mx-auto mb-12 md:mb-16 z-10"
         variants={fadeInUp}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.5 }}
+        transition={{ delay: 0.1, duration: 0.6 }}
+      >
+        <div className="text-lg md:text-xl text-white/80 font-mono h-7 text-center">
+          <Typewriter
+            options={{
+              strings: ['Atendente, Vendedor e SAC, às vezes até melhor que o proprietário.'],
+              autoStart: true,
+              loop: true,
+              delay: 60,
+              deleteSpeed: 40,
+            }}
+          />
+        </div>
+      </motion.div>
+      
+      {/* Container Principal Centralizado */}
+      <motion.div 
+        className="container mx-auto relative z-10 max-w-4xl flex flex-col items-center space-y-8" 
+        variants={fadeInUp} 
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
       >
-        {/* Título restaurado */}
-        <h1 className="text-4xl md:text-5xl font-bold text-brand-white leading-tight font-serif">
-          Automação Inteligente <br /> para o seu <span className="text-neon-cyan">Negócio Digital</span>
+        {/* Título Original */}
+        <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-brand-white leading-tight font-serif flex flex-col items-center">
+          <span>Marketing <span className="text-cyan-400/90 filter brightness-110 drop-shadow-[0_0_3px_rgba(0,255,255,0.4)]">& IA</span></span>
+          <span>Funil Loop</span>
         </h1>
-
-        {/* Parágrafo restaurado */}
-        <p className="text-lg md:text-xl text-white/80 font-sans font-light">
-          Otimize seu atendimento, vendas e marketing com soluções de IA personalizadas. Transforme a experiência do seu cliente e impulsione seus resultados.
+        
+        {/* Descrição Original */}
+        <p className="text-xl md:text-2xl text-white/80 font-sans font-light max-w-3xl text-center">
+          Agentes humanizados no WhatsApp, tráfego inteligente e gestão digital completa para escalar suas vendas.
         </p>
-
-        {/* Botões restaurados e re-estilizados conforme briefing */}
-        <div className="flex flex-col sm:flex-row gap-4 pt-6">
-          {/* Botão 1: Neon Cyan */}
-          <Button
+        
+        {/* Lista de Serviços Original */}
+        <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 pt-2">
+          {servicesList.map((service) => (
+            <span key={service} className="text-md text-white/60 font-sans font-light"> {/* Estilo original da lista */}
+              {service}
+            </span>
+          ))}
+        </div>
+        
+        {/* Botões Originais */}
+        <div className="flex flex-wrap gap-4 justify-center pt-8">
+          <Button 
             variant="outline"
-            className="group flex items-center justify-center gap-2 bg-transparent border border-neon-cyan text-neon-cyan hover:bg-neon-cyan/10 font-sans rounded-md px-8 py-3 text-lg transition-all duration-300 ease-out"
-            onClick={() => {
-              // Lógica para scroll ou link
-              const element = document.getElementById('services'); // Exemplo: scroll para serviços
-              element?.scrollIntoView({ behavior: 'smooth' });
-            }}
+            // Estilo original do botão
+            className="group flex items-center gap-2 bg-transparent border border-white/20 text-white/70 hover:text-neon-cyan hover:border-neon-cyan hover:bg-neon-cyan/10 font-sans rounded-md px-6 py-3 transition-all duration-300 ease-out"
           >
-            Ver Planos
-            <ArrowRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
+            Nossos planos 
+            <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
           </Button>
-          {/* Botão 2: Branco/Preto (exemplo com branco) */}
-          <Button
+          
+          <Button 
             variant="outline"
-            className="group flex items-center justify-center gap-2 bg-transparent border border-brand-white text-brand-white hover:bg-brand-white/10 font-sans rounded-md px-8 py-3 text-lg transition-all duration-300 ease-out"
-             onClick={() => {
-                 // Lógica para o WhatsApp ou outra ação
-                 window.open('https://wa.me/SEUNUMERO', '_blank'); // Substitua SEUNUMERO
-             }}
+            className="group flex items-center gap-2 bg-transparent border border-neon-purple/50 text-neon-purple/80 hover:text-white hover:border-neon-purple hover:bg-neon-purple/20 font-sans rounded-md px-6 py-3 transition-all duration-300 ease-out shadow-md shadow-neon-purple/30 hover:shadow-lg hover:shadow-neon-purple/50" // Estilo Neon Purple (como estava antes)
           >
-            Falar com Especialista
-            <ArrowRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
+            Testar Agente Assistente
+            <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
           </Button>
         </div>
       </motion.div>

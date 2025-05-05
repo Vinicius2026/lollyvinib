@@ -1,8 +1,7 @@
 import React from 'react';
 import Navbar from '@/components/Navbar';
 import HeroSection from '@/components/HeroSection';
-// import PersonModelSection from '@/components/sections/PersonModelSection'; // Remover import
-import ShowcaseSection from '@/components/sections/ShowcaseSection';
+import { ShowcaseSection } from '@/components/sections/ShowcaseSection';
 import AboutSection from '@/components/AboutSection';
 import ServicesSection from '@/components/ServicesSection';
 import WhyUsSection from '@/components/WhyUsSection';

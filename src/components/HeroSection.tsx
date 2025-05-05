@@ -24,8 +24,8 @@ const HeroSection: React.FC = () => {
   return (
     <section 
       id="hero" 
-      // Layout original: flex col, items-center, text-center
-      className="relative flex flex-col items-center justify-center px-4 pt-32 pb-64 md:pb-80 text-center overflow-hidden bg-brand-dark min-h-screen"
+      // Padding bottom reduzido ainda mais
+      className="relative flex flex-col items-center justify-center px-4 pt-20 pb-16 md:pb-20 text-center overflow-hidden bg-brand-dark min-h-screen"
     >
       <DarkCloudParticles />
 

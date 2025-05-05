@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, useGLTF } from '@react-three/drei';
 import * as THREE from 'three';
@@ -6,21 +6,51 @@ import { motion } from 'framer-motion';
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from 'lucide-react';
 
-// Componente para o modelo 3D
-const ModelViewer = () => {
+// Cor emissiva Neon Purple
+const emissiveColor = new THREE.Color(0xA020F0);
+
+// Componente para o modelo 3D com direção de rotação, posição e efeitos visuais
+const ModelViewer = ({ rotationDirection = 1, positionOffset = [0, 0, 0] }: { rotationDirection?: number, positionOffset?: [number, number, number] }) => {
   const { scene } = useGLTF('/models/cyberpunk_cats.glb');
   const modelRef = useRef<THREE.Group>(null);
+  const time = useRef(0);
 
-  // Rotação lenta
-  useFrame((_state, delta) => {
+  // Clonar a cena para ter instâncias independentes
+  const clonedScene = scene.clone();
+
+  // Aplicar efeito emissivo quando a cena clonada estiver pronta
+  useEffect(() => {
+    clonedScene.traverse((child) => {
+      if (child instanceof THREE.Mesh && child.material instanceof THREE.MeshStandardMaterial) {
+        // Verifica se é MeshStandardMaterial para ter a propriedade emissive
+        child.material.emissive = emissiveColor;
+        child.material.emissiveIntensity = 1.5; // Ajuste a intensidade conforme necessário
+        child.material.needsUpdate = true; // Importante para aplicar a mudança
+      }
+    });
+  }, [clonedScene]); // Executa quando clonedScene muda
+
+  // Rotação e Oscilação
+  useFrame((state, delta) => {
+    time.current += delta;
     if (modelRef.current) {
-      modelRef.current.rotation.y += delta * 0.2;
+      // Rotação Y existente
+      modelRef.current.rotation.y += delta * 0.2 * rotationDirection;
+
+      // Oscilação vertical sutil
+      const oscillation = Math.sin(time.current * 1.5) * 0.08; // Amplitude e velocidade da oscilação
+      modelRef.current.position.y = -1.5 + positionOffset[1] + oscillation;
     }
   });
 
   return (
-    // Ajustada a posição: um pouco mais para cima (Y) e para a esquerda (X)
-    <primitive ref={modelRef} object={scene} scale={4.5} position={[-0.5, -2.0, 0]} />
+    <primitive 
+      ref={modelRef} 
+      object={clonedScene} // Usa a cena clonada
+      scale={4.5} 
+      // Posição inicial (sem oscilação, que é aplicada no useFrame)
+      position={[positionOffset[0], -1.5 + positionOffset[1], positionOffset[2]]} 
+    />
   );
 };
 
@@ -41,23 +71,26 @@ const ShowcaseSection: React.FC = () => {
        {/* <div className="absolute inset-0 bg-black/30 pointer-events-none"></div> */}
 
       <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center relative z-10">
-        {/* Coluna Esquerda: Visualizador 3D */}
-        <div className="h-96 md:h-[500px] w-full relative">
-          <Canvas camera={{ position: [0, 1, 7], fov: 50 }}> {/* Ajuste a posição da câmera se necessário */}
+        {/* Coluna Esquerda: Canvas Único com Dois Modelos */}
+        <div className="h-96 md:h-[500px] w-full relative"> 
+          <Canvas camera={{ position: [0, 1, 10], fov: 50 }}> {/* Afastei um pouco a câmera (z=10) */}
             <ambientLight intensity={0.8} />
             <directionalLight position={[5, 8, 5]} intensity={1.5} />
             <React.Suspense fallback={null}>
-              <ModelViewer />
+              {/* Modelo 1: Rotação direita, deslocado para esquerda */}
+              <ModelViewer rotationDirection={1} positionOffset={[-2.5, 0, 0]} /> 
+              {/* Modelo 2: Rotação esquerda, deslocado para direita */}
+              <ModelViewer rotationDirection={-1} positionOffset={[2.5, 0, 0]} />
             </React.Suspense>
-            {/* Removido OrbitControls para rotação automática e desabilitar interação */}
+            {/* Pode adicionar OrbitControls aqui se quiser permitir interação */}
+            {/* <OrbitControls enableZoom={false} enablePan={false} /> */}
           </Canvas>
-           {/* Overlay para evitar interação direta com o canvas, se necessário */}
-           <div className="absolute inset-0"></div>
+          <div className="absolute inset-0"></div>
         </div>
 
         {/* Coluna Direita: Conteúdo Atualizado */}
-        <div className="space-y-5 md:space-y-6"> {/* Ajustado espaçamento vertical */}
-          <h2 className="text-4xl md:text-5xl font-serif font-bold text-neon-purple">
+        <div className="space-y-5 md:space-y-6">
+          <h2 className="text-4xl md:text-5xl font-display font-bold text-neon-purple">
             A inteligência artificial não substitui nossa decisão. Ela a fortalece.
           </h2>
           {/* Descrição dividida em parágrafos */}

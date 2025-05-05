@@ -106,6 +106,22 @@ Considerando a stack React/Tailwind, as seguintes bibliotecas podem ser avaliada
   - Otimizadas transições e interações
 - ✅ Verificada e aplicada animação de entrada (`fadeInUp` com Framer Motion) nas seções principais (Hero, TechPanel, CTA) para consistência.
 
+### 4. Seções com Conteúdo e Modelos 3D (Adicionado YYYY-MM-DD)
+- ✅ Criada seção `ShowcaseSection` (`src/components/sections/ShowcaseSection.tsx`):
+  - Layout de 2 colunas (modelo 3D à esquerda, texto à direita).
+  - Integrada após `HeroSection` em `src/pages/Index.tsx`.
+  - Carrega e exibe o modelo `cyberpunk_cats.glb` com rotação automática via `@react-three/fiber` e `@react-three/drei`.
+  - Posição e escala do modelo 3D ajustadas iterativamente.
+  - Conteúdo textual (título, descrição, botão) atualizado e estilizado.
+  - Fundo da seção modificado (inicialmente cinza transparente, depois gradiente radial escuro).
+  - Adicionado efeito de brilho roxo neon (`box-shadow`) à seção.
+  - Aplicada fonte personalizada "Cormorant Garamond" (via Google Fonts) ao título da seção, configurada em `index.html` e `tailwind.config.js`.
+- ✅ Criada e subsequentemente removida a seção `PersonModelSection`:
+  - Exibiria o modelo `person.glb` com animação de rotação e fade.
+  - Incluía um texto estilizado acima dela.
+  - Removida por decisão de design, incluindo o componente e o texto associado.
+- ✅ Ajustados paddings/margens da `HeroSection` e espaçamento entre seções para melhor fluxo visual.
+
 ## Contexto Atual e Próximos Passos Imediatos
 
 *   **Estado:** O site possui animações de entrada consistentes na maioria das seções, botões com estilo padronizado e refinado, e novos elementos visuais/informativos (glow nos ícones, seção de público, placeholders de logos).

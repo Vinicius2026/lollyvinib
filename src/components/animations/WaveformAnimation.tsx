@@ -42,8 +42,8 @@ const WaveformAnimation: React.FC = () => {
   const waves = [
     { color: "stroke-neon-purple", amp: amplitudeBase, freq: frequencyBase, phase: 0, duration: 10 },
     { color: "stroke-neon-cyan", amp: amplitudeBase * 0.8, freq: frequencyBase * 1.2, phase: Math.PI / 2, duration: 8 },
-    { color: "stroke-neon-lime", amp: amplitudeBase * 0.6, freq: frequencyBase * 0.8, phase: Math.PI, duration: 12 },
-    { color: "stroke-neon-orange", amp: amplitudeBase * 0.4, freq: frequencyBase * 1.5, phase: (3 * Math.PI) / 2, duration: 7 }, // Laranja adicionada
+    // { color: "stroke-neon-lime", amp: amplitudeBase * 0.6, freq: frequencyBase * 0.8, phase: Math.PI, duration: 12 },
+    // { color: "stroke-neon-orange", amp: amplitudeBase * 0.4, freq: frequencyBase * 1.5, phase: (3 * Math.PI) / 2, duration: 7 }, // Laranja adicionada
   ];
 
   return (

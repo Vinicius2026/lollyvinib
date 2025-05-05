@@ -50,8 +50,8 @@ O objetivo é re-estilizar visualmente as seções existentes do projeto React/V
     *   ✅ Aplicada tipografia (serif no `<h1>`, sans no `<p>`).
     *   ✅ Ajustadas cores do texto (`text-brand-white`, `text-white/80`, `text-neon-cyan` no span).
     *   ✅ Re-estilizados botões com bordas finas (neon e branca), texto neon/branco e ícone de seta `→` animado.
-    *   ✅ Criado componente `WaveformAnimation` (`src/components/animations/WaveformAnimation.tsx`) usando SVG e Framer Motion para animar múltiplas ondas neon com `translateX`.
-    *   ✅ Integrado `WaveformAnimation` na `HeroSection`.
+    *   ❌ Tentativa de usar `WaveformAnimation` (SVG/Framer Motion) na Hero Section. Removida por não agradar visualmente e aparecer em local incorreto inicialmente.
+    *   🎯 **Novo Objetivo:** Implementar uma animação estilo "personagem cartoon" na área principal da Hero Section (abaixo do menu, acima do botão "WHATSAPP...").
 
 ## Sugestões de Bibliotecas de Animação (Intermediárias/Avançadas)
 
@@ -110,9 +110,9 @@ Considerando a stack React/Tailwind, as seguintes bibliotecas podem ser avaliada
 
 *   **Estado:** O site possui animações de entrada consistentes na maioria das seções, botões com estilo padronizado e refinado, e novos elementos visuais/informativos (glow nos ícones, seção de público, placeholders de logos).
 *   **Próximos Passos:**
+    *   Implementar a nova animação de personagem cartoon na Hero Section.
     *   Inserir os códigos SVG reais dos logos de tecnologia nos placeholders da `TechPanel`.
     *   Aplicar animação de entrada `fadeInUp` ao componente `Footer`.
-    *   Revisar a consistência visual geral e a responsividade após as mudanças.
 
 ## Estrutura de Arquivos e Pastas (Base)
 

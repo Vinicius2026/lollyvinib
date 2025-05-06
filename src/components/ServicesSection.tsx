@@ -343,14 +343,14 @@ const ServicesSection: React.FC = () => {
                 {/* Estrelas Amarelas (Sempre visíveis) */}
                 <motion.span 
                   className="text-[#FFD700]"
-                  initial={{ filter: 'drop-shadow(0 0 3px #FFD700)' }}
+                  initial={{ filter: 'drop-shadow(0 0 2px rgba(255, 215, 0, 0.4))' }} // Brilho inicial mais sutil
                   animate={{ filter: [
-                      'drop-shadow(0 0 3px rgba(255, 215, 0, 0.5))',
-                      'drop-shadow(0 0 8px rgba(255, 215, 0, 1))',
-                      'drop-shadow(0 0 3px rgba(255, 215, 0, 0.5))'
+                      'drop-shadow(0 0 2px rgba(255, 215, 0, 0.4))',
+                      'drop-shadow(0 0 6px rgba(255, 215, 0, 0.7))', // Pico do pulso otimizado
+                      'drop-shadow(0 0 2px rgba(255, 215, 0, 0.4))'
                     ]
                   }}
-                   transition={{ duration: 1.8, repeat: Infinity, repeatType: 'reverse', ease: "easeInOut" }}
+                   transition={{ duration: 2.2, repeat: Infinity, repeatType: 'reverse', ease: "easeInOut" }} // Duração um pouco maior para suavizar
                 >
                   ★★★★★
                 </motion.span>
@@ -433,10 +433,10 @@ const ServicesSection: React.FC = () => {
 
                         if (key === '40k') {
                           textColorClass = "text-yellow-400 hover:text-yellow-300";
-                          shadowClass = "[text-shadow:0_0_3px_rgba(255,215,0,0.6)] hover:[text-shadow:0_0_5px_rgba(255,215,0,0.8)]";
+                          shadowClass = "[text-shadow:0_0_2px_rgba(255,215,0,0.5)] hover:[text-shadow:0_0_4px_rgba(255,215,0,0.7)]"; // Otimizado
                         } else if (key === '80k') {
                           textColorClass = "text-purple-400 hover:text-purple-300";
-                          shadowClass = "[text-shadow:0_0_3px_rgba(192,132,252,0.6)] hover:[text-shadow:0_0_5px_rgba(192,132,252,0.8)]";
+                          shadowClass = "[text-shadow:0_0_2px_rgba(192,132,252,0.5)] hover:[text-shadow:0_0_4px_rgba(192,132,252,0.7)]"; // Otimizado
                         } else if (key === '125k') {
                           // Usando cinza mais claro (quase branco) para "preto brilhante"
                           textColorClass = "text-neutral-100 hover:text-white/80"; 

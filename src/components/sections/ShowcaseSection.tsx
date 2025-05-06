@@ -46,8 +46,8 @@ export const ShowcaseSection = () => {
             <Selection>
               <EffectComposer autoClear={false}>
                 <Bloom
-                  intensity={0.6}
-                  luminanceThreshold={0.3}
+                  intensity={0.45}
+                  luminanceThreshold={0.4}
                   luminanceSmoothing={0.2}
                   kernelSize={KernelSize.SMALL}
                   mipmapBlur
@@ -106,4 +106,4 @@ export const ShowcaseSection = () => {
   );
 };
 
-useGLTF.preload('/models/cyberpunk_character.glb');
+// useGLTF.preload('/models/cyberpunk_character.glb'); // Removido para otimização

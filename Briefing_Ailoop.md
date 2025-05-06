@@ -179,9 +179,30 @@ A estrutura principal do projeto dentro do diretório `src` é organizada da seg
 ## Próximas Implementações
 
 ### 1. Otimizações de Performance
-- [ ] Avaliar e otimizar renderização de componentes
-- [ ] Implementar lazy loading para imagens e componentes pesados
+- [~] Avaliar e otimizar renderização de componentes (parcialmente abordado com otimizações de brilho e sugestões de memoização)
+- [ ] Implementar lazy loading para imagens e componentes pesados (reforçar prioridade)
 - [ ] Melhorar tempo de carregamento inicial
+- [ ] Considerar uso estratégico da propriedade CSS `will-change` para elementos frequentemente animados.
+- [~] Otimizar animações de brilho (`box-shadow`, `drop-shadow`, `filter: drop-shadow`, `text-shadow`) em diversos componentes (parcialmente implementado, ver log abaixo).
+
+### Log de Otimizações de Performance (Iniciado YYYY-MM-DD - Data da Interação Atual)
+
+*   **Problema Relatado:** Identificada lentidão e travamentos possivelmente associados a efeitos de brilho (glow/shadow) em cards e outros elementos, impactando a fluidez da navegação.
+*   **Otimizações Implementadas:**
+    *   **`ShowcaseSection.tsx`:**
+        *   ✅ Ajustados parâmetros do efeito `Bloom` (pós-processamento 3D): `intensity` reduzida de `0.6` para `0.45` e `luminanceThreshold` aumentado de `0.3` para `0.4` para menor custo de renderização.
+        *   ✅ Removida/Comentada linha `useGLTF.preload('/models/cyberpunk_character.glb');` que parecia não corresponder ao modelo efetivamente carregado (`cyberpunk_cats.glb`) na seção, evitando um possível preload desnecessário.
+    *   **`WhyUsSection.tsx`:**
+        *   ✅ Otimizado o `box-shadow` (classe `hoverShadowClass`) aplicado no hover dos cards de features. A intensidade (blur, spread, opacidade) foi reduzida para: `hover:shadow-[0_0_15px_2px_theme(colors.NEON_COLOR/0.25)]` (onde NEON_COLOR é a cor dinâmica da feature).
+        *   ⚠️ **Imagem Flux:** A imagem "Flux" com brilho azul neon (`drop-shadow`) animado (pulsante), mencionada em atualizações anteriores para esta seção, não foi encontrada no código atual de `WhyUsSection.tsx` durante a revisão para otimização. Sua otimização está pendente até localização do código.
+    *   **`ServicesSection.tsx`:**
+        *   **Card "Gestão One Stack" (Estrelas):**
+            *   ✅ Suavizada a animação do `filter: drop-shadow` pulsante das estrelas amarelas. O pico da animação do brilho foi reduzido (ex: de `drop-shadow(0 0 8px rgba(255, 215, 0, 1))` para `drop-shadow(0 0 6px rgba(255, 215, 0, 0.7))`) e a duração da transição levemente aumentada para `2.2s`. O brilho inicial também foi suavizado.
+        *   **Card "Gestão One Stack" (Dropdown de Preço):**
+            *   ✅ Otimizado o `text-shadow` (classe `shadowClass`) aplicado nas opções de preço (40k, 80k) no dropdown. O brilho e o `hover` do brilho foram suavizados (ex: de `[text-shadow:0_0_3px_rgba(...,0.6)] hover:[text-shadow:0_0_5px_rgba(...,0.8)]` para `[text-shadow:0_0_2px_rgba(...,0.5)] hover:[text-shadow:0_0_4px_rgba(...,0.7)]`).
+*   **Próximas Ações de Otimização (além das já listadas):**
+    *   Revisar e aplicar `React.memo`, `useCallback`, `useMemo` onde necessário.
+    *   Verificar todos os usos de `box-shadow`, `drop-shadow`, e `filter` para animações contínuas e avaliar alternativas mais performáticas se necessário (ex: animar opacidade de pseudo-elementos com o brilho).
 
 ### 2. Melhorias de Acessibilidade
 - [ ] Adicionar suporte a `prefers-reduced-motion`
@@ -200,22 +221,23 @@ A estrutura principal do projeto dentro do diretório `src` é organizada da seg
 
 ## Conceitos de Design: Plano de Fundo do Quiz Interativo
 
-A seguir, são apresentados três conceitos para um plano de fundo animado e sofisticado para o quiz interativo da AILOOP, visando alinhar-se com a estética de alto contraste, acentos neon e o tema futurista tecnológico do projeto.
+*(Resumo da conversa anterior "AILOOP Quiz Background Design Concept")*
 
-### 1. Fluxo Neural Luminescente (Foco em R3F)
-*   **Metáfora Visual:** Representa uma vasta e dinâmica rede neural, simbolizando o fluxo de informação, aprendizado e o desvendar de potencial, conectado à "Caixa Mágica AILOOP".
-*   **Estilo de Animação:** Cena 3D com uma rede plexus intrincada de filamentos finos e nós luminosos (cores neon da AILOOP: azul, ciano, roxo). Partículas de energia percorrem a rede. Movimento lento, etéreo, com pulsos de luz ocasionais. Efeitos de pós-processamento como `Bloom`, `Depth of Field` sutil e `Film Grain` leve.
-*   **Atmosfera:** Tecnológico avançado, imersivo, profundo, intrigante, focado no potencial da IA.
+Foram propostos três conceitos para um plano de fundo animado e sofisticado para o `InteractiveQuiz.tsx`, alinhados com a estética de alto contraste e neon do projeto:
 
-### 2. Aurora Digital Abstrata (Foco em Framer Motion)
-*   **Metáfora Visual:** Traduz a beleza fluida das auroras boreais para uma linguagem digital abstrata, representando criatividade, flexibilidade e o espectro de possibilidades da IA.
-*   **Estilo de Animação:** Múltiplas camadas 2D com `mesh gradient` dinâmico e escuro no fundo. "Véus" de luz neon (SVG abstratos e fluidos) se movem lentamente com efeito de paralaxe. Partículas de luz sutis adicionam textura. Movimento suave e orgânico.
-*   **Atmosfera:** Elegância tecnológica, modernidade, inspiração, visualmente poético e calmo.
+1.  **Fluxo Neural Luminescente (Foco em R3F):**
+    *   **Visual:** Rede plexus 3D de filamentos e nós luminosos (cores neon AILOOP), com partículas de energia. Movimento lento, etéreo, com pulsos de luz. Efeitos de pós-processamento (`Bloom`, `Depth of Field` sutil, `Film Grain` leve).
+    *   **Atmosfera:** Tecnológico avançado, imersivo, profundo, intrigante.
 
-### 3. Horizonte de Dados Cristalinos (Híbrido: R3F Sutil + Framer Motion)
-*   **Metáfora Visual:** Paisagem digital minimalista e futurista com estruturas cristalinas, simbolizando clareza, precisão e os novos horizontes abertos pela IA.
-*   **Estilo de Animação:** Elementos 3D sutis no fundo (névoa volumétrica escura com brilhos neon internos, linhas geométricas etéreas). Camadas 2D principais (Framer Motion) com grandes formas geométricas translúcidas com bordas neon nítidas, movendo-se e rotacionando lentamente. Textura de ruído digital sutil.
-*   **Atmosfera:** Futurista elegante, preciso, inteligência calma e organizada, clareza.
+2.  **Aurora Digital Abstrata (Foco em Framer Motion):**
+    *   **Visual:** Camadas 2D com `mesh gradient` dinâmico escuro. "Véus" de luz neon (SVG fluidos) com paralaxe. Partículas de luz sutis. Movimento suave e orgânico.
+    *   **Atmosfera:** Elegância tecnológica, modernidade, inspiração, poético e calmo.
+
+3.  **Horizonte de Dados Cristalinos (Híbrido: R3F Sutil + Framer Motion):**
+    *   **Visual:** Elementos 3D sutis no fundo (névoa volumétrica escura com brilhos neon internos, linhas geométricas etéreas). Camadas 2D principais (Framer Motion) com grandes formas geométricas translúcidas com bordas neon nítidas, movendo-se e rotacionando lentamente. Textura de ruído digital sutil.
+    *   **Atmosfera:** Futurista elegante, preciso, inteligência calma e organizada, clareza.
+
+A escolha do conceito a ser implementado está pendente. Estes conceitos foram adicionados ao briefing para referência futura.
 
 ## Notas de Implementação
 
@@ -316,3 +338,22 @@ Podemos começar criando um componente `AnimatedButton` que encapsula um botão 
         *   Corrigida a animação de entrada dos painéis de opção (botões) para garantir que se tornem visíveis após a animação do container pai.
         *   Adicionada a propriedade `description` à segunda pergunta do quiz com o texto: "Selecione todas as opções que se aplicam. (Multiplaescolha)".
         *   Resolvido conflito de tipo com `MotionStyle` nas variantes de animação (`panelVariants`) ao remover a sub-propriedade `transition` das definições de `hover`, `selected` e `unselected`, permitindo que a Framer Motion gerencie as transições corretamente. 
+
+### Log de Otimizações de Performance (Iniciado YYYY-MM-DD - Data da Interação Atual)
+
+*   **Problema Relatado:** Identificada lentidão e travamentos possivelmente associados a efeitos de brilho (glow/shadow) em cards e outros elementos, impactando a fluidez da navegação.
+*   **Otimizações Implementadas:**
+    *   **`ShowcaseSection.tsx`:**
+        *   ✅ Ajustados parâmetros do efeito `Bloom` (pós-processamento 3D): `intensity` reduzida de `0.6` para `0.45` e `luminanceThreshold` aumentado de `0.3` para `0.4` para menor custo de renderização.
+        *   ✅ Removida/Comentada linha `useGLTF.preload('/models/cyberpunk_character.glb');` que parecia não corresponder ao modelo efetivamente carregado (`cyberpunk_cats.glb`) na seção, evitando um possível preload desnecessário.
+    *   **`WhyUsSection.tsx`:**
+        *   ✅ Otimizado o `box-shadow` (classe `hoverShadowClass`) aplicado no hover dos cards de features. A intensidade (blur, spread, opacidade) foi reduzida para: `hover:shadow-[0_0_15px_2px_theme(colors.NEON_COLOR/0.25)]` (onde NEON_COLOR é a cor dinâmica da feature).
+        *   ⚠️ **Imagem Flux:** A imagem "Flux" com brilho azul neon (`drop-shadow`) animado (pulsante), mencionada em atualizações anteriores para esta seção, não foi encontrada no código atual de `WhyUsSection.tsx` durante a revisão para otimização. Sua otimização está pendente até localização do código.
+    *   **`ServicesSection.tsx`:**
+        *   **Card "Gestão One Stack" (Estrelas):**
+            *   ✅ Suavizada a animação do `filter: drop-shadow` pulsante das estrelas amarelas. O pico da animação do brilho foi reduzido (ex: de `drop-shadow(0 0 8px rgba(255, 215, 0, 1))` para `drop-shadow(0 0 6px rgba(255, 215, 0, 0.7))`) e a duração da transição levemente aumentada para `2.2s`. O brilho inicial também foi suavizado.
+        *   **Card "Gestão One Stack" (Dropdown de Preço):**
+            *   ✅ Otimizado o `text-shadow` (classe `shadowClass`) aplicado nas opções de preço (40k, 80k) no dropdown. O brilho e o `hover` do brilho foram suavizados (ex: de `[text-shadow:0_0_3px_rgba(...,0.6)] hover:[text-shadow:0_0_5px_rgba(...,0.8)]` para `[text-shadow:0_0_2px_rgba(...,0.5)] hover:[text-shadow:0_0_4px_rgba(...,0.7)]`).
+*   **Próximas Ações de Otimização (além das já listadas):**
+    *   Revisar e aplicar `React.memo`, `useCallback`, `useMemo` onde necessário.
+    *   Verificar todos os usos de `box-shadow`, `drop-shadow`, e `filter` para animações contínuas e avaliar alternativas mais performáticas se necessário (ex: animar opacidade de pseudo-elementos com o brilho). 

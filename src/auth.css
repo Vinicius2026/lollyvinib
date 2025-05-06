@@ -1,0 +1,219 @@
+/* Estilos Globais e Reset Básico */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background-color: #080810; /* Fundo escuro principal AILOOP (exemplo) */
+    color: #E0E0E0; /* Cor de texto padrão clara */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow-x: hidden; /* Prevenir scroll horizontal */
+}
+
+* {
+    box-sizing: border-box;
+}
+
+/* Container Principal de Autenticação */
+.auth-container {
+    width: 100%;
+    max-width: 1200px; /* Largura máxima para o conteúdo */
+    background-color: #0F0F18; /* Fundo do card/container um pouco mais claro */
+    border-radius: 12px; /* Cantos arredondados para o container geral */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    overflow: hidden; /* Para garantir que os cantos arredondados se apliquem às filhas */
+    margin: 20px; /* Margem para não colar nas bordas da tela */
+}
+
+/* Cabeçalho com Abas */
+.auth-header {
+    padding: 20px 40px;
+    background-color: #1A1A2E; /* Cor de fundo para a barra de abas */
+    border-bottom: 1px solid #2A2A3E;
+}
+
+.auth-tabs {
+    display: flex;
+    justify-content: center; /* Centralizar abas ou flex-start */
+    gap: 10px;
+}
+
+.auth-tab {
+    background-color: transparent;
+    border: none;
+    color: #A0A0C0; /* Cor para abas inativas */
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.auth-tab:hover {
+    color: #FFFFFF;
+    background-color: #2A2A3E; /* Leve destaque no hover */
+}
+
+.auth-tab.active-tab {
+    color: #FFFFFF; /* Cor para aba ativa */
+    /* Um azul neon AILOOP para o indicador */
+    box-shadow: inset 0 -3px 0 0 #00E5FF; /* Indicador de aba ativa (ex: ciano AILOOP) */
+}
+
+/* Conteúdo Principal (Layout de Duas Colunas) */
+.auth-content {
+    display: flex;
+    /* Removido min-height daqui, já que o body cuida disso e o container tem seu próprio tamanho */
+}
+
+/* Painel do Formulário (Coluna Esquerda) */
+.form-panel {
+    flex: 1; /* Ocupa o espaço disponível, pode ser ajustado com flex-basis ou max-width */
+    padding: 40px;
+    background-color: #0F0F18; /* Mesmo fundo do container geral */
+    display: flex; /* Para centralizar o formulário em si */
+    flex-direction: column;
+    align-items: center; /* Centraliza o conteúdo do formulário */
+}
+
+#signup-form {
+    width: 100%;
+    max-width: 450px; /* Largura máxima para o formulário */
+}
+
+.form-title {
+    color: #FFFFFF;
+    margin-bottom: 30px;
+    font-size: 28px;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    color: #A0A0C0; /* Cor dos rótulos */
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="password"] {
+    width: 100%;
+    padding: 12px 15px;
+    background-color: #1A1A2E; /* Fundo do input */
+    border: 1px solid #2A2A3E; /* Borda do input */
+    border-radius: 6px;
+    color: #E0E0E0; /* Cor do texto do input */
+    font-size: 16px;
+}
+
+.form-group input[type="text"]::placeholder,
+.form-group input[type="email"]::placeholder,
+.form-group input[type="password"]::placeholder {
+    color: #606080; /* Cor do placeholder */
+}
+
+/* Botão CTA */
+.cta-button {
+    width: 100%;
+    padding: 15px;
+    background-color: #0095FF; /* Azul AILOOP principal para o CTA */
+    color: #FFFFFF;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+}
+
+.cta-button:hover {
+    background-color: #007ACC; /* Azul mais escuro no hover */
+}
+
+/* Painel da Marca (Coluna Direita) */
+.branding-panel {
+    flex: 1.2; /* Ligeiramente maior que o painel do formulário */
+    padding: 60px 40px;
+    background: linear-gradient(135deg, #1A1A2E 0%, #0A0A14 100%); /* Gradiente sutil para o painel da marca */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border-top-right-radius: 12px; /* Para combinar com o container pai */
+    border-bottom-right-radius: 12px;
+}
+
+.branding-logo h2 {
+    font-size: 48px; /* Tamanho do placeholder do logo */
+    color: #00E5FF; /* Cor neon AILOOP */
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.branding-welcome h3 {
+    font-size: 24px;
+    color: #FFFFFF;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.branding-welcome p {
+    font-size: 16px;
+    color: #A0A0C0; /* Cor do texto descritivo */
+    line-height: 1.6;
+    max-width: 350px;
+}
+
+/* Responsividade Básica */
+@media (max-width: 900px) { /* Ponto de quebra para layout de coluna única */
+    .auth-content {
+        flex-direction: column;
+    }
+
+    .branding-panel {
+        order: -1; /* Painel da marca primeiro no mobile */
+        padding: 40px 20px;
+        border-radius: 0;
+        border-top-left-radius: 12px; /* Manter cantos do container */
+        border-top-right-radius: 12px;
+        border-bottom-right-radius: 0; /* Remover para mobile */
+    }
+
+    .form-panel {
+        padding: 30px 20px;
+    }
+
+    .auth-header {
+        padding: 15px 20px;
+    }
+
+    .auth-tab {
+        padding: 8px 15px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 600px) {
+    .auth-container {
+        margin: 0;
+        border-radius: 0;
+        min-height: 100vh;
+    }
+    .branding-panel {
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
+    #signup-form {
+        max-width: 100%;
+    }
+} 

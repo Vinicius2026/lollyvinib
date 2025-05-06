@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autenticação - AILOOP</title>
+    <link rel="stylesheet" href="auth.css">
+    <!-- Futuramente, adicionar aqui link para biblioteca de ícones (ex: Lucide) -->
+</head>
+<body>
+    <div class="auth-container">
+        <header class="auth-header">
+            <nav class="auth-tabs">
+                <button type="button" class="auth-tab" data-tab="signin">ENTRAR</button>
+                <button type="button" class="auth-tab active-tab" data-tab="signup">CADASTRAR</button>
+                <button type="button" class="auth-tab" data-tab="recovery">RECUPERAR SENHA</button>
+            </nav>
+        </header>
+
+        <main class="auth-content">
+            <section class="form-panel" id="signup-panel">
+                {/* <!-- Conteúdo do Formulário de Cadastro aqui --> */}
+                <h1 class="form-title">Crie sua Conta</h1>
+                <form id="signup-form">
+                    <div class="form-group">
+                        <label for="firstName">Primeiro nome</label>
+                        <input type="text" id="firstName" name="firstName" placeholder="Seu primeiro nome">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="seu@email.com">
+                    </div>
+                    {/* <!-- Mais campos virão aqui --> */}
+                    <button type="submit" class="cta-button">CADASTRAR</button>
+                </form>
+            </section>
+
+            <section class="form-panel" id="signin-panel" style="display: none;">
+                {/* <!-- Conteúdo do Formulário de Login aqui --> */}
+                <h1 class="form-title">Acessar Conta</h1>
+                {/* <!-- ... formulário de login ... --> */}
+            </section>
+
+            <section class="form-panel" id="recovery-panel" style="display: none;">
+                {/* <!-- Conteúdo do Formulário de Recuperação de Senha aqui --> */}
+                <h1 class="form-title">Recuperar Senha</h1>
+                {/* <!-- ... formulário de recuperação ... --> */}
+            </section>
+
+            <aside class="branding-panel">
+                <div class="branding-logo">
+                    {/* <!-- Placeholder para o Logo AILOOP --> */}
+                    <h2>AILOOP</h2>
+                </div>
+                <div class="branding-welcome">
+                    <h3>Bem-vindo à Vanguarda da IA</h3>
+                    <p>Desbloqueie o futuro com nossas soluções de Inteligência Artificial.</p>
+                </div>
+            </aside>
+        </main>
+    </div>
+
+    <script src="auth.js"></script> {/* Para interatividade das abas no futuro */}
+</body>
+</html> 

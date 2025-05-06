@@ -796,3 +796,21 @@
     transform: translateX(50%);
   }
 }
+
+/* Animação de Brilho Laranja para Texto */
+@keyframes orange-glow-pulse {
+  0%, 100% {
+    text-shadow: 
+      0 0 5px rgba(255, 255, 255, 0.7), /* Brilho branco base */
+      0 0 8px rgba(251, 146, 60, 0.3); /* Brilho laranja sutil (Tailwind orange-400) */
+  }
+  50% {
+    text-shadow: 
+      0 0 10px rgba(255, 255, 255, 0.9), /* Brilho branco mais intenso */
+      0 0 20px rgba(251, 146, 60, 0.6); /* Brilho laranja mais intenso */
+  }
+}
+
+.orange-glow-text {
+  animation: orange-glow-pulse 2.5s ease-in-out infinite;
+}

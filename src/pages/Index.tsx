@@ -19,6 +19,16 @@ const Index: React.FC = () => {
       <div className="mt-6 md:mt-8 mb-12 md:mb-16">
         <ShowcaseSection />
       </div>
+
+      {/* Efeito de Nebulosa Roxa */}
+      <div
+        className="h-32 md:h-48 w-full relative -mt-16 md:-mt-24 mb-0 md:mb-0 pointer-events-none"
+        style={{
+          backgroundImage:
+            'radial-gradient(ellipse at center, rgba(160, 32, 240, 0.25) 0%, rgba(10, 10, 10, 0) 70%)'
+        }}
+      />
+
       <TechPanel />
       <AboutSection />
       <ServicesSection />

@@ -74,7 +74,13 @@ export const ShowcaseSection = () => {
           </Canvas>
         </div>
 
-        <div className="space-y-6">
+        <motion.div
+          className="space-y-6"
+          initial={{ opacity: 0, x: 50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+        >
           <h2 className="text-4xl md:text-5xl font-display font-bold text-neon-purple">
             IA não substitui sua decisão. Ela amplia sua visão.
           </h2>
@@ -89,13 +95,12 @@ export const ShowcaseSection = () => {
           </p>
           <Button
             variant="outline"
-            className="mt-6 border-neon-purple text-neon-purple hover:bg-neon-purple/10 group text-base"
+            className="mt-6 bg-white/5 backdrop-blur-sm border border-white/10 text-white hover:bg-white/15 group text-base transition-colors duration-300"
           >
-            <span className="mr-2">🚀</span>
             Todos os Serviços
             <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
           </Button>
-        </div>
+        </motion.div>
       </div>
     </motion.section>
   );

@@ -201,3 +201,22 @@ Para manter a consistência no desenvolvimento, seguir estas diretrizes:
 *   **Fundação:** Cria uma base para animações mais complexas posteriormente, já familiarizando a equipe com a biblioteca escolhida.
 
 Podemos começar criando um componente `AnimatedButton` que encapsula um botão `shadcn/ui` e adiciona efeitos de `scale` e/ou `opacity` no hover e no clique usando `motion.button` da Framer Motion. 
+
+## Atualizações Recentes (YYYY-MM-DD)
+
+*   **Refatoração de Conteúdo e Layout (`TechPanel` vs `WhyUsSection`):**
+    *   Identificado que a cópia fornecida ("Atendimento com IA + Agente Humano", etc.) foi inicialmente aplicada por engano em `WhyUsSection.tsx`.
+    *   Alteração em `WhyUsSection.tsx` revertida para o conteúdo original.
+    *   Nova cópia aplicada corretamente aos cards em `TechPanel.tsx`.
+    *   Layout de `TechPanel.tsx` modificado de 3 colunas para 1 coluna, com cards ocupando a largura.
+    *   Título principal de `TechPanel.tsx` alterado para "ZAP IA VOZ + TEXTO" e subtítulo atualizado.
+    *   Ícone dos cards em `TechPanel.tsx` unificado para `FaCube` (requer `npm install react-icons` ou `yarn add react-icons` se ainda não instalado).
+*   **Tentativas de Efeitos de Fundo (`TechPanel.tsx`):**
+    *   Tentativa de adicionar `DarkCloudParticles` como fundo. Efeito não visível.
+    *   Tentativa de adicionar `SmokeParticles` (variação de `DarkCloudParticles`) como fundo. Efeito não visível.
+    *   Tentativa de adicionar `GreenRainEffect` como fundo geral e depois dentro de cada card. Efeito não visível, apesar da presença do elemento `<canvas>` no DOM e ausência de erros no console.
+    *   Todos os efeitos de partículas de fundo foram removidos de `TechPanel.tsx` devido à dificuldade de visualização/implementação.
+*   **Próximos Passos Imediatos (Definidos em YYYY-MM-DD):**
+    *   Aplicar animação de brilho laranja sincronizada aos títulos dos cards em `TechPanel.tsx`.
+    *   Aplicar animação de máquina de escrever (typewriter) ao título principal "ZAP IA VOZ + TEXTO" em `TechPanel.tsx`.
+    *   Atualizar este log no `Briefing_Ailoop.md` (feito). 

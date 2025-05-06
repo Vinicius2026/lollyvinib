@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import { FaCube } from 'react-icons/fa' // Ícone unificado
-import SmokeParticles from './animations/SmokeParticles'
+import Typewriter from 'typewriter-effect'
 
 const lines = [
   '> Inicializando IA... OK',
@@ -11,14 +11,14 @@ const lines = [
   '> Sistema pronto para transformar o seu negócio.'
 ]
 
-const TypewriterText: React.FC = () => {
+const TypewriterText: React.FC<{ startAnimation: boolean }> = ({ startAnimation }) => {
   const [displayedLines, setDisplayedLines] = useState<string[]>([])
   const [currentLine, setCurrentLine] = useState('')
   const [lineIndex, setLineIndex] = useState(0)
   const [charIndex, setCharIndex] = useState(0)
 
   useEffect(() => {
-    if (lineIndex < lines.length) {
+    if (startAnimation && lineIndex < lines.length) {
       if (charIndex < lines[lineIndex].length) {
         const timeout = setTimeout(() => {
           setCurrentLine((prev) => prev + lines[lineIndex][charIndex])
@@ -35,7 +35,7 @@ const TypewriterText: React.FC = () => {
         return () => clearTimeout(timeout)
       }
     }
-  }, [charIndex, lineIndex])
+  }, [charIndex, lineIndex, startAnimation])
 
   return (
     <div>
@@ -49,6 +49,7 @@ const TypewriterText: React.FC = () => {
 
 export default function TechPanel() {
   const iconColor = 'text-cyan-400' // cor única tech para os ícones
+  const [typewriterStarted, setTypewriterStarted] = useState(false);
 
   const cardData = [
     {
@@ -75,7 +76,6 @@ export default function TechPanel() {
 
   return (
     <div className="w-full min-h-screen bg-black text-white py-16 relative overflow-hidden">
-      <SmokeParticles />
       <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-8">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -84,37 +84,54 @@ export default function TechPanel() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">ZAP IA VOZ + TEXTO</h2>
+          <div className="text-4xl md:text-5xl font-bold mb-4">
+            <Typewriter
+              options={{
+                strings: ['ZAP IA VOZ + TEXTO'],
+                autoStart: true,
+                loop: true,
+                delay: 100,
+                deleteSpeed: 50
+              }}
+            />
+          </div>
           <p className="text-gray-400 text-lg">Caso ainda tenha dúvida se vai deixar a IA responder seus clientes, não pense, teste e verá<br /> a tecnologia que vai aumentar suas vendas e agendamentos.</p>
         </motion.div>
 
         <div className="grid grid-cols-1 gap-12">
-          {cardData.map(({ title, desc }, idx) => (
-            <motion.div
-              key={idx}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: idx * 0.1 }}
-              viewport={{ once: true }}
-              className="dashboard-item bg-zinc-900 text-gray-200 rounded-xl p-6 shadow-lg transition duration-300"
-            >
-              <div className="flex items-center gap-4 mb-4">
-                <FaCube className={`${iconColor} text-3xl`} />
-                <h3 className="text-xl font-semibold">{title}</h3>
-              </div>
-              <p className="text-gray-400">{desc}</p>
-            </motion.div>
-          ))}
+          {cardData.map(({ title, desc }, idx) => {
+            return (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: idx * 0.15 }}
+                viewport={{ once: true, amount: 0.3 }}
+                className="dashboard-item bg-zinc-900 text-gray-200 rounded-xl p-6 shadow-lg transition duration-300 relative overflow-hidden"
+              >
+                <div className="relative z-10">
+                  <div className="flex items-center gap-4 mb-4">
+                    <FaCube className={`${iconColor} text-3xl`} />
+                    <h3 className="text-xl font-semibold">
+                      <span className="orange-glow-text">{title}</span>
+                    </h3>
+                  </div>
+                  <p className="text-gray-400">{desc}</p>
+                </div>
+              </motion.div>
+            );
+          })}
 
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: cardData.length * 0.15 }}
+            viewport={{ once: true, amount: 0.3 }}
+            onViewportEnter={() => setTypewriterStarted(true)}
             className="dashboard-item mt-8"
           >
             <div className="w-full h-32 bg-gray-900 rounded-lg overflow-hidden font-mono text-xs text-green-400 p-4">
-              <TypewriterText />
+              <TypewriterText startAnimation={typewriterStarted} />
             </div>
           </motion.div>
         </div>

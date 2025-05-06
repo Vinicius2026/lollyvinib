@@ -267,6 +267,15 @@ const ServicesSection: React.FC = () => {
                     </li>
                   ))}
                 </ul>
+                {/* Botão Comprar Agora (Pacote 5k) */}
+                <div className="mt-4">
+                  <AnimatedButton
+                    className="w-full bg-gradient-to-br from-blue-600/10 via-transparent to-teal-600/10 backdrop-blur-sm border border-white/10 hover:border-blue-300/50 hover:from-blue-600/20 hover:to-teal-600/20 text-blue-200 hover:text-white font-medium px-6 py-2 rounded-lg text-sm transition-all duration-300 ease-out shadow-sm hover:shadow-md hover:shadow-blue-700/20"
+                    customWhileHover={{ scale: 1.03, y: -1, transition: { duration: 0.2 } }}
+                  >
+                    Comprar Agora
+                  </AnimatedButton>
+                </div>
               </div>
               
               <hr className="border-neutral-700/50 my-4" />
@@ -285,15 +294,25 @@ const ServicesSection: React.FC = () => {
                     </li>
                   ))}
                 </ul>
+                 {/* Botão Comprar Agora (Pacote 20k) */}
+                 <div className="mt-4">
+                  <AnimatedButton
+                    className="w-full bg-gradient-to-br from-blue-600/10 via-transparent to-teal-600/10 backdrop-blur-sm border border-white/10 hover:border-blue-300/50 hover:from-blue-600/20 hover:to-teal-600/20 text-blue-200 hover:text-white font-medium px-6 py-2 rounded-lg text-sm transition-all duration-300 ease-out shadow-sm hover:shadow-md hover:shadow-blue-700/20"
+                    customWhileHover={{ scale: 1.03, y: -1, transition: { duration: 0.2 } }}
+                  >
+                    Comprar Agora
+                  </AnimatedButton>
+                </div>
               </div>
             </div>
 
-            <div className="flex justify-center mt-auto">
+            {/* Botão Chamar Humano - Estilo Vidro Roxo */}
+            <div className="flex justify-center mt-auto pt-4"> {/* Adicionado pt-4 para espaço */}
               <AnimatedButton
-                className="w-full bg-gradient-to-r from-purple-600 to-indigo-700 hover:from-purple-500 hover:to-indigo-600 text-white font-medium py-3 rounded-lg transition-all duration-300 ease-out shadow-md hover:shadow-lg hover:shadow-purple-500/30"
+                className="w-full bg-gradient-to-br from-purple-600/10 via-transparent to-indigo-600/10 backdrop-blur-sm border border-white/10 hover:border-purple-300/50 hover:from-purple-600/20 hover:to-indigo-600/20 text-purple-200 hover:text-white font-medium px-8 py-3 rounded-lg transition-all duration-300 ease-out shadow-sm hover:shadow-md hover:shadow-purple-700/20"
                 customWhileHover={{ scale: 1.03, y: -2, transition: { duration: 0.2 } }}
               >
-                Ver detalhes
+                Chamar Humano
               </AnimatedButton>
             </div>
           </motion.div>

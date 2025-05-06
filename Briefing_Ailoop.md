@@ -56,6 +56,32 @@ O objetivo é re-estilizar visualmente as seções existentes do projeto React/V
     *   ❌ Tentativa de usar `WaveformAnimation` (SVG/Framer Motion) na Hero Section. Removida por não agradar visualmente e aparecer em local incorreto inicialmente.
     *   🎯 **Novo Objetivo:** Implementar uma animação estilo "personagem cartoon" na área principal da Hero Section (abaixo do menu, acima do botão "WHATSAPP...").
 
+### Página de Serviços por Horas (`src/pages/ServicosHorasPage.tsx`) (Nova Página - Iniciado YYYY-MM-DD - Data Atual)
+- ✅ Conceito detalhado da nova página de serviços por horas flexíveis, com 9 seções principais.
+- ✅ Criação do arquivo `src/pages/ServicosHorasPage.tsx`.
+- ✅ Adicionada rota `/servicos-horas` em `src/App.tsx`.
+- ✅ Atualizado link "Preços Hrs" no `src/components/Navbar.tsx` para apontar para a nova rota.
+- ✅ Implementação da Seção 1: Hero / Título Principal.
+  - Copy em PT-BR, headline, sub-headline e CTAs definidos.
+  - Estilização com Tailwind CSS e animações Framer Motion.
+- ✅ Implementação da Seção 2: Planos de Horas AILOOP.
+  - Cards de planos (Essencial, Estratégico, Performance Max) com detalhes de horas, preço, features.
+  - Destaque visual para plano "Mais Popular".
+  - Cálculo de valor por hora efetivo.
+- ✅ Implementação da Seção 3: Como Funciona Seu Banco de Horas AILOOP.
+  - Apresentação em 5 passos com ícones e descrições.
+- ✅ Implementação da Seção 4: Sua Equipe AILOOP Dedicada: Humanos e IA.
+  - Divisão em Liderança, Especialistas Humanos e Robôs IA.
+  - Nomes e papéis definidos para humanos e IAs (Orion, Vox, Cortex, Momentum, Guardian, Synapse, Pixel, Echo).
+  - Cards estilizados para apresentação da equipe.
+- ✅ Implementação da Seção 5: Serviços Disponíveis Sob Demanda.
+  - Grid de serviços com ícones, nomes e descrições.
+- ✅ Implementação da Seção 6: Benefícios da Flexibilidade AILOOP.
+  - Cards destacando Zero Desperdício, Sem Contratos Mensais, Acesso On-Demand e Resultados Mensuráveis.
+- 🚧 Pendente: Implementação das Seções 7 (USP), 8 (Prova Social) e 9 (CTA Final) - Código a ser fornecido para inserção manual.
+- 🚧 Pendente: Adição de Navbar e Footer à página `ServicosHorasPage.tsx`.
+- 🚧 Pendente: Implementação do sofisticado plano de fundo animado (R3F/Framer Motion) conforme conceito.
+
 ## Sugestões de Bibliotecas de Animação (Intermediárias/Avançadas)
 
 Considerando a stack React/Tailwind, as seguintes bibliotecas podem ser avaliadas:

@@ -8,6 +8,7 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import ServicesPage from "./pages/ServicesPage";
 import AuthPage from "./pages/AuthPage";
+import ServicosHorasPage from './pages/ServicosHorasPage';
 
 const queryClient = new QueryClient();
 
@@ -20,6 +21,7 @@ const AnimatedRoutes = () => {
           <Route path="/" element={<Index />} />
           <Route path="/servicos-fixos" element={<ServicesPage />} />
           <Route path="/login" element={<AuthPage />} />
+          <Route path="/servicos-horas" element={<ServicosHorasPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

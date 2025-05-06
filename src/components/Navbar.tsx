@@ -90,7 +90,7 @@ const Navbar: React.FC = () => {
                     <Link to="/servicos-fixos" className={submenuItemClasses} onClick={() => setIsServicesMenuOpen(false)}>
                       Preços Fixos
                     </Link>
-                    <Link to="/#" className={submenuItemClasses} onClick={() => setIsServicesMenuOpen(false)}>
+                    <Link to="/servicos-horas" className={submenuItemClasses} onClick={() => setIsServicesMenuOpen(false)}>
                       Preços Hrs
                     </Link>
                   </motion.div>
@@ -148,7 +148,7 @@ const Navbar: React.FC = () => {
               <Link to="/servicos-fixos" className={navLinkClasses} onClick={handleMobileMenuToggle}>
                 Preços Fixos
               </Link>
-              <Link to="/#" className={navLinkClasses} onClick={handleMobileMenuToggle}>
+              <Link to="/servicos-horas" className={navLinkClasses} onClick={handleMobileMenuToggle}>
                 Preços Hrs
               </Link>
               <div className="w-1/2 h-px bg-neutral-700 my-2"></div>

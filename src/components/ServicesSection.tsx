@@ -47,6 +47,22 @@ const premiumCardClasses = `
   shadow-xl hover:shadow-2xl hover:shadow-yellow-600/20
 `;
 
+// Classes dinâmicas baseadas no plano selecionado
+const getPremiumCardClasses = (planKey: PremiumPlanKey): string => {
+  let dynamicClasses = "";
+  if (planKey === '80k') {
+    // Roxo Sutil para R$ 80k
+    dynamicClasses = "bg-gradient-to-br from-neutral-900 via-purple-900/10 to-neutral-950/80 border-purple-600/30 hover:border-purple-600/60 focus:ring-purple-500 hover:shadow-purple-600/20";
+  } else if (planKey === '125k') {
+    // Preto Brilhante para R$ 125k
+    dynamicClasses = "bg-gradient-to-br from-neutral-950 via-black to-neutral-900/80 border-neutral-700 hover:border-neutral-500 focus:ring-neutral-400 hover:shadow-white/10";
+  } else {
+    // Padrão Dourado para R$ 40k
+    dynamicClasses = "bg-gradient-to-br from-neutral-900 via-neutral-900/80 to-[#0f122e]/70 border-[#FFD700]/30 hover:border-[#FFD700]/60 focus:ring-yellow-400 hover:shadow-yellow-600/20";
+  }
+  return `${cardBaseClasses} ${dynamicClasses}`;
+};
+
 // Tipagem para as opções de preço premium
 type PremiumPlanKey = '40k' | '80k' | '125k';
 
@@ -179,6 +195,17 @@ const ServicesSection: React.FC = () => {
               ))}
             </ul>
 
+            {/* Texto Adicional */}
+            <motion.p 
+              className="text-sm font-light text-cyan-300/90 my-5 leading-relaxed text-center px-2"
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.5 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
+              Seu Whatsapp dando uma atenção 24h 7/7 com semelhança de 99% a interação e posicionamento humano.
+            </motion.p>
+
             <hr className="border-neutral-700 my-6" />
 
             <div className="grid grid-cols-2 gap-4 mb-6">
@@ -192,12 +219,22 @@ const ServicesSection: React.FC = () => {
               </div>
             </div>
 
-            <div className="flex justify-center mt-auto">
+            {/* Container para os Botões */}
+            <div className="flex flex-col gap-3 mt-auto">
+              {/* Botão Testar Agente - Estilo Vidro Azul/Verde */}
               <AnimatedButton
-                className="w-full bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-medium px-8 py-3 rounded-lg transition-all duration-300 ease-out shadow-md hover:shadow-lg hover:shadow-cyan-500/30"
+                className="w-full bg-gradient-to-br from-cyan-600/10 via-transparent to-green-600/10 backdrop-blur-sm border border-white/10 hover:border-cyan-300/50 hover:from-cyan-600/20 hover:to-green-600/20 text-cyan-200 hover:text-white font-medium px-8 py-3 rounded-lg transition-all duration-300 ease-out shadow-sm hover:shadow-md hover:shadow-cyan-700/20"
                 customWhileHover={{ scale: 1.03, y: -2, transition: { duration: 0.2 } }}
               >
                 Testar Agente
+              </AnimatedButton>
+
+              {/* Botão Comprar Agora - Estilo Vidro Azul/Teal */}
+              <AnimatedButton
+                className="w-full bg-gradient-to-br from-blue-600/10 via-transparent to-teal-600/10 backdrop-blur-sm border border-white/10 hover:border-blue-300/50 hover:from-blue-600/20 hover:to-teal-600/20 text-blue-200 hover:text-white font-medium px-8 py-3 rounded-lg transition-all duration-300 ease-out shadow-sm hover:shadow-md hover:shadow-blue-700/20"
+                customWhileHover={{ scale: 1.03, y: -2, transition: { duration: 0.2 } }}
+              >
+                Comprar Agora
               </AnimatedButton>
             </div>
           </motion.div>
@@ -264,7 +301,7 @@ const ServicesSection: React.FC = () => {
           {/* Card 3 - Gestão One Stack (Premium) */}
           <motion.div
             variants={itemVariants}
-            className={`group ${premiumCardClasses}`}
+            className={`group ${getPremiumCardClasses(selectedPlanKey)}`}
             whileHover={{ y: -6, transition: { duration: 0.2 } }}
           >
             <div className="relative z-10 flex flex-col h-full">
@@ -277,9 +314,66 @@ const ServicesSection: React.FC = () => {
                 </div>
               </div>
 
-              <h3 className="text-2xl font-bold text-white mb-1 flex items-center">
-                <span className="bg-gradient-to-r from-[#FFED87] to-[#FFB800] bg-clip-text text-transparent">Gestão One Stack</span>
-                <span className="ml-2 text-[#FFD700] flex">★★★★★</span>
+              {/* Estrelas e Checks Dinâmicos acima do título com brilho */}
+              <motion.div
+                className="mb-1 flex items-center text-2xl tracking-wider" // Mantém tamanho e espaçamento base
+                initial={{ opacity: 0.7 }}
+                animate={{ opacity: [0.7, 1, 0.7] }}
+                transition={{ duration: 1.8, repeat: Infinity, repeatType: 'reverse', ease: "easeInOut" }}
+              >
+                {/* Estrelas Amarelas (Sempre visíveis) */}
+                <motion.span 
+                  className="text-[#FFD700]"
+                  initial={{ filter: 'drop-shadow(0 0 3px #FFD700)' }}
+                  animate={{ filter: [
+                      'drop-shadow(0 0 3px rgba(255, 215, 0, 0.5))',
+                      'drop-shadow(0 0 8px rgba(255, 215, 0, 1))',
+                      'drop-shadow(0 0 3px rgba(255, 215, 0, 0.5))'
+                    ]
+                  }}
+                   transition={{ duration: 1.8, repeat: Infinity, repeatType: 'reverse', ease: "easeInOut" }}
+                >
+                  ★★★★★
+                </motion.span>
+
+                {/* Checks Verdes (Visíveis em 80k e 125k) */}
+                <AnimatePresence>
+                  {(selectedPlanKey === '80k' || selectedPlanKey === '125k') && (
+                    <motion.span
+                      className="ml-2 flex items-center text-green-500"
+                      initial={{ opacity: 0, x: -5 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: -5 }}
+                      transition={{ duration: 0.3, delay: 0.1 }}
+                    >
+                      <CheckCircle className="w-[1em] h-[1em] mx-px" /> {/* Tamanho relativo à fonte */} 
+                      <CheckCircle className="w-[1em] h-[1em] mx-px" />
+                      <CheckCircle className="w-[1em] h-[1em] mx-px" />
+                    </motion.span>
+                  )}
+                </AnimatePresence>
+
+                {/* Checks Dourados (Visíveis apenas em 125k) */}
+                <AnimatePresence>
+                  {selectedPlanKey === '125k' && (
+                    <motion.span
+                      className="ml-1 flex items-center text-yellow-500"
+                      initial={{ opacity: 0, x: -5 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: -5 }}
+                      transition={{ duration: 0.3, delay: 0.2 }}
+                    >
+                      <CheckCircle className="w-[1em] h-[1em] mx-px" />
+                      <CheckCircle className="w-[1em] h-[1em] mx-px" />
+                    </motion.span>
+                  )}
+                </AnimatePresence>
+              </motion.div>
+
+              <h3 className="text-2xl font-bold text-white mb-3">
+                <span className={`bg-clip-text text-transparent ${selectedPlanKey === '40k' ? 'bg-gradient-to-r from-[#FFED87] to-[#FFB800]' : selectedPlanKey === '80k' ? 'bg-gradient-to-r from-purple-400 to-purple-600' : 'bg-gradient-to-r from-neutral-300 to-neutral-500'}`}>
+                  Gestão One Stack
+                </span>
               </h3>
 
               {/* Dropdown de Preço */}
@@ -288,12 +382,20 @@ const ServicesSection: React.FC = () => {
                   onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                   className="w-full text-left p-2 rounded-md bg-neutral-800/60 border border-yellow-600/50 hover:bg-neutral-700/60 focus:outline-none focus:ring-2 focus:ring-yellow-500 transition-colors duration-200 flex justify-between items-center"
                 >
-                  <p className="text-[#FFD700] text-lg font-bold">
+                  <p className={`text-lg font-bold transition-colors duration-200 
+                    ${selectedPlanKey === '40k' ? 'text-[#FFD700]' : selectedPlanKey === '80k' ? 'text-purple-400' : 'text-neutral-100'}
+                  `}>
                     R$ {selectedPlan.price}
-                    <span className="text-sm text-yellow-300/80 ml-1">({selectedPlan.duration})</span>
+                    <span className={`text-sm ml-1 transition-colors duration-200 
+                      ${selectedPlanKey === '40k' ? 'text-yellow-300/80' : selectedPlanKey === '80k' ? 'text-purple-300/80' : 'text-neutral-300/80'}
+                    `}>
+                      ({selectedPlan.duration})
+                    </span>
                   </p>
                   <ChevronDown
-                     className={`w-5 h-5 text-yellow-400 transition-transform duration-200 ${isDropdownOpen ? 'transform rotate-180' : ''}`}/>
+                     className={`w-5 h-5 transition-colors duration-200 ${isDropdownOpen ? 'transform rotate-180' : ''} 
+                       ${selectedPlanKey === '40k' ? 'text-yellow-400' : selectedPlanKey === '80k' ? 'text-purple-400' : 'text-neutral-300'}
+                     `}/>
                 </button>
 
                 <AnimatePresence>
@@ -305,18 +407,44 @@ const ServicesSection: React.FC = () => {
                       transition={{ duration: 0.2 }}
                       className="absolute top-full left-0 right-0 mt-1 bg-neutral-800 border border-neutral-700 rounded-md shadow-lg z-20 overflow-hidden"
                     >
-                      {(Object.keys(premiumPlans) as PremiumPlanKey[]).map((key) => (
-                        <button
-                          key={key}
-                          onClick={() => {
-                            setSelectedPlanKey(key);
-                            setIsDropdownOpen(false);
-                          }}
-                          className={`w-full text-left px-4 py-2 text-sm ${selectedPlanKey === key ? 'bg-yellow-600/30 text-white' : 'text-neutral-300 hover:bg-neutral-700'} transition-colors duration-150`}
-                        >
-                          {premiumPlans[key].label} ({premiumPlans[key].duration})
-                        </button>
-                      ))}
+                      {(Object.keys(premiumPlans) as PremiumPlanKey[]).map((key) => {
+                        // Define a cor base e a cor de hover para cada opção
+                        let textColorClass = "text-neutral-300 hover:text-neutral-100";
+                        let shadowClass = ""; // Classe para o brilho/sombra
+
+                        if (key === '40k') {
+                          textColorClass = "text-yellow-400 hover:text-yellow-300";
+                          shadowClass = "[text-shadow:0_0_3px_rgba(255,215,0,0.6)] hover:[text-shadow:0_0_5px_rgba(255,215,0,0.8)]";
+                        } else if (key === '80k') {
+                          textColorClass = "text-purple-400 hover:text-purple-300";
+                          shadowClass = "[text-shadow:0_0_3px_rgba(192,132,252,0.6)] hover:[text-shadow:0_0_5px_rgba(192,132,252,0.8)]";
+                        } else if (key === '125k') {
+                          // Usando cinza mais claro (quase branco) para "preto brilhante"
+                          textColorClass = "text-neutral-100 hover:text-white/80"; 
+                          // Sem sombra para o 125k
+                        }
+
+                        // Verifica se é a opção selecionada
+                        const isSelected = selectedPlanKey === key;
+
+                        return (
+                          <button
+                            key={key}
+                            onClick={() => {
+                              setSelectedPlanKey(key);
+                              setIsDropdownOpen(false);
+                            }}
+                            // Aplica a cor e o brilho (se não selecionado) e mantém o estilo de seleção/hover
+                            className={`w-full text-left px-4 py-2 text-sm transition-all duration-150 
+                              ${isSelected
+                                ? 'bg-yellow-600/30 text-white font-medium'
+                                : `${textColorClass} ${shadowClass} hover:bg-neutral-700/50`}
+                            `}
+                          >
+                            {premiumPlans[key].label} ({premiumPlans[key].duration})
+                          </button>
+                        );
+                      })}
                     </motion.div>
                   )}
                 </AnimatePresence>

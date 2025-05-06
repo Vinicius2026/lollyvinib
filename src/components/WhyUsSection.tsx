@@ -131,6 +131,47 @@ const WhyUsSection: React.FC = () => {
             <div className="absolute inset-0 bg-gradient-to-br from-yellow-600/10 via-transparent to-transparent opacity-0 group-hover:opacity-50 transition-opacity duration-500"></div>
           </motion.div>
         </motion.div>
+
+        {/* Imagem Flux adicionada abaixo da grid */}
+        <motion.div 
+          className="mt-20 flex justify-center" // Adiciona margem acima e centraliza
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.8, delay: 0.3 }}
+        >
+          <motion.img
+            src="/image_grande/Flux_Dev_Wide_horizontal_banner_illustration_aspect_ratio_31_o_2-removebg-preview.png"
+            alt="Flux Dev Illustration"
+            className="max-w-2xl h-auto object-contain"
+            style={{ 
+              filter: 'drop-shadow(0 0 15px rgba(0, 169, 255, 0.6))'
+            }}
+            animate={{
+              y: ["-4px", "4px", "-4px"],
+              filter: [
+                'drop-shadow(0 0 15px rgba(0, 169, 255, 0.6))',
+                'drop-shadow(0 0 25px rgba(0, 169, 255, 0.9))',
+                'drop-shadow(0 0 15px rgba(0, 169, 255, 0.6))'
+              ]
+            }}
+            transition={{
+              y: {
+                duration: 2.5,
+                repeat: Infinity,
+                repeatType: 'mirror',
+                ease: 'easeInOut'
+              },
+              filter: {
+                duration: 1.8,
+                repeat: Infinity,
+                repeatType: 'mirror',
+                ease: 'easeInOut'
+              }
+            }}
+          />
+        </motion.div>
+
       </div>
     </section>
   );

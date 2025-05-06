@@ -202,19 +202,28 @@ Para manter a consistência no desenvolvimento, seguir estas diretrizes:
 
 Podemos começar criando um componente `AnimatedButton` que encapsula um botão `shadcn/ui` e adiciona efeitos de `scale` e/ou `opacity` no hover e no clique usando `motion.button` da Framer Motion. 
 
-## Atualizações Recentes (YYYY-MM-DD)
+## Atualizações Recentes (2024-07-26)
 
-*   **Refatoração de Conteúdo e Layout (`TechPanel` vs `WhyUsSection`):**
+*   **Ajustes Visuais em `AboutSection.tsx`:**
+    *   Iteração sobre a imagem da seção "Sobre a AILOOP":
+        *   Removido corte (`object-contain` em vez de `object-cover`).
+        *   Removida interação de hover/escala.
+        *   Removidas bordas/fundos extras do container da imagem.
+        *   Container ajustado para seguir a proporção da imagem (removido `aspect-square`), eliminando barras pretas.
+        *   Adicionado efeito de brilho roxo (`box-shadow`) animado (pulsante) posicionado *atrás* da imagem usando `motion.div`.
+*   **Ajustes Visuais em `WhyUsSection.tsx`:**
+    *   Adicionada imagem com fundo transparente (`Flux_...png`) abaixo da grid de features.
+    *   Aplicado efeito de brilho azul neon (`drop-shadow`) animado (pulsante) à imagem Flux.
+    *   Reduzido o tamanho da imagem Flux (`max-w-2xl`).
+    *   Adicionada animação de flutuação vertical sutil à imagem Flux.
+
+*   **Refatoração de Conteúdo e Layout (`TechPanel` vs `WhyUsSection`) (Data Anterior):**
     *   Identificado que a cópia fornecida ("Atendimento com IA + Agente Humano", etc.) foi inicialmente aplicada por engano em `WhyUsSection.tsx`.
     *   Alteração em `WhyUsSection.tsx` revertida para o conteúdo original.
     *   Nova cópia aplicada corretamente aos cards em `TechPanel.tsx`.
     *   Layout de `TechPanel.tsx` modificado de 3 colunas para 1 coluna, com cards ocupando a largura.
     *   Título principal de `TechPanel.tsx` alterado para "ZAP IA VOZ + TEXTO" e subtítulo atualizado.
     *   Ícone dos cards em `TechPanel.tsx` unificado para `FaCube` (requer `npm install react-icons` ou `yarn add react-icons` se ainda não instalado).
-*   **Tentativas de Efeitos de Fundo (`TechPanel.tsx`):**
-    *   Tentativa de adicionar `DarkCloudParticles` como fundo. Efeito não visível.
-    *   Tentativa de adicionar `SmokeParticles` (variação de `DarkCloudParticles`) como fundo. Efeito não visível.
-    *   Tentativa de adicionar `GreenRainEffect` como fundo geral e depois dentro de cada card. Efeito não visível, apesar da presença do elemento `<canvas>` no DOM e ausência de erros no console.
     *   Todos os efeitos de partículas de fundo foram removidos de `TechPanel.tsx` devido à dificuldade de visualização/implementação.
 *   **Próximos Passos Imediatos (Definidos em YYYY-MM-DD):**
     *   Aplicar animação de brilho laranja sincronizada aos títulos dos cards em `TechPanel.tsx`.

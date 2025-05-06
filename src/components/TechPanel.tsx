@@ -1,201 +1,126 @@
-import React from 'react';
-import { Brain, Cpu, Database, ShieldCheck, Zap, Code, MessageSquare, Globe } from 'lucide-react';
-import { motion } from 'framer-motion';
-import { fadeInUp } from '@/lib/motion/config';
-import DarkCloudParticles from './animations/DarkCloudParticles';
-import PlexusAnimation from './animations/PlexusAnimation';
+'use client'
+'use client'
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.1
+import { motion } from 'framer-motion'
+import { useEffect, useState } from 'react'
+import { PiCube } from 'react-icons/pi'
+import DarkCloudParticles from './animations/DarkCloudParticles'
+
+const lines = [
+  '> Inicializando IA... OK',
+  '> Carregando contexto... 100%',
+  '> Sistema pronto para transformar o seu negócio.'
+]
+
+const TypewriterText: React.FC = () => {
+  const [displayedLines, setDisplayedLines] = useState<string[]>([])
+  const [currentLine, setCurrentLine] = useState('')
+  const [lineIndex, setLineIndex] = useState(0)
+  const [charIndex, setCharIndex] = useState(0)
+
+  useEffect(() => {
+    if (lineIndex < lines.length) {
+      if (charIndex < lines[lineIndex].length) {
+        const timeout = setTimeout(() => {
+          setCurrentLine((prev) => prev + lines[lineIndex][charIndex])
+          setCharIndex((prev) => prev + 1)
+        }, 35)
+        return () => clearTimeout(timeout)
+      } else {
+        const timeout = setTimeout(() => {
+          setDisplayedLines((prev) => [...prev, lines[lineIndex]])
+          setLineIndex((prev) => prev + 1)
+          setCharIndex(0)
+          setCurrentLine('')
+        }, 300)
+        return () => clearTimeout(timeout)
+      }
     }
-  }
-};
-const itemVariants = fadeInUp;
+  }, [charIndex, lineIndex])
 
-const TechPanel: React.FC = () => {
   return (
-    <section className="bg-gradient-to-b from-ailoop-dark-blue via-[#0A1630] to-ailoop-blue pt-40 pb-24 relative overflow-hidden">
+    <div>
+      {displayedLines.map((line, idx) => (
+        <div key={idx}>{line}</div>
+      ))}
+      <div>{currentLine}<span className="animate-pulse">|</span></div>
+    </div>
+  )
+}
+
+export default function TechPanel() {
+  return (
+    <div className="w-full min-h-screen bg-black text-white py-16 relative overflow-hidden">
       <DarkCloudParticles />
-      <PlexusAnimation />
-      
-      <div className="absolute left-1/2 top-16 transform -translate-x-1/2 -translate-y-1/2 z-10">
-        <div className="flex items-center justify-center space-x-2 bg-black/40 px-6 py-2 rounded-full backdrop-blur-lg border border-ailoop-neon-blue/30">
-          <MessageSquare size={18} className="text-ailoop-neon-blue animate-pulse" />
-          <span className="text-white/90 font-light tracking-widest text-sm">WHATSAPP ATENDIMENTO HUMANIZADO</span>
-          <Globe size={18} className="text-ailoop-orange animate-pulse" />
-          <span className="ml-1 text-ailoop-neon-blue font-bold">AI∞LAB</span>
-        </div>
-      </div>
-      
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="tech-panel-container relative mt-20">
-          <div className="absolute left-1/2 top-0 transform -translate-x-1/2 -translate-y-1/2 w-32 h-32 rounded-full flex items-center justify-center bg-gradient-to-br from-ailoop-purple/20 to-ailoop-dark-blue/80 backdrop-blur-md border border-ailoop-neon-blue/20">
-            <Brain className="w-14 h-14 text-ailoop-neon-blue surreal-float electric-pulse" />
-            
-            <div className="absolute inset-0 z-0">
-              {[...Array(8)].map((_, i) => (
-                <div 
-                  key={i}
-                  className="absolute w-px neural-connection"
-                  style={{
-                    height: `${Math.random() * 50 + 100}px`, 
-                    background: `linear-gradient(to bottom, #00E1FF, transparent)`,
-                    left: `${Math.random() * 80 + 10}%`,
-                    top: '100%',
-                    transformOrigin: 'top',
-                    transform: `rotate(${Math.random() * 360}deg)`
-                  }}
-                ></div>
-              ))}
-            </div>
-          </div>
-          
-          <motion.div 
-            className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-24 p-8 bg-gradient-to-br from-black/50 to-ailoop-blue/30 backdrop-blur-md border border-ailoop-neon-blue/20 shadow-xl relative shadow-ailoop-neon-blue/30"
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.1 }}
-          >
-            <div className="absolute -top-6 left-12 p-2 bg-black/50 border border-ailoop-neon-blue/30 rounded text-ailoop-neon-blue text-xs font-mono">
-              <div className="flex items-center space-x-1">
-                <span className="inline-block w-2 h-2 bg-ailoop-neon-blue rounded-full animate-pulse"></span>
-                <span className="loading-text">SYSTEM.ACTIVE</span>
+      <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-4xl md:text-5xl font-bold mb-4">ZAP IA VOZ + TEXTO</h2>
+          <p className="text-gray-400 text-lg">Caso ainda tenha dúvida se vai deixar a IA responder seus clientes, não pense, teste e verá<br />  a tecnologia que vai aumentar suas vendas e agendamentos.</p>
+        </motion.div>
+
+        <div className="grid grid-cols-1 gap-12">
+          {[
+            {
+              title: 'Atendimento com IA + Agente Humano',
+              desc: 'Transforme o WhatsApp em seu canal de vendas e atendimento mais eficiente. Nossa IA atua em conjunto com seus atendentes, garantindo respostas imediatas, acolhedoras e com o tom certo para cada cliente. Ideal para negócios que não podem perder tempo — como clínicas, farmácias, imobiliárias e serviços com alta demanda.',
+              color: 'text-cyan-400'
+            },
+            {
+              title: 'Inteligência com Contexto Real do Seu Negócio',
+              desc: 'Mais que uma IA — um especialista treinado com tudo sobre sua empresa. Produtos, horários, serviços, políticas e diferenciais: a IA responde como se fosse você. Entende cada detalhe do seu negócio e sabe conduzir o cliente da dúvida até a decisão.',
+              color: 'text-green-400'
+            },
+            {
+              title: 'Atendimento Multicanal com Voz e Imagem',
+              desc: 'Seu cliente prefere enviar áudio ou foto? A IA entende tudo. De mensagens escritas a áudios e imagens, o assistente interage naturalmente e ainda responde com voz humana, oferecendo um atendimento moderno e acessível, direto no WhatsApp.',
+              color: 'text-yellow-400'
+            },
+            {
+              title: 'Agendamentos e Vendas Automatizados 24h',
+              desc: 'Não perca mais oportunidades por falta de tempo. A IA identifica demandas, sugere serviços, fecha agendamentos e até realiza vendas automáticas. Perfeito para clínicas, consultórios, farmácias e empresas com agenda cheia ou grande volume de atendimento.',
+              color: 'text-red-400'
+            },
+            {
+              title: 'Segurança, Escalabilidade e Personalização',
+              desc: 'Tecnologia OpenAI com a cara do seu negócio. Atenda 10 ou 10 mil clientes com a mesma eficiência. Nossa solução é segura, adaptável e configurada para refletir sua marca e atender seu público com excelência.',
+              color: 'text-purple-400'
+            }
+          ].map(({ title, desc, color }, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: idx * 0.1 }}
+              viewport={{ once: true }}
+              className="dashboard-item bg-zinc-900 text-gray-200 rounded-xl p-6 shadow-lg transition duration-300"
+            >
+              <div className="flex items-center gap-4 mb-4">
+                <PiCube className={`${color} text-3xl`} />
+                <h3 className="text-xl font-semibold">{title}</h3>
               </div>
-            </div>
-            
-            <div className="absolute top-8 right-8 p-2 bg-black/30 border border-ailoop-purple/20 rounded text-xs text-ailoop-purple font-mono">
-              <div className="flex items-center space-x-1">
-                <span className="loading-text">QUANTUM.SECURE</span>
-                <span className="inline-block w-2 h-2 bg-ailoop-purple rounded-full animate-pulse"></span>
-              </div>
-            </div>
-            
-            <motion.div variants={itemVariants} className="dashboard-item">
-              <div className="icon-container">
-                <Cpu className="dashboard-icon" />
-              </div>
-              <h3 className="dashboard-title">Processamento Neural</h3>
-              <p className="text-gray-300">Inteligência artificial treinada em modelos avançados de linguagem com capacidade GPT-4.</p>
-              <div className="dashboard-stat">
-                <span>Capacidade</span>
-                <div className="stat-bar">
-                  <div className="stat-value" style={{width: '92%'}}></div>
-                </div>
-                <span>92%</span>
-              </div>
+              <p className="text-gray-400">{desc}</p>
             </motion.div>
-            
-            <motion.div variants={itemVariants} className="dashboard-item">
-              <div className="icon-container">
-                <Database className="dashboard-icon" />
-              </div>
-              <h3 className="dashboard-title">Big Data Analytics</h3>
-              <p className="text-gray-300">Processamento e análise de grandes volumes de dados para extrair insights valiosos.</p>
-              <div className="dashboard-stat">
-                <span>Eficiência</span>
-                <div className="stat-bar">
-                  <div className="stat-value bg-ailoop-purple" style={{width: '87%'}}></div>
-                </div>
-                <span>87%</span>
-              </div>
-            </motion.div>
-            
-            <motion.div variants={itemVariants} className="dashboard-item">
-              <div className="icon-container">
-                <ShieldCheck className="dashboard-icon" />
-              </div>
-              <h3 className="dashboard-title">Segurança Quântica</h3>
-              <p className="text-gray-300">Proteção avançada de dados com criptografia de última geração contra invasões.</p>
-              <div className="dashboard-stat">
-                <span>Proteção</span>
-                <div className="stat-bar">
-                  <div className="stat-value bg-ailoop-pink" style={{width: '99%'}}></div>
-                </div>
-                <span>99%</span>
-              </div>
-            </motion.div>
-            
-            <motion.div variants={itemVariants} className="dashboard-item">
-              <div className="icon-container">
-                <Code className="dashboard-icon" />
-              </div>
-              <h3 className="dashboard-title">Auto-Programação</h3>
-              <p className="text-gray-300">Sistemas capazes de escrever e otimizar seu próprio código, evoluindo constantemente.</p>
-              <div className="dashboard-stat">
-                <span>Otimização</span>
-                <div className="stat-bar">
-                  <div className="stat-value bg-ailoop-orange" style={{width: '84%'}}></div>
-                </div>
-                <span>84%</span>
-              </div>
-            </motion.div>
-            
-            <motion.div variants={itemVariants} className="dashboard-item">
-              <div className="icon-container">
-                <Zap className="dashboard-icon" />
-              </div>
-              <h3 className="dashboard-title">Performance Acelerada</h3>
-              <p className="text-gray-300">Tempo de resposta ultra-rápido através de processamento paralelo distribúido.</p>
-              <div className="dashboard-stat">
-                <span>Velocidade</span>
-                <div className="stat-bar">
-                  <div className="stat-value" style={{width: '96%'}}></div>
-                </div>
-                <span>96%</span>
-              </div>
-            </motion.div>
-            
-            <motion.div variants={itemVariants} className="dashboard-item col-span-1 md:col-span-3">
-              <div className="w-full h-10 bg-black/30 rounded-lg overflow-hidden font-mono text-xs text-ailoop-neon-blue p-2">
-                <div className="typing-text">
-                  {"{'>'"} Inicializando sistemas avançados de IA... <span className="text-green-400">OK</span><br/>
-                  {"{'>'"} Carregando modelos neurais... <span className="text-green-400">100%</span><br/>
-                  {"{'>'"} AILOOP: Pronto para revolucionar o seu negócio com IA avançada.
-                </div>
-              </div>
-            </motion.div>
-          </motion.div>
+          ))}
 
           <motion.div 
-            className="mt-16"
-            variants={fadeInUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.1 }}
-            transition={{ delay: 0.3 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            viewport={{ once: true }}
+            className="dashboard-item mt-8"
           >
-            <div className="flex flex-wrap justify-center items-center gap-x-8 gap-y-4 md:gap-x-12 lg:gap-x-16">
-              <div title="OpenAI / AI" className="h-8 w-auto text-gray-400 opacity-70 hover:opacity-100 transition-opacity duration-300">
-              </div>
-
-              <div title="Cloud Technology" className="h-8 w-auto text-gray-400 opacity-70 hover:opacity-100 transition-opacity duration-300">
-              </div>
-
-              <div title="Google Gemini / AI" className="h-8 w-auto text-gray-400 opacity-70 hover:opacity-100 transition-opacity duration-300">
-              </div>
-
-              <div title="Node.js" className="h-8 w-auto text-gray-400 opacity-70 hover:opacity-100 transition-opacity duration-300">
-              </div>
-
-              <div title="Next.js" className="h-8 w-auto text-gray-400 opacity-70 hover:opacity-100 transition-opacity duration-300">
-              </div>
-              
-              <div title="React" className="h-8 w-auto text-gray-400 opacity-70 hover:opacity-100 transition-opacity duration-300">
-              </div>
-
+            <div className="w-full h-32 bg-gray-900 rounded-lg overflow-hidden font-mono text-xs text-green-400 p-4">
+              <TypewriterText />
             </div>
           </motion.div>
-
         </div>
       </div>
-    </section>
-  );
-};
-
-export default TechPanel;
+    </div>
+  )
+}

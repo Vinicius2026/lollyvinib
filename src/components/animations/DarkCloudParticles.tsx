@@ -66,7 +66,7 @@ const DarkCloudParticles: React.FC = () => {
           value: 30,
         },
         opacity: {
-          value: { min: 0.1, max: 0.4 },
+          value: { min: 0.4, max: 0.8 },
           animation: { // Estrutura da animação pode ter mudado
             enable: true,
             speed: 0.5,

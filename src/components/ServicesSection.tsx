@@ -1,27 +1,113 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { AnimatedButton } from '@/components/animated/AnimatedButton';
-import { MessageSquare, Users, FileText, Cpu, Database, ShieldCheck } from 'lucide-react';
-import { motion } from 'framer-motion';
-import { fadeInUp } from '@/lib/motion/config';
+import { MessageSquare, Users, FileText, CheckCircle, ChevronDown } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
-// Definir variantes do container para stagger
+// Variante container (stagger)
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.15, // Atraso entre cada card
-      delayChildren: 0.1 // Atraso antes do primeiro card começar
+      staggerChildren: 0.15,
+      delayChildren: 0.1
     }
   }
 };
 
-// Variante para o item (reutilizando a existente)
-const itemVariants = fadeInUp;
+// Variante para item (fade + scale + leve slide up)
+const itemVariants = {
+  hidden: { opacity: 0, scale: 0.95, y: 20 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: 'easeOut' }
+  }
+};
+
+// Classe base para o card, incluindo transições
+const cardBaseClasses = "relative rounded-xl p-6 md:p-8 h-full flex flex-col transition-all duration-300 ease-out border focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-black";
+
+// Classes para cards normais
+const normalCardClasses = `
+  ${cardBaseClasses}
+  bg-neutral-900/60 backdrop-blur-sm
+  border-neutral-800 hover:border-neutral-700
+  focus:ring-cyan-500
+  shadow-lg hover:shadow-xl hover:shadow-black/40
+`;
+
+// Classes para o card premium
+const premiumCardClasses = `
+  ${cardBaseClasses}
+  bg-gradient-to-br from-neutral-900 via-neutral-900/80 to-[#0f122e]/70 backdrop-blur-md 
+  border-[#FFD700]/30 hover:border-[#FFD700]/60
+  focus:ring-yellow-400
+  shadow-xl hover:shadow-2xl hover:shadow-yellow-600/20
+`;
+
+// Tipagem para as opções de preço premium
+type PremiumPlanKey = '40k' | '80k' | '125k';
+
+interface PremiumPlan {
+  label: string;
+  price: string;
+  duration: string;
+  features: string[];
+  highlightedFeatures?: string[];
+}
+
+const premiumPlans: Record<PremiumPlanKey, PremiumPlan> = {
+  '40k': {
+    label: 'R$ 40.000',
+    price: '40.000',
+    duration: '2 meses',
+    features: [], // Base features are always shown
+  },
+  '80k': {
+    label: 'R$ 80.000',
+    price: '80.000',
+    duration: '4 meses',
+    features: [
+      'Desenvolvimento web 5x mais',
+      'Desenvolvimento de 03 VSL IAScale 10 a 50m',
+      'Contingência Conteiner 10 BMs Scale AILOOP'
+    ]
+  },
+  '125k': {
+    label: 'R$ 125.000',
+    price: '125.000',
+    duration: '8 meses',
+    features: [
+      'Desenvolvimento web 7x mais',
+      'Desenvolvimento de 03 VSL IAScale 10 a 50m',
+      'Contingência Conteiner 15 BMs Scale AILOOP',
+      'Branding IA Future (Rebranding) (opcional)',
+    ],
+    highlightedFeatures: [
+        'Treinamento Tecnico da sua equipe',
+        'Diretor de Brainstorming fixo no time.'
+    ]
+  }
+};
+
+const basePremiumFeatures = [
+  "Diagnóstico completo do negócio",
+  "Copywriting, automações, funil, posicionamento digital, tráfego pago (até R$ 20.000/mês)",
+  "Inclui gestor de projeto, gestor de tráfego, gerente de contas",
+  "Execução com metodologia AIDA",
+  "Desenvolvimento MVP incluso"
+];
 
 const ServicesSection: React.FC = () => {
+  // Estado para o dropdown do plano premium
+  const [selectedPlanKey, setSelectedPlanKey] = useState<PremiumPlanKey>('40k');
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const selectedPlan = premiumPlans[selectedPlanKey];
+
   return (
-    <section id="services" className="section-transition bg-gradient-to-b from-ailoop-blue to-ailoop-dark-blue py-24 px-4 relative overflow-hidden">
+    <section id="services" className="bg-ailoop-dark-blue py-24 px-4 relative overflow-hidden">
       {/* Background elements */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-1/4 left-1/5 w-64 h-64 rounded-full border border-ailoop-neon-blue/30"></div>
@@ -40,245 +126,257 @@ const ServicesSection: React.FC = () => {
       </div>
       
       <div className="container mx-auto relative z-10">
-        <h2 className="text-3xl md:text-4xl font-bold text-white text-center mb-16 relative">
-          Serviços <span className="text-gradient">Principais</span>
+        {/* Título Refinado */}
+        <h2 className="text-3xl md:text-4xl font-bold text-white text-center mb-8 relative">
+          Serviços Principais
           <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-16 h-1 bg-gradient-to-r from-ailoop-neon-blue via-ailoop-purple to-ailoop-pink"></div>
         </h2>
-        
-        {/* Aplicar motion.div ao container do grid */}
-        <motion.div 
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+
+        {/* Texto Descritivo Refinado */}
+        <motion.div
+          className="max-w-3xl mx-auto text-left mb-12 md:mb-16" // Alterado para text-left e max-w-3xl
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+        >
+          <p className="text-lg md:text-xl text-neutral-300 leading-relaxed">
+            Nossos Agentes Assistentes para WhatsApp <span className="text-neutral-100 font-medium">redefinem a humanização</span>. Com IA avançada, entregamos <span className="text-neutral-100 font-medium">99% de semelhança vocal</span> e respostas com <span className="text-neutral-100 font-medium">latência natural (~100ms)</span>, fazendo com que seus clientes sintam que estão interagindo com sua equipe. Detalhes como a simulação precisa do tempo de gravação de áudio tornam a <span className="text-neutral-100 font-medium">experiência indistinguível</span>. <span className="text-neutral-100 font-medium">Funcionalmente completo</span>, ele agenda, vende, envia informações, processa áudios e mais. Esse <span className="text-neutral-100 font-medium">equilíbrio único entre realismo e performance</span> é fruto de um desenvolvimento focado intensamente nos <span className="text-neutral-100 font-medium">mínimos detalhes da comunicação humana</span>, garantindo conversas eficazes e naturais.
+          </p>
+        </motion.div>
+
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }} // Animar quando 10% visível
+          viewport={{ once: true, amount: 0.1 }}
         >
-          {/* Mapear serviços e aplicar motion.div a cada card */}
           {/* Card 1 - IA Agente */}
-          <motion.div variants={itemVariants} className="service-card group relative">
+          <motion.div
+            variants={itemVariants}
+            className={`group ${normalCardClasses}`}
+            whileHover={{ y: -6, transition: { duration: 0.2 } }}
+          >
             <div className="mb-6">
-              <div className="w-14 h-14 bg-ailoop-neon-blue/20 rounded-full flex items-center justify-center mb-4 group-hover:animate-pulse-glow">
+              <div className="w-14 h-14 bg-ailoop-neon-blue/10 rounded-full flex items-center justify-center mb-4 border border-ailoop-neon-blue/20 group-hover:bg-ailoop-neon-blue/20 group-hover:scale-105 transition-all duration-300">
                 <MessageSquare className="w-7 h-7 text-ailoop-neon-blue" />
               </div>
               <h3 className="text-2xl font-bold text-white mb-2">IA Agente Assistente WhatsApp</h3>
             </div>
-            
-            <ul className="text-gray-300 mb-6 space-y-1">
-              <li className="flex items-start">
-                <span className="text-ailoop-neon-blue mr-2">•</span>
-                <span>Agente Humanizado</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-ailoop-neon-blue mr-2">•</span>
-                <span>Faz atendimento</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-ailoop-neon-blue mr-2">•</span>
-                <span>Envia informações com links</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-ailoop-neon-blue mr-2">•</span>
-                <span>Faz cálculos informando</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-ailoop-neon-blue mr-2">•</span>
-                <span>Compara produtos</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-ailoop-neon-blue mr-2">•</span>
-                <span>Sugestiona produtos</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-ailoop-neon-blue mr-2">•</span>
-                <span>Faz agendamentos</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-ailoop-neon-blue mr-2">•</span>
-                <span>Realiza a venda</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-ailoop-neon-blue mr-2">•</span>
-                <span>Lembra da conversa realizada</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-ailoop-neon-blue mr-2">•</span>
-                <span>Entende texto, voz e imagem</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-ailoop-neon-blue mr-2">•</span>
-                <span>Limite mensal de 10 mil mensagens</span>
-              </li>
+
+            <ul className="text-gray-300 mb-6 space-y-2 text-sm flex-grow">
+              {[
+                "Agente Humanizado", "Faz atendimento", "Envia informações com links",
+                "Faz cálculos informando", "Compara produtos", "Sugestiona produtos",
+                "Faz agendamentos", "Realiza a venda", "Lembra da conversa realizada",
+                "Entende texto, voz e imagem", "Limite mensal de 10 mil mensagens"
+              ].map((item) => (
+                <li key={item} className="flex items-start transition-transform duration-200 ease-out">
+                  <span className="text-ailoop-neon-blue mr-2 mt-1">•</span>
+                  <span>{item}</span>
+                </li>
+              ))}
             </ul>
-            
-            <div className="grid grid-cols-2 gap-2 mb-6">
-              <div className="pricing-box group">
-                <p className="text-sm text-gray-400 relative z-10">Implementação</p>
-                <p className="price-highlight text-xl text-ailoop-neon-blue relative z-10">R$1.500</p>
+
+            <hr className="border-neutral-700 my-6" />
+
+            <div className="grid grid-cols-2 gap-4 mb-6">
+              <div className="text-center p-3 bg-neutral-800/50 rounded-lg border border-neutral-700">
+                <p className="text-xs text-gray-400 uppercase tracking-wider mb-1">Implementação</p>
+                <p className="text-lg font-semibold text-ailoop-neon-blue">R$1.500</p>
               </div>
-              <div className="pricing-box group">
-                <p className="text-sm text-gray-400 relative z-10">Mensalidade</p>
-                <p className="price-highlight text-xl text-ailoop-neon-blue relative z-10">R$99</p>
+              <div className="text-center p-3 bg-neutral-800/50 rounded-lg border border-neutral-700">
+                <p className="text-xs text-gray-400 uppercase tracking-wider mb-1">Mensalidade</p>
+                <p className="text-lg font-semibold text-ailoop-neon-blue">R$99</p>
               </div>
             </div>
-            
-            <div className="flex justify-center">
-              <AnimatedButton 
-                className="bg-ailoop-purple text-white font-medium px-8 py-3 rounded-lg transition-all duration-300 ease-out hover:bg-purple-600 hover:shadow-[0_0_15px_4px] hover:shadow-purple-500/40"
-                customWhileHover={{ scale: 1.03 }}
+
+            <div className="flex justify-center mt-auto">
+              <AnimatedButton
+                className="w-full bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-medium px-8 py-3 rounded-lg transition-all duration-300 ease-out shadow-md hover:shadow-lg hover:shadow-cyan-500/30"
+                customWhileHover={{ scale: 1.03, y: -2, transition: { duration: 0.2 } }}
               >
                 Testar Agente
               </AnimatedButton>
             </div>
-            
-            {/* Fractured corner decoration */}
-            <div className="absolute -top-1 -right-1 w-8 h-8 border-t border-r border-ailoop-neon-blue/30 rounded-tr-lg"></div>
-            <div className="absolute -bottom-1 -left-1 w-8 h-8 border-b border-l border-ailoop-neon-blue/30 rounded-bl-lg"></div>
           </motion.div>
           
           {/* Card 2 - Gestão de Tráfego */}
-          <motion.div variants={itemVariants} className="service-card group">
+          <motion.div
+            variants={itemVariants}
+            className={`group ${normalCardClasses}`}
+            whileHover={{ y: -6, transition: { duration: 0.2 } }}
+          >
             <div className="mb-6">
-              <div className="w-14 h-14 bg-ailoop-purple/20 rounded-full flex items-center justify-center mb-4 group-hover:animate-pulse-glow">
+              <div className="w-14 h-14 bg-ailoop-purple/10 rounded-full flex items-center justify-center mb-4 border border-ailoop-purple/20 group-hover:bg-ailoop-purple/20 group-hover:scale-105 transition-all duration-300">
                 <Users className="w-7 h-7 text-ailoop-purple" />
               </div>
               <h3 className="text-2xl font-bold text-white mb-2">Gestão de Tráfego com IA</h3>
             </div>
-            
-            <div className="mb-6 space-y-4">
-              <div className="p-4 bg-white/5 rounded-lg border border-white/10 relative overflow-hidden group-hover:border-ailoop-purple/30">
-                <div className="absolute inset-0 bg-gradient-to-br from-ailoop-purple/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <h4 className="text-lg font-semibold text-white mb-2">Pacote até R$ 5.000/mês em anúncios</h4>
-                <p className="text-xl font-bold text-ailoop-neon-blue mb-2 price-highlight">R$ 4.000/mês</p>
-                <ul className="text-gray-300 space-y-1">
-                  <li className="flex items-start">
-                    <span className="text-ailoop-neon-blue mr-2">•</span>
-                    <span>2 perfis próprios com BMs</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-ailoop-neon-blue mr-2">•</span>
-                    <span>Páginas com possível reposição</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-ailoop-neon-blue mr-2">•</span>
-                    <span>Funil MVP</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-ailoop-neon-blue mr-2">•</span>
-                    <span>Criativos inclusos (até R$ 500)</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-ailoop-neon-blue mr-2">•</span>
-                    <span>Indicado para: white, dropshipping, negócios locais, etc.</span>
-                  </li>
+
+            <div className="mb-6 space-y-4 flex-grow">
+              <div className="p-4 bg-neutral-800/50 rounded-lg border border-neutral-700 relative overflow-hidden group-hover:border-purple-600/50 transition-colors duration-300">
+                <h4 className="text-base font-semibold text-white mb-1">Pacote até R$ 5.000/mês em anúncios</h4>
+                <p className="text-lg font-bold text-ailoop-neon-blue mb-2">R$ 4.000/mês</p>
+                <ul className="text-gray-300 space-y-1 text-xs">
+                  {[
+                    "2 perfis próprios com BMs", "Páginas com possível reposição", "Funil MVP",
+                    "Criativos inclusos (até R$ 500)", "Indicado para: white, dropshipping, negócios locais, etc."
+                  ].map(item => (
+                    <li key={item} className="flex items-start transition-transform duration-200 ease-out">
+                      <span className="text-ailoop-neon-blue mr-2 mt-0.5">•</span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
                 </ul>
               </div>
               
-              <div className="p-4 bg-white/5 rounded-lg border border-white/10 relative overflow-hidden group-hover:border-ailoop-purple/30">
-                <div className="absolute inset-0 bg-gradient-to-br from-ailoop-purple/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <h4 className="text-lg font-semibold text-white mb-2">Pacote até R$ 20.000/mês em anúncios</h4>
-                <p className="text-xl font-bold text-ailoop-purple mb-2 price-highlight">R$ 8.000/mês</p>
-                <ul className="text-gray-300 space-y-1">
-                  <li className="flex items-start">
-                    <span className="text-ailoop-purple mr-2">•</span>
-                    <span>3 perfis próprios com BMs</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-ailoop-purple mr-2">•</span>
-                    <span>Supervisor de tráfego incluso</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-ailoop-purple mr-2">•</span>
-                    <span>Criativos inclusos (até R$ 2.500)</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-ailoop-purple mr-2">•</span>
-                    <span>Suporte a nichos black e white</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-ailoop-purple mr-2">•</span>
-                    <span>Funil adaptado ou desenvolvido</span>
-                  </li>
+              <hr className="border-neutral-700/50 my-4" />
+
+              <div className="p-4 bg-neutral-800/50 rounded-lg border border-neutral-700 relative overflow-hidden group-hover:border-purple-600/50 transition-colors duration-300">
+                <h4 className="text-base font-semibold text-white mb-1">Pacote até R$ 20.000/mês em anúncios</h4>
+                <p className="text-lg font-bold text-ailoop-purple mb-2">R$ 8.000/mês</p>
+                <ul className="text-gray-300 space-y-1 text-xs">
+                  {[
+                    "3 perfis próprios com BMs", "Supervisor de tráfego incluso", "Criativos inclusos (até R$ 2.500)",
+                    "Suporte a nichos black e white", "Funil adaptado ou desenvolvido"
+                  ].map(item => (
+                    <li key={item} className="flex items-start transition-transform duration-200 ease-out">
+                      <span className="text-ailoop-purple mr-2 mt-0.5">•</span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
                 </ul>
               </div>
             </div>
-            
-            <AnimatedButton 
-              className="w-full bg-ailoop-purple text-white font-medium py-3 rounded-lg transition-all duration-300 ease-out hover:bg-purple-600 hover:shadow-[0_0_15px_4px] hover:shadow-purple-500/40"
-              customWhileHover={{ scale: 1.03 }}
-            >
-              Ver detalhes
-            </AnimatedButton>
-            
-            {/* Fractured corner decoration */}
-            <div className="absolute -top-1 -left-1 w-8 h-8 border-t border-l border-ailoop-purple/30 rounded-tl-lg"></div>
-            <div className="absolute -bottom-1 -right-1 w-8 h-8 border-b border-r border-ailoop-purple/30 rounded-br-lg"></div>
-          </motion.div>
-          
-          {/* Card 3 - Gestão One Stack */}
-          <motion.div variants={itemVariants} className="service-card group premium-card relative overflow-hidden">
-            {/* Premium background effect */}
-            <div className="absolute inset-0 bg-gradient-to-b from-black to-[#060C26] opacity-70 z-0"></div>
-            <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNGRkQ3MDAiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PHBhdGggZD0iTTM2IDM0aDR2MWgtNHptMCAyaDR2MWgtNHptMCAyaDR2MWgtNHptMCAyaDR2MmgtNHptLTIwLTJoNHYxaC00em0wIDJoNHYxaC00em0wIDJoNHYxaC00em0wIDJoNHYyaC00em0tMi0yaDF2MWgtMXptMCAyaDF2MWgtMXptMC0xNmgxdjFoLTF6bTAgMmgxdjFoLTF6TTIgNGgxdjFoLTF6bTAgMmgxdjFoLTF6bTAtNGgxdjFoLTF6IiBvcGFjaXR5PSIuNSIvPjxwYXRoIGQ9Ik0zNCAyMGg0djFoLTR6bTAgMmg0djFoLTR6bTAgMmg0djFoLTR6bTAgMmg0djFoLTR6bS0xNi04aDR2MWgtNHptMCAyaDR2MWgtNHptMCAyaDR2MWgtNHptMCAyaDR2MWgtNHptLTE2LThoNHYxaC00em0wIDJoNHYxaC00em0wIDJoNHYxaC00em0wIDJoNHYxaC00eiIvPjwvZz48L2c+PC9zdmc+')] opacity-30 z-0"></div>
-            
-            {/* Content with higher z-index */}
-            <div className="relative z-10">
-              <div className="mb-6 flex justify-between items-center">
-                <div className="w-14 h-14 bg-[#FFD700]/20 rounded-full flex items-center justify-center mb-4 group-hover:animate-pulse-glow">
-                  <FileText className="w-7 h-7 text-[#FFD700]" />
-                </div>
-                <div className="absolute top-0 right-0 bg-[#FFD700] text-black text-xs font-bold py-1 px-3 rounded-bl-lg">
-                  PREMIUM
-                </div>
-              </div>
-              
-              <h3 className="text-2xl font-bold text-white mb-2 flex items-center">
-                <span className="bg-gradient-to-r from-[#FFD700] to-[#FFA500] bg-clip-text text-transparent">Gestão One Stack</span>
-                <span className="ml-2">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="#FFD700" />
-                  </svg>
-                </span>
-              </h3>
-              
-              <p className="text-[#FFD700] text-xl font-bold mb-4 premium-price relative">
-                R$ 40.000 
-                <span className="text-sm ml-1">(2 meses)</span>
-                <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-gradient-to-r from-[#FFD700]/80 to-[#FFA500]/50"></span>
-              </p>
-              
-              <ul className="text-gray-200 space-y-3 mb-6">
-                <li className="flex items-start">
-                  <span className="text-[#FFD700] mr-2">★</span>
-                  <span>Diagnóstico completo do negócio</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-[#FFD700] mr-2">★</span>
-                  <span>Copywriting, automações, funil, posicionamento digital, tráfego pago (até R$ 20.000/mês)</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-[#FFD700] mr-2">★</span>
-                  <span>Inclui gestor de projeto, gestor de tráfego, gerente de contas</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-[#FFD700] mr-2">★</span>
-                  <span>Execução com metodologia AIDA</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-[#FFD700] mr-2">★</span>
-                  <span>Desenvolvimento MVP incluso</span>
-                </li>
-              </ul>
-              
-              <AnimatedButton 
-                className="w-full bg-gradient-to-r from-[#FFD700] to-[#FFA500] hover:from-[#FFA500] hover:to-[#FFD700] text-black font-medium py-3 rounded-lg border border-[#FFD700]/30 shadow-[0_0_15px_rgba(255,215,0,0.3)] transition-all duration-300 ease-out hover:shadow-[0_0_25px_8px] hover:shadow-yellow-400/50 hover:brightness-110"
-                customWhileHover={{ scale: 1.03, y: -3, transition: { duration: 0.2 } }}
+
+            <div className="flex justify-center mt-auto">
+              <AnimatedButton
+                className="w-full bg-gradient-to-r from-purple-600 to-indigo-700 hover:from-purple-500 hover:to-indigo-600 text-white font-medium py-3 rounded-lg transition-all duration-300 ease-out shadow-md hover:shadow-lg hover:shadow-purple-500/30"
+                customWhileHover={{ scale: 1.03, y: -2, transition: { duration: 0.2 } }}
               >
                 Ver detalhes
               </AnimatedButton>
-              
-              {/* Premium corner decorations */}
-              <div className="absolute -top-1 -right-1 w-8 h-8 border-t border-r border-[#FFD700]/30 rounded-tr-lg"></div>
-              <div className="absolute -bottom-1 -left-1 w-8 h-8 border-b border-l border-[#FFD700]/30 rounded-bl-lg"></div>
+            </div>
+          </motion.div>
+          
+          {/* Card 3 - Gestão One Stack (Premium) */}
+          <motion.div
+            variants={itemVariants}
+            className={`group ${premiumCardClasses}`}
+            whileHover={{ y: -6, transition: { duration: 0.2 } }}
+          >
+            <div className="relative z-10 flex flex-col h-full">
+              <div className="mb-6 flex justify-between items-start">
+                <div className="w-14 h-14 bg-[#FFD700]/10 rounded-full flex items-center justify-center mb-4 border border-[#FFD700]/20 group-hover:bg-[#FFD700]/20 group-hover:scale-105 transition-all duration-300">
+                  <FileText className="w-7 h-7 text-[#FFD700]" />
+                </div>
+                <div className="bg-[#FFD700] text-black text-xs font-bold py-1 px-3 rounded-bl-lg rounded-tr-lg shadow-md animate-subtle-pulse">
+                  PREMIUM
+                </div>
+              </div>
+
+              <h3 className="text-2xl font-bold text-white mb-1 flex items-center">
+                <span className="bg-gradient-to-r from-[#FFED87] to-[#FFB800] bg-clip-text text-transparent">Gestão One Stack</span>
+                <span className="ml-2 text-[#FFD700] flex">★★★★★</span>
+              </h3>
+
+              {/* Dropdown de Preço */}
+              <div className="relative mb-4">
+                <button
+                  onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                  className="w-full text-left p-2 rounded-md bg-neutral-800/60 border border-yellow-600/50 hover:bg-neutral-700/60 focus:outline-none focus:ring-2 focus:ring-yellow-500 transition-colors duration-200 flex justify-between items-center"
+                >
+                  <p className="text-[#FFD700] text-lg font-bold">
+                    R$ {selectedPlan.price}
+                    <span className="text-sm text-yellow-300/80 ml-1">({selectedPlan.duration})</span>
+                  </p>
+                  <ChevronDown
+                     className={`w-5 h-5 text-yellow-400 transition-transform duration-200 ${isDropdownOpen ? 'transform rotate-180' : ''}`}/>
+                </button>
+
+                <AnimatePresence>
+                  {isDropdownOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      transition={{ duration: 0.2 }}
+                      className="absolute top-full left-0 right-0 mt-1 bg-neutral-800 border border-neutral-700 rounded-md shadow-lg z-20 overflow-hidden"
+                    >
+                      {(Object.keys(premiumPlans) as PremiumPlanKey[]).map((key) => (
+                        <button
+                          key={key}
+                          onClick={() => {
+                            setSelectedPlanKey(key);
+                            setIsDropdownOpen(false);
+                          }}
+                          className={`w-full text-left px-4 py-2 text-sm ${selectedPlanKey === key ? 'bg-yellow-600/30 text-white' : 'text-neutral-300 hover:bg-neutral-700'} transition-colors duration-150`}
+                        >
+                          {premiumPlans[key].label} ({premiumPlans[key].duration})
+                        </button>
+                      ))}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+              {/* Fim Dropdown */} 
+
+              <hr className="border-[#FFD700]/20 my-6" />
+
+              <ul className="text-gray-200 space-y-2 text-sm mb-6 flex-grow">
+                {/* Features Base */}
+                {basePremiumFeatures.map(item => (
+                  <li key={item} className="flex items-start transition-transform duration-200 ease-out">
+                    <span className="text-[#FFD700] mr-2 mt-1">★</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+
+                {/* Features Adicionais Animadas */}
+                <AnimatePresence>
+                  {selectedPlan.features.map((item) => (
+                    <motion.li
+                      key={`${selectedPlanKey}-${item}`}
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: -10 }}
+                      transition={{ duration: 0.3, delay: 0.1 }}
+                      className="flex items-start transition-transform duration-200 ease-out"
+                    >
+                      <CheckCircle className="w-4 h-4 text-green-500 mr-2 mt-1 flex-shrink-0" />
+                      <span>{item}</span>
+                    </motion.li>
+                  ))}
+                </AnimatePresence>
+                
+                {/* Features Destacadas */}
+                <AnimatePresence>
+                  {selectedPlan.highlightedFeatures?.map((item) => (
+                    <motion.li
+                      key={`${selectedPlanKey}-hl-${item}`}
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: -10 }}
+                      transition={{ duration: 0.3, delay: 0.2 }}
+                      className="flex items-start transition-transform duration-200 ease-out text-yellow-400 font-semibold"
+                    >
+                      <CheckCircle className="w-4 h-4 text-yellow-500 mr-2 mt-1 flex-shrink-0" />
+                      <span>{item}</span>
+                    </motion.li>
+                  ))}
+                </AnimatePresence>
+              </ul>
+
+              <div className="flex justify-center mt-auto">
+                <AnimatedButton
+                  className="w-full bg-gradient-to-r from-[#FFD700] to-[#FFA500] hover:from-[#FFA500] hover:to-[#FFB800] text-black font-semibold py-3 rounded-lg border border-yellow-600/50 shadow-lg hover:shadow-xl hover:shadow-yellow-400/40 transition-all duration-300 ease-out hover:brightness-110"
+                  customWhileHover={{ scale: 1.03, y: -2, transition: { duration: 0.2 } }}
+                >
+                  Ver detalhes
+                </AnimatedButton>
+              </div>
             </div>
           </motion.div>
         </motion.div>

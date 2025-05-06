@@ -198,6 +198,25 @@ A estrutura principal do projeto dentro do diretório `src` é organizada da seg
 - [ ] Adicionar mais animações de transição entre páginas
 - [ ] Desenvolver componentes reutilizáveis para elementos comuns
 
+## Conceitos de Design: Plano de Fundo do Quiz Interativo
+
+A seguir, são apresentados três conceitos para um plano de fundo animado e sofisticado para o quiz interativo da AILOOP, visando alinhar-se com a estética de alto contraste, acentos neon e o tema futurista tecnológico do projeto.
+
+### 1. Fluxo Neural Luminescente (Foco em R3F)
+*   **Metáfora Visual:** Representa uma vasta e dinâmica rede neural, simbolizando o fluxo de informação, aprendizado e o desvendar de potencial, conectado à "Caixa Mágica AILOOP".
+*   **Estilo de Animação:** Cena 3D com uma rede plexus intrincada de filamentos finos e nós luminosos (cores neon da AILOOP: azul, ciano, roxo). Partículas de energia percorrem a rede. Movimento lento, etéreo, com pulsos de luz ocasionais. Efeitos de pós-processamento como `Bloom`, `Depth of Field` sutil e `Film Grain` leve.
+*   **Atmosfera:** Tecnológico avançado, imersivo, profundo, intrigante, focado no potencial da IA.
+
+### 2. Aurora Digital Abstrata (Foco em Framer Motion)
+*   **Metáfora Visual:** Traduz a beleza fluida das auroras boreais para uma linguagem digital abstrata, representando criatividade, flexibilidade e o espectro de possibilidades da IA.
+*   **Estilo de Animação:** Múltiplas camadas 2D com `mesh gradient` dinâmico e escuro no fundo. "Véus" de luz neon (SVG abstratos e fluidos) se movem lentamente com efeito de paralaxe. Partículas de luz sutis adicionam textura. Movimento suave e orgânico.
+*   **Atmosfera:** Elegância tecnológica, modernidade, inspiração, visualmente poético e calmo.
+
+### 3. Horizonte de Dados Cristalinos (Híbrido: R3F Sutil + Framer Motion)
+*   **Metáfora Visual:** Paisagem digital minimalista e futurista com estruturas cristalinas, simbolizando clareza, precisão e os novos horizontes abertos pela IA.
+*   **Estilo de Animação:** Elementos 3D sutis no fundo (névoa volumétrica escura com brilhos neon internos, linhas geométricas etéreas). Camadas 2D principais (Framer Motion) com grandes formas geométricas translúcidas com bordas neon nítidas, movendo-se e rotacionando lentamente. Textura de ruído digital sutil.
+*   **Atmosfera:** Futurista elegante, preciso, inteligência calma e organizada, clareza.
+
 ## Notas de Implementação
 
 Para manter a consistência no desenvolvimento, seguir estas diretrizes:
@@ -277,3 +296,23 @@ Podemos começar criando um componente `AnimatedButton` que encapsula um botão 
     *   **Seção "WhyUsSection":**
         *   Comportamento de Scroll: Removido container com `overflow-y-scroll` e `scroll-snap`. Itens agora fluem normalmente na página.
         *   Contraste de Texto: Removida lógica de mudança de cor baseada em centralização. Título e descrição dos itens agora usam cores claras (`text-white`, `text-neutral-300`) por padrão para melhor legibilidade. 
+
+*   **Reestruturação de Navegação e Conteúdo (YYYY-MM-DD - Data da Interação Atual):**
+    *   **Refatoração da Seção de Serviços (`ServicesSection`):
+        *   Removida da página inicial (`src/pages/Index.tsx`).
+        *   Criada nova página dedicada `src/pages/ServicesPage.tsx` contendo `Navbar`, a `ServicesSection` e `Footer`.
+        *   Adicionada rota `/servicos-fixos` em `src/App.tsx` para a `ServicesPage`.
+    *   **Atualizações no Componente de Navegação (`Navbar.tsx`):
+        *   Adicionado novo item de menu principal "Serviços".
+        *   **Desktop:** O item "Serviços" agora funciona como um botão que ativa um submenu dropdown (toggle onClick, fecha ao clicar fora ou em outra navegação).
+            *   Submenu animado com `Framer Motion`.
+            *   Opções do submenu: "Preços Fixos" (navega para `/servicos-fixos`) e "Preços Hrs" (placeholder, link para `/#`).
+        *   **Mobile:** No menu expandido, foram adicionados os links "Preços Fixos" e "Preços Hrs" sob um título de seção "Serviços".
+        *   Melhorada a animação de transição do menu mobile (altura e opacidade).
+    *   **Modificações de Conteúdo na Página Inicial (`src/pages/Index.tsx`):
+        *   `AboutSection`: Removida da renderização da página inicial.
+        *   `ShowcaseSection`: Re-adicionada à renderização, posicionada abaixo da `HeroSection`, para exibir o modelo 3D dos "gatos cyberpunk".
+    *   **Melhorias no Componente `InteractiveQuiz.tsx`:
+        *   Corrigida a animação de entrada dos painéis de opção (botões) para garantir que se tornem visíveis após a animação do container pai.
+        *   Adicionada a propriedade `description` à segunda pergunta do quiz com o texto: "Selecione todas as opções que se aplicam. (Multiplaescolha)".
+        *   Resolvido conflito de tipo com `MotionStyle` nas variantes de animação (`panelVariants`) ao remover a sub-propriedade `transition` das definições de `hover`, `selected` e `unselected`, permitindo que a Framer Motion gerencie as transições corretamente. 

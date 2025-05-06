@@ -49,6 +49,7 @@ const questions: Question[] = [
       'Ele falaria preços ou somas.',
     ],
     type: 'multiple',
+    description: 'Selecione todas as opções que se aplicam. (Multiplaescolha)',
   },
   {
     id: 3,
@@ -241,21 +242,18 @@ const InteractiveQuiz: React.FC = () => {
       scale: 1.03,
       borderColor: 'rgba(168, 85, 247, 0.8)', // purple-500 com alpha
       boxShadow: '0 0 20px rgba(168, 85, 247, 0.4)',
-      transition: { duration: 0.2 }
     },
     selected: {
       borderColor: 'rgba(168, 85, 247, 1)',
       backgroundColor: 'rgba(168, 85, 247, 0.15)',
       scale: 1.03,
       boxShadow: '0 0 25px rgba(168, 85, 247, 0.6)',
-      transition: { duration: 0.2 }
     },
     unselected: {
       borderColor: 'rgba(64, 64, 64, 0.5)', // neutral-700 com alpha
       backgroundColor: 'rgba(40, 40, 40, 0.3)', // Fundo mais escuro e translúcido
       scale: 1,
       boxShadow: 'none',
-      transition: { duration: 0.2 }
     },
     // Adiciona variantes hidden/visible para staggerChildren
     hidden: { opacity: 0, y: 15 },

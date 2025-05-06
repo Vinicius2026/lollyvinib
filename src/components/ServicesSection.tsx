@@ -143,20 +143,20 @@ const ServicesSection: React.FC = () => {
       
       <div className="container mx-auto relative z-10">
         {/* Título Refinado */}
-        <h2 className="text-3xl md:text-4xl font-bold text-white text-center mb-8 relative">
+        <h2 className="text-3xl md:text-4xl font-bold text-white text-center mb-12 tracking-wider relative">
           Serviços Principais
           <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-16 h-1 bg-gradient-to-r from-ailoop-neon-blue via-ailoop-purple to-ailoop-pink"></div>
         </h2>
 
         {/* Texto Descritivo Refinado */}
         <motion.div
-          className="max-w-3xl mx-auto text-left mb-12 md:mb-16" // Alterado para text-left e max-w-3xl
+          className="max-w-3xl mx-auto text-left mb-12 md:mb-16"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.5, delay: 0.1 }}
         >
-          <p className="text-lg md:text-xl text-neutral-300 leading-relaxed">
+          <p className="text-lg md:text-xl text-neutral-200 leading-loose">
             Nossos Agentes Assistentes para WhatsApp <span className="text-neutral-100 font-medium">redefinem a humanização</span>. Com IA avançada, entregamos <span className="text-neutral-100 font-medium">99% de semelhança vocal</span> e respostas com <span className="text-neutral-100 font-medium">latência natural (~100ms)</span>, fazendo com que seus clientes sintam que estão interagindo com sua equipe. Detalhes como a simulação precisa do tempo de gravação de áudio tornam a <span className="text-neutral-100 font-medium">experiência indistinguível</span>. <span className="text-neutral-100 font-medium">Funcionalmente completo</span>, ele agenda, vende, envia informações, processa áudios e mais. Esse <span className="text-neutral-100 font-medium">equilíbrio único entre realismo e performance</span> é fruto de um desenvolvimento focado intensamente nos <span className="text-neutral-100 font-medium">mínimos detalhes da comunicação humana</span>, garantindo conversas eficazes e naturais.
           </p>
         </motion.div>

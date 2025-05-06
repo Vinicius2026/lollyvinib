@@ -95,6 +95,12 @@ Considerando a stack React/Tailwind, as seguintes bibliotecas podem ser avaliada
   - Implementado design similar ao banner "WHATSAPP ATENDIMENTO HUMANIZADO AI∞LAB"
   - Melhorada a apresentação visual dos diferenciais
   - Adicionados efeitos de hover e animações nos cards
+- ✅ Redesenhada a seção `WhyUsSection.tsx` (Continuação):
+  - Layout refeito de grid para scroll vertical com snap (`scroll-snap-type-y-mandatory`).
+  - Implementada detecção de centralização de item usando `IntersectionObserver`.
+  - Adicionadas animações (via `Framer Motion` e `useEffect`) para texto (opacidade, cor, posição, brilho) e ícone (borda, fundo, escala, cor, sombra) quando o item está centralizado.
+  - Ícones de placeholder substituídos por ícones `lucide-react`.
+  - Ajustada a cor do brilho (highlightColor) do item "Resultados rápidos e escaláveis" de laranja/âmbar para roxo.
 - ✅ Adicionado efeito de brilho (glow) aos ícones na WhyUsSection.
 - ✅ Adicionada subseção "Para quem é o Chat Agente?" na CTASection com lista de públicos estilizada.
 - ✅ Inserida estrutura (placeholders) para faixa de logos de tecnologia na TechPanel.
@@ -211,6 +217,7 @@ Podemos começar criando um componente `AnimatedButton` que encapsula um botão 
         *   Removidas bordas/fundos extras do container da imagem.
         *   Container ajustado para seguir a proporção da imagem (removido `aspect-square`), eliminando barras pretas.
         *   Adicionado efeito de brilho roxo (`box-shadow`) animado (pulsante) posicionado *atrás* da imagem usando `motion.div`.
+        *   ✅ Imagem substituída por `/image_grande/Ialoop_ia_dev_developement.jpg`.
 *   **Ajustes Visuais em `WhyUsSection.tsx`:**
     *   Adicionada imagem com fundo transparente (`Flux_...png`) abaixo da grid de features.
     *   Aplicado efeito de brilho azul neon (`drop-shadow`) animado (pulsante) à imagem Flux.

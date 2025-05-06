@@ -91,6 +91,7 @@ module.exports = {
         sans: ["Inter", "Montserrat", "sans-serif"],
         mono: ["'VT323'", "'Source Code Pro'", "monospace"],
         display: ["'Cormorant Garamond'", "serif"],
+        orbitron: ["Orbitron", "sans-serif"],
       },
     },
   },

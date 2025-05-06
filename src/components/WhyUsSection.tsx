@@ -1,103 +1,181 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Shapes } from 'lucide-react'; // Re-adicionar importação de ícone
-// import { Brain, Sparkles } from 'lucide-react'; // Removido - não mais usado
-// import { fadeInUp } from '@/lib/motion/config'; // Removido - lógica de animação será diferente
+import React, { useRef, useState, useEffect } from 'react';
+import { motion, useAnimation } from 'framer-motion'; // Removed unused scroll/transform hooks
+import { Shapes, Zap, Users, TrendingUp, Eye } from 'lucide-react';
 
-// Dados dos diferenciais em Português
-const differentials = [
-  {
-    id: 'ia-verdade',
-    icon: 'ICON_PLACEHOLDER_1', // Placeholder para o futuro ícone redesenhado
-    title: 'IA de verdade',
-    description: 'Sem robozinho travado. Nossa IA entende contexto, conversa naturalmente e toma decisões inteligentes.',
-  },
-  {
-    id: 'atendimento-personalizado',
-    icon: 'ICON_PLACEHOLDER_2',
-    title: 'Atendimento personalizado',
-    description: 'Cada negócio é único. Criamos soluções sob medida para suas necessidades específicas.',
-  },
-  {
-    id: 'equipe-experiente',
-    icon: 'ICON_PLACEHOLDER_3',
-    title: 'Equipe com experiência real',
-    description: 'Profissionais que já gerenciaram milhões em investimentos e sabem como entregar resultados.',
-  },
-  {
-    id: 'resultados-rapidos',
-    icon: 'ICON_PLACEHOLDER_4',
-    title: 'Resultados rápidos e escaláveis',
-    description: 'Nossa metodologia permite implementar soluções rapidamente e escalar conforme seu negócio cresce.',
-  },
-  {
-    id: 'transparencia-estrutura',
-    icon: 'ICON_PLACEHOLDER_5',
-    title: 'Transparência e estrutura própria',
-    description: 'Acesso transparente às métricas e resultados. Tecnologia proprietária para máximo desempenho.',
-  },
+// --- Dados dos Diferenciais (mantidos) ---
+const differentialsData = [
+    {
+        id: 'ia-verdade',
+        icon: Shapes,
+        title: 'IA de verdade',
+        description: 'Sem robozinho travado. Nossa IA entende contexto, conversa naturalmente e toma decisões inteligentes.',
+        color: 'text-ailoop-blue',
+        highlightColor: 'text-ailoop-neon-blue', // Cor para o glow/highlight
+        shadowColor: 'shadow-ailoop-neon-blue/30', // Cor para a sombra/glow do ícone
+    },
+    {
+        id: 'atendimento-personalizado',
+        icon: Users,
+        title: 'Atendimento personalizado',
+        description: 'Cada negócio é único. Criamos soluções sob medida para suas necessidades específicas.',
+        color: 'text-green-400',
+        highlightColor: 'text-emerald-300',
+        shadowColor: 'shadow-emerald-400/30',
+    },
+    {
+        id: 'equipe-experiente',
+        icon: Zap,
+        title: 'Equipe com experiência real',
+        description: 'Profissionais que já gerenciaram milhões em investimentos e sabem como entregar resultados.',
+        color: 'text-purple-400',
+        highlightColor: 'text-violet-300',
+        shadowColor: 'shadow-violet-400/30',
+    },
+    {
+        id: 'resultados-rapidos',
+        icon: TrendingUp,
+        title: 'Resultados rápidos e escaláveis',
+        description: 'Nossa metodologia permite implementar soluções rapidamente e escalar conforme seu negócio cresce.',
+        color: 'text-purple-400',
+        highlightColor: 'text-violet-300',
+        shadowColor: 'shadow-violet-400/30',
+    },
+    {
+        id: 'transparencia-estrutura',
+        icon: Eye,
+        title: 'Transparência e estrutura própria',
+        description: 'Acesso transparente às métricas e resultados. Tecnologia proprietária para máximo desempenho.',
+        color: 'text-sky-400',
+        highlightColor: 'text-cyan-300',
+        shadowColor: 'shadow-cyan-400/30',
+    },
 ];
 
-const WhyUsSection: React.FC = () => {
-  // Lógica de scroll e estado ativo virá aqui depois
+// --- Componente do Item Diferencial (Adaptado) ---
+interface DifferentialItemProps {
+  item: typeof differentialsData[0];
+  // Removidos: index, totalItems, scrollYProgress, setActiveId
+}
+
+const DifferentialItem: React.FC<DifferentialItemProps> = ({ item }) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const [isCentered, setIsCentered] = useState(false);
+  const controls = useAnimation(); // Animation controls for text
+
+  // Observador para detectar quando o item está no centro
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsCentered(entry.isIntersecting);
+      },
+      {
+        root: null, // viewport
+        rootMargin: "-40% 0px -40% 0px", // Área de ativação no centro vertical
+        threshold: 0.5 // Pelo menos 50% visível na área de ativação
+      }
+    );
+
+    const currentRef = ref.current; // Capture ref value
+    if (currentRef) {
+      observer.observe(currentRef);
+    }
+
+    return () => {
+      if (currentRef) {
+        observer.unobserve(currentRef);
+      }
+    };
+  }, [ref]); // Dependency only on ref
+
+  // Animar texto baseado no estado isCentered
+  useEffect(() => {
+    controls.start({
+      opacity: isCentered ? 1 : 0.6, // Mais opaco quando centrado
+      y: isCentered ? 0 : 15, // Sobe ligeiramente quando centrado
+      color: isCentered ? '#FFFFFF' : '#A0AEC0', // Branco brilhante vs cinza (Tailwind gray-400)
+      textShadow: isCentered ? `0 0 8px theme(colors.${item.highlightColor.replace('text-','')}/0.6)` : 'none', // Efeito Glow
+      transition: { duration: 0.5, ease: 'easeOut' }
+    });
+  }, [isCentered, controls, item.highlightColor]);
+
+
+  const IconComponent = item.icon;
 
   return (
-    // Container principal da seção com altura significativa para permitir rolagem
-    <section 
-      id="why-us" 
-      className="relative py-24 px-4 bg-[#05050A] text-white overflow-hidden" // Fundo escuro
-      style={{ minHeight: '300vh' }} // Garante espaço para a rolagem da narrativa
+    <motion.div
+      ref={ref}
+      // --- Estilos para Scroll Snapping ---
+      className="differential-item min-h-screen flex flex-col items-center justify-center text-center px-4 scroll-snap-align-center"
+      // --- Animação de Entrada Simples ---
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: false, amount: 0.3 }} // Anima ao entrar 30% na tela
+      transition={{ duration: 0.6 }}
     >
-      {/* Placeholder Fixo para a Sinapse AILOOP */}
-      <motion.div 
-        className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-40 h-40 bg-gradient-to-br from-ailoop-blue to-ailoop-neon-blue rounded-full z-10 flex items-center justify-center text-black shadow-xl"
-        // Animações de entrada e reações virão aqui depois
-        initial={{ opacity: 0, scale: 0.5 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
+      {/* Ícone com Efeitos */}
+      <motion.div
+        className={`mb-6 inline-flex items-center justify-center p-4 border rounded-full transition-all duration-400 ease-out transform-gpu
+                   ${isCentered
+                      ? `border-${item.color}/50 bg-black/50 shadow-lg ${item.shadowColor} scale-110` // Mais destaque quando centrado
+                      : 'border-gray-700/50 bg-black/30 scale-100'}`}
+        whileHover={{ scale: isCentered ? 1.15 : 1.05, transition: { type: 'spring', stiffness: 300 } }}
       >
-        <span className="text-sm font-bold">Sinapse (Placeholder)</span>
+        {/* Cor do ícone também pode mudar */}
+        <IconComponent size={28} className={`${isCentered ? item.highlightColor : item.color} transition-colors duration-400`} />
       </motion.div>
 
-      {/* Container para o conteúdo sequencial dos diferenciais */}
-      <div className="relative z-0 max-w-2xl mx-auto flex flex-col items-center pt-96"> {/* pt alto para dar espaço inicial */}
-        {differentials.map((item, index) => (
-          <motion.div
+      {/* Título Animado */}
+      <motion.h3
+        className="text-3xl md:text-4xl font-semibold mb-4 max-w-xl" // Max-width para quebrar linha se necessário
+        animate={controls} // Controlado pelo useEffect
+      >
+        {item.title}
+      </motion.h3>
+
+      {/* Descrição Animada */}
+      <motion.p
+        className="text-lg max-w-md mx-auto"
+        animate={controls} // Controlado pelo useEffect (mesmas animações)
+        style={{ transitionDelay: '0.1s' }} // Pequeno delay na descrição
+      >
+        {item.description}
+      </motion.p>
+    </motion.div>
+  );
+};
+
+
+// --- Componente Principal da Seção (Adaptado) ---
+const WhyUsSection: React.FC = () => {
+    // Remover sectionRef, activeId, useScroll, useTransform e lógica da Sinapse
+
+  return (
+    // Container principal da seção - altura mínima, mas permite crescimento
+    <section
+      id="why-us"
+      className="relative bg-[#05050A] text-white overflow-hidden" // Mantém o fundo
+      // A altura agora é controlada pelo container de scroll snap
+    >
+      {/* ----- Container com Scroll Snap ----- */}
+      <div
+        className="h-screen overflow-y-scroll scroll-snap-type-y-mandatory" // Altura da viewport, scroll vertical, snapping obrigatório
+      >
+        {/* Adiciona um espaçador inicial se necessário para alinhar o primeiro item corretamente */}
+         {/* <div className="h-[10vh] scroll-snap-align-start"></div> */}
+
+        {differentialsData.map((item) => (
+          <DifferentialItem
             key={item.id}
-            className="differential-item text-center mb-[80vh] last:mb-0" // Espaçamento vertical grande entre itens
-            // Animações de entrada/saída e estado ativo/inativo virão aqui
-            initial={{ opacity: 0.3, y: 50 }} // Inicia semi-transparente e deslocado
-            whileInView={{ opacity: 1, y: 0 }} // Fica opaco e na posição ao entrar na viewport
-            viewport={{ margin: "-40% 0px -40% 0px" }} // Define a área de ativação (centro da tela)
-            transition={{ duration: 0.6 }}
-          >
-            {/* Ícone (Placeholder) - Agora usando Lucide Icon */}
-            <div className="mb-6 inline-flex items-center justify-center p-4 border border-ailoop-blue/30 rounded-full bg-black/30">
-              {/* Futuro componente de ícone animado aqui */}
-              {/* <span className="text-xs text-ailoop-neon-blue">{item.icon}</span> */}
-              <Shapes size={24} className="text-ailoop-neon-blue" />
-            </div>
-            
-            {/* Título */}
-            <h3 className="text-3xl font-semibold mb-4 text-brand-white">
-              {item.title}
-            </h3>
-            
-            {/* Descrição */}
-            <p className="text-lg text-gray-300 max-w-md mx-auto">
-              {item.description}
-            </p>
-          </motion.div>
+            item={item}
+            // Não precisa mais passar props complexas
+          />
         ))}
+
+        {/* Adiciona um espaçador final se necessário */}
+        {/* <div className="h-[10vh] scroll-snap-align-end"></div> */}
       </div>
-
-      {/* Remover elementos antigos */}
-      {/* 
-        // ... Código antigo da barra flutuante, grid, imagem e decorativos foi removido ...
-      */}
-
     </section>
   );
 };
 
-export default WhyUsSection; // Garantir que a exportação default está presente
+export default WhyUsSection;

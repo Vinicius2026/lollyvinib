@@ -236,3 +236,23 @@ Podemos começar criando um componente `AnimatedButton` que encapsula um botão 
     *   Aplicar animação de brilho laranja sincronizada aos títulos dos cards em `TechPanel.tsx`.
     *   Aplicar animação de máquina de escrever (typewriter) ao título principal "ZAP IA VOZ + TEXTO" em `TechPanel.tsx`.
     *   Atualizar este log no `Briefing_Ailoop.md` (feito). 
+
+*   **Ajustes nos Cards de Serviço (`ServicesSection.tsx`) e `WhyUsSection.tsx` (2024-07-27):**
+    *   **Card "Gestão One Stack":**
+        *   Fundo alterado dinamicamente: R$ 80k (gradiente roxo sutil), R$ 125k (gradiente "preto brilhante" - cinza escuro). Padrão R$ 40k (dourado/azul escuro).
+        *   Layout: Estrelas movidas para cima do título.
+        *   Estrelas: Efeito de brilho pulsante (amarelo), tamanho aumentado (`text-2xl`) e espaçamento aumentado (`tracking-wider`).
+        *   Indicadores de Valor: Adicionados ícones `CheckCircle` ao lado das estrelas, condicionalmente: +3 verdes (80k, 125k), +2 dourados (125k). Com animação de entrada/saída.
+        *   Dropdown de Preço:
+            *   Texto das opções não selecionadas agora tem cores temáticas (40k: amarelo, 80k: roxo, 125k: cinza claro/branco) e efeito "brilhante" (text-shadow) para 40k/80k.
+            *   Texto do preço principal (visível fora do dropdown), duração e seta agora mudam de cor (amarelo, roxo ou cinza claro) para combinar com o plano selecionado.
+    *   **Card "IA Agente Assistente WhatsApp":**
+        *   Botão "Testar Agente": Reestilizado com efeito vidro (glassmorphism) azul/verde transparente.
+        *   Botão "Comprar Agora": Adicionado abaixo do "Testar Agente", com efeito vidro azul/teal.
+        *   Texto Adicional: Inserido parágrafo descritivo ("Seu Whatsapp dando uma atenção...") abaixo da lista de features, com estilo destacado.
+    *   **Card "Gestão de Tráfego com IA":**
+        *   Botões "Comprar Agora": Adicionado um botão (estilo vidro azul/teal) dentro de cada pacote de preço (R$ 4k/mês, R$ 8k/mês).
+        *   Botão Inferior: Substituído "Ver detalhes" por "Chamar Humano" (estilo vidro roxo).
+    *   **Seção "WhyUsSection":**
+        *   Comportamento de Scroll: Removido container com `overflow-y-scroll` e `scroll-snap`. Itens agora fluem normalmente na página.
+        *   Contraste de Texto: Removida lógica de mudança de cor baseada em centralização. Título e descrição dos itens agora usam cores claras (`text-white`, `text-neutral-300`) por padrão para melhor legibilidade. 

@@ -59,83 +59,57 @@ interface DifferentialItemProps {
 
 const DifferentialItem: React.FC<DifferentialItemProps> = ({ item }) => {
   const ref = useRef<HTMLDivElement>(null);
-  const [isCentered, setIsCentered] = useState(false);
   const controls = useAnimation(); // Animation controls for text
-
-  // Observador para detectar quando o item está no centro
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsCentered(entry.isIntersecting);
-      },
-      {
-        root: null, // viewport
-        rootMargin: "-40% 0px -40% 0px", // Área de ativação no centro vertical
-        threshold: 0.5 // Pelo menos 50% visível na área de ativação
-      }
-    );
-
-    const currentRef = ref.current; // Capture ref value
-    if (currentRef) {
-      observer.observe(currentRef);
-    }
-
-    return () => {
-      if (currentRef) {
-        observer.unobserve(currentRef);
-      }
-    };
-  }, [ref]); // Dependency only on ref
 
   // Animar texto baseado no estado isCentered
   useEffect(() => {
     controls.start({
-      opacity: isCentered ? 1 : 0.6, // Mais opaco quando centrado
-      y: isCentered ? 0 : 15, // Sobe ligeiramente quando centrado
-      color: isCentered ? '#FFFFFF' : '#A0AEC0', // Branco brilhante vs cinza (Tailwind gray-400)
-      textShadow: isCentered ? `0 0 8px theme(colors.${item.highlightColor.replace('text-','')}/0.6)` : 'none', // Efeito Glow
+      // Manter apenas animação de opacidade e Y (entrada suave)
+      opacity: 1, 
+      y: 0, 
+      // Remover animação de cor e textShadow baseada em isCentered
+      // color: isCentered ? '#FFFFFF' : '#A0AEC0', 
+      // textShadow: isCentered ? `0 0 8px theme(colors.${item.highlightColor.replace('text-','')}/0.6)` : 'none',
       transition: { duration: 0.5, ease: 'easeOut' }
     });
-  }, [isCentered, controls, item.highlightColor]);
+  }, [controls]); // Remover isCentered das dependências
 
 
   const IconComponent = item.icon;
 
   return (
     <motion.div
-      ref={ref}
-      // --- Estilos para Scroll Snapping ---
-      className="differential-item min-h-screen flex flex-col items-center justify-center text-center px-4 scroll-snap-align-center"
+      ref={ref} // Ref ainda pode ser útil para whileInView
+      // Removido: scroll-snap-align-center. Adicionado padding vertical
+      className="differential-item min-h-[70vh] flex flex-col items-center justify-center text-center px-4 py-16 md:py-24"
       // --- Animação de Entrada Simples ---
-      initial={{ opacity: 0 }}
+      initial={{ opacity: 0, y: 30 }} // Começa um pouco abaixo
       whileInView={{ opacity: 1 }}
       viewport={{ once: false, amount: 0.3 }} // Anima ao entrar 30% na tela
       transition={{ duration: 0.6 }}
     >
-      {/* Ícone com Efeitos */}
+      {/* Ícone com Efeitos - simplificado, sem estado isCentered */}
       <motion.div
         className={`mb-6 inline-flex items-center justify-center p-4 border rounded-full transition-all duration-400 ease-out transform-gpu
-                   ${isCentered
-                      ? `border-${item.color}/50 bg-black/50 shadow-lg ${item.shadowColor} scale-110` // Mais destaque quando centrado
-                      : 'border-gray-700/50 bg-black/30 scale-100'}`}
-        whileHover={{ scale: isCentered ? 1.15 : 1.05, transition: { type: 'spring', stiffness: 300 } }}
+                   border-gray-700/50 bg-black/30 shadow-lg ${item.shadowColor}`}
+        whileHover={{ scale: 1.08, transition: { type: 'spring', stiffness: 300 } }}
       >
-        {/* Cor do ícone também pode mudar */}
-        <IconComponent size={28} className={`${isCentered ? item.highlightColor : item.color} transition-colors duration-400`} />
+        {/* Cor do ícone baseada no item */}
+        <IconComponent size={28} className={`${item.highlightColor} transition-colors duration-400`} />
       </motion.div>
 
-      {/* Título Animado */}
+      {/* Título Animado - Cor clara padrão */}
       <motion.h3
-        className="text-3xl md:text-4xl font-semibold mb-4 max-w-xl" // Max-width para quebrar linha se necessário
-        animate={controls} // Controlado pelo useEffect
+        className="text-3xl md:text-4xl font-semibold mb-4 max-w-xl text-white" // Cor branca padrão
+        animate={controls} // Controlado pelo useEffect (apenas opacity/y)
       >
         {item.title}
       </motion.h3>
 
-      {/* Descrição Animada */}
+      {/* Descrição Animada - Cor clara padrão */}
       <motion.p
-        className="text-lg max-w-md mx-auto"
-        animate={controls} // Controlado pelo useEffect (mesmas animações)
+        className="text-lg max-w-md mx-auto text-neutral-300" // Cor cinza claro padrão
+        animate={controls} // Controlado pelo useEffect (apenas opacity/y)
         style={{ transitionDelay: '0.1s' }} // Pequeno delay na descrição
       >
         {item.description}
@@ -153,27 +127,21 @@ const WhyUsSection: React.FC = () => {
     // Container principal da seção - altura mínima, mas permite crescimento
     <section
       id="why-us"
-      className="relative bg-[#05050A] text-white overflow-hidden" // Mantém o fundo
-      // A altura agora é controlada pelo container de scroll snap
+      className="relative bg-[#05050A] text-white overflow-hidden py-12" // Adicionado padding vertical à seção
+      // Removida altura fixa
     >
-      {/* ----- Container com Scroll Snap ----- */}
-      <div
-        className="h-screen overflow-y-scroll scroll-snap-type-y-mandatory" // Altura da viewport, scroll vertical, snapping obrigatório
-      >
-        {/* Adiciona um espaçador inicial se necessário para alinhar o primeiro item corretamente */}
-         {/* <div className="h-[10vh] scroll-snap-align-start"></div> */}
-
+      {/* Removido o container com Scroll Snap */}
+      {/* <div className="h-screen overflow-y-scroll scroll-snap-type-y-mandatory"> */}
+        
+        {/* Renderiza os itens diretamente dentro da seção */}
         {differentialsData.map((item) => (
           <DifferentialItem
             key={item.id}
             item={item}
-            // Não precisa mais passar props complexas
           />
         ))}
-
-        {/* Adiciona um espaçador final se necessário */}
-        {/* <div className="h-[10vh] scroll-snap-align-end"></div> */}
-      </div>
+        
+      {/* </div> */}
     </section>
   );
 };

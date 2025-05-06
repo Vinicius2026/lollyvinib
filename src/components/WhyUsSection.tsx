@@ -1,147 +1,147 @@
-import React, { useRef, useState, useEffect } from 'react';
-import { motion, useAnimation } from 'framer-motion'; // Removed unused scroll/transform hooks
-import { Shapes, Zap, Users, TrendingUp, Eye } from 'lucide-react';
+import React from 'react';
+import { motion } from 'framer-motion';
+import { Shapes, Zap, Users, TrendingUp, /* Removed Eye, BarChart, Target if not used */ } from 'lucide-react'; // Use only relevant icons
+import { cn } from '@/lib/utils';
 
-// --- Dados dos Diferenciais (mantidos) ---
-const differentialsData = [
+// --- Feature Data (Ensure consistency, maybe add unique descriptions if needed) ---
+const featuresData = [
     {
-        id: 'ia-verdade',
         icon: Shapes,
-        title: 'IA de verdade',
-        description: 'Sem robozinho travado. Nossa IA entende contexto, conversa naturalmente e toma decisões inteligentes.',
-        color: 'text-ailoop-blue',
-        highlightColor: 'text-ailoop-neon-blue', // Cor para o glow/highlight
-        shadowColor: 'shadow-ailoop-neon-blue/30', // Cor para a sombra/glow do ícone
+        title: 'IA de Verdade e Flexível',
+        description: 'Nossa IA entende contexto, conversa naturalmente e toma decisões inteligentes, adaptando-se às suas necessidades.',
+        // Reverted to use base color for icon, highlight color for borders/glows maybe
+        color: 'text-ailoop-blue', // Base icon color
+        highlightColor: 'ailoop-neon-blue', // For border/glow/accent (needs definition in tailwind.config.js)
+        hoverBorderClass: 'hover:border-ailoop-neon-blue/70', // Use the defined highlight color
+        hoverShadowClass: 'hover:shadow-[0_0_20px_theme(colors.ailoop-neon-blue/0.3)]', // Reference theme color
     },
     {
-        id: 'atendimento-personalizado',
         icon: Users,
-        title: 'Atendimento personalizado',
-        description: 'Cada negócio é único. Criamos soluções sob medida para suas necessidades específicas.',
-        color: 'text-green-400',
-        highlightColor: 'text-emerald-300',
-        shadowColor: 'shadow-emerald-400/30',
+        title: 'Atendimento Personalizado',
+        description: 'Cada negócio é único. Criamos soluções sob medida para suas necessidades específicas e encantar seus clientes.',
+        color: 'text-emerald-400',
+        highlightColor: 'emerald-400', // Use base color name for referencing in theme
+        hoverBorderClass: 'hover:border-emerald-400/70',
+        hoverShadowClass: 'hover:shadow-[0_0_20px_theme(colors.emerald-400/0.3)]',
     },
     {
-        id: 'equipe-experiente',
         icon: Zap,
-        title: 'Equipe com experiência real',
-        description: 'Profissionais que já gerenciaram milhões em investimentos e sabem como entregar resultados.',
-        color: 'text-purple-400',
-        highlightColor: 'text-violet-300',
-        shadowColor: 'shadow-violet-400/30',
+        title: 'Equipe com Experiência Real',
+        description: 'Profissionais que já gerenciaram milhões em investimentos e sabem como entregar resultados comprovados.',
+        color: 'text-violet-400',
+        highlightColor: 'violet-400',
+        hoverBorderClass: 'hover:border-violet-400/70',
+        hoverShadowClass: 'hover:shadow-[0_0_20px_theme(colors.violet-400/0.3)]',
     },
     {
-        id: 'resultados-rapidos',
         icon: TrendingUp,
-        title: 'Resultados rápidos e escaláveis',
-        description: 'Nossa metodologia permite implementar soluções rapidamente e escalar conforme seu negócio cresce.',
-        color: 'text-purple-400',
-        highlightColor: 'text-violet-300',
-        shadowColor: 'shadow-violet-400/30',
-    },
-    {
-        id: 'transparencia-estrutura',
-        icon: Eye,
-        title: 'Transparência e estrutura própria',
-        description: 'Acesso transparente às métricas e resultados. Tecnologia proprietária para máximo desempenho.',
+        title: 'Resultados Rápidos e Escaláveis',
+        description: 'Nossa metodologia permite implementar soluções rapidamente e escalar conforme seu negócio cresce, sem limites.',
         color: 'text-sky-400',
-        highlightColor: 'text-cyan-300',
-        shadowColor: 'shadow-cyan-400/30',
+        highlightColor: 'sky-400',
+        hoverBorderClass: 'hover:border-sky-400/70',
+        hoverShadowClass: 'hover:shadow-[0_0_20px_theme(colors.sky-400/0.3)]',
     },
 ];
 
-// --- Componente do Item Diferencial (Adaptado) ---
-interface DifferentialItemProps {
-  item: typeof differentialsData[0];
-  // Removidos: index, totalItems, scrollYProgress, setActiveId
-}
-
-const DifferentialItem: React.FC<DifferentialItemProps> = ({ item }) => {
-  const ref = useRef<HTMLDivElement>(null);
-  const controls = useAnimation(); // Animation controls for text
-
-  // Animar texto baseado no estado isCentered
-  useEffect(() => {
-    controls.start({
-      // Manter apenas animação de opacidade e Y (entrada suave)
-      opacity: 1, 
-      y: 0, 
-      // Remover animação de cor e textShadow baseada em isCentered
-      // color: isCentered ? '#FFFFFF' : '#A0AEC0', 
-      // textShadow: isCentered ? `0 0 8px theme(colors.${item.highlightColor.replace('text-','')}/0.6)` : 'none',
-      transition: { duration: 0.5, ease: 'easeOut' }
-    });
-  }, [controls]); // Remover isCentered das dependências
-
-
-  const IconComponent = item.icon;
-
-  return (
-    <motion.div
-      ref={ref} // Ref ainda pode ser útil para whileInView
-      // Removido: scroll-snap-align-center. Adicionado padding vertical
-      className="differential-item min-h-[70vh] flex flex-col items-center justify-center text-center px-4 py-16 md:py-24"
-      // --- Animação de Entrada Simples ---
-      initial={{ opacity: 0, y: 30 }} // Começa um pouco abaixo
-      whileInView={{ opacity: 1 }}
-      viewport={{ once: false, amount: 0.3 }} // Anima ao entrar 30% na tela
-      transition={{ duration: 0.6 }}
-    >
-      {/* Ícone com Efeitos - simplificado, sem estado isCentered */}
-      <motion.div
-        className={`mb-6 inline-flex items-center justify-center p-4 border rounded-full transition-all duration-400 ease-out transform-gpu
-                   border-gray-700/50 bg-black/30 shadow-lg ${item.shadowColor}`}
-        whileHover={{ scale: 1.08, transition: { type: 'spring', stiffness: 300 } }}
-      >
-        {/* Cor do ícone baseada no item */}
-        <IconComponent size={28} className={`${item.highlightColor} transition-colors duration-400`} />
-      </motion.div>
-
-      {/* Título Animado - Cor clara padrão */}
-      <motion.h3
-        className="text-3xl md:text-4xl font-semibold mb-4 max-w-xl text-white" // Cor branca padrão
-        animate={controls} // Controlado pelo useEffect (apenas opacity/y)
-      >
-        {item.title}
-      </motion.h3>
-
-      {/* Descrição Animada - Cor clara padrão */}
-      <motion.p
-        className="text-lg max-w-md mx-auto text-neutral-300" // Cor cinza claro padrão
-        animate={controls} // Controlado pelo useEffect (apenas opacity/y)
-        style={{ transitionDelay: '0.1s' }} // Pequeno delay na descrição
-      >
-        {item.description}
-      </motion.p>
-    </motion.div>
-  );
+// --- Animation Variants ---
+const containerVariants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.1, // Slightly faster stagger
+    },
+  },
 };
 
+const itemVariants = {
+  hidden: { opacity: 0, y: 25, scale: 0.95 }, // Start slightly lower and smaller
+  visible: {
+      opacity: 1, 
+      y: 0, 
+    scale: 1,
+    transition: { duration: 0.5, ease: 'easeOut' },
+  },
+};
 
-// --- Componente Principal da Seção (Adaptado) ---
+// --- Componente Principal da Seção (Refinado) ---
 const WhyUsSection: React.FC = () => {
-    // Remover sectionRef, activeId, useScroll, useTransform e lógica da Sinapse
-
   return (
-    // Container principal da seção - altura mínima, mas permite crescimento
     <section
       id="why-us"
-      className="relative bg-[#05050A] text-white overflow-hidden py-12" // Adicionado padding vertical à seção
-      // Removida altura fixa
+      className="relative bg-[#05050A] text-white overflow-hidden py-20 md:py-28"
     >
-      {/* Removido o container com Scroll Snap */}
-      {/* <div className="h-screen overflow-y-scroll scroll-snap-type-y-mandatory"> */}
+      {/* Optional: Subtle background element - Refined */}
+       <div className="absolute inset-0 z-0 opacity-[0.04] bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"></div>
+
+      <div className="container mx-auto px-4 relative z-10">
+        <motion.h2
+          className="text-4xl md:text-5xl font-semibold text-center mb-16 md:mb-20"
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: 'easeOut' }}
+          viewport={{ once: true }}
+        >
+          Por que escolher a <span className="text-ailoop-blue">AILOOP</span>?
+        </motion.h2>
+
+        {/* Grid Container - Balanced Layout */}
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10 max-w-4xl mx-auto" // Centered max-width grid for 4 items
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }} // Trigger when 20% is visible
+        >
+          {featuresData.map((feature) => (
+            // Feature Card - Enhanced Styling
+            <motion.div
+              key={feature.title} // Use unique title/id if available
+              className={cn(
+                `relative flex flex-col items-center text-center p-8 rounded-xl border
+                 bg-gradient-to-br from-[rgba(10,10,20,0.7)] to-[rgba(15,15,25,0.5)]  // Subtle dark gradient bg
+                 border-neutral-800/80 // Slightly more visible base border
+                 backdrop-blur-sm // Optional: Keep if you like the effect
+                 transition-all duration-300 ease-out transform-gpu group`, // Added group
+                 feature.hoverBorderClass, // Apply hover border class
+                 feature.hoverShadowClass // Apply hover shadow class (needs custom shadow defined or plugin)
+              )}
+              variants={itemVariants}
+              whileHover={{ y: -5 }} // Keep subtle lift
+              transition={{ type: 'spring', stiffness: 300, damping: 20 }} // Consistent spring for hover
+            >
+                {/* Optional Shine effect - removed for cleaner look, can be added back */}
+                {/* <div className="absolute top-0 left-[-100%] w-full h-full bg-gradient-to-r from-transparent via-white/5 to-transparent transition-all duration-700 ease-out group-hover:left-[100%] opacity-80"></div> */}
         
-        {/* Renderiza os itens diretamente dentro da seção */}
-        {differentialsData.map((item) => (
-          <DifferentialItem
-            key={item.id}
-            item={item}
-          />
+              {/* Icon Container - Refined */}
+              <div
+                className={cn(
+                  'mb-6 p-3.5 rounded-full flex items-center justify-center',
+                  'bg-gradient-to-br from-neutral-800/90 to-neutral-750/80', // Slightly lighter gradient
+                  'border border-neutral-700/70', // Defined border
+                  'transition-all duration-300 group-hover:border-neutral-600/90' // Border changes on card hover
+                )}
+              >
+                 {/* Inner subtle glow for icon container on hover */}
+                 <div className={cn(
+                    "p-1 rounded-full transition-all duration-300",
+                    `group-hover:bg-[${feature.highlightColor}]/10` // Faint background glow using item's color on CARD hover
+                 )}>
+                    <feature.icon className={cn('w-7 h-7 transition-colors duration-300', feature.color)} />
+                 </div>
+              </div>
+
+              {/* Text Content */}
+              <h3 className="text-xl md:text-2xl font-semibold mb-3 text-neutral-100"> {/* Brighter text */}
+                {feature.title}
+              </h3>
+              <p className="text-neutral-300 text-base leading-relaxed">
+                {feature.description}
+              </p>
+            </motion.div>
         ))}
-        
-      {/* </div> */}
+        </motion.div>
+      </div>
     </section>
   );
 };

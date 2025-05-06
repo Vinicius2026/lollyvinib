@@ -127,7 +127,7 @@ const CTASection: React.FC = () => {
             className="text-lg md:text-xl text-neutral-300 max-w-2xl mb-8 md:mb-12 leading-relaxed" // Increased leading
             variants={itemVariants}
           >
-            Fale agora com um especialista da <span className="text-ailoop-blue font-semibold filter drop-shadow-[0_0_4px_theme(colors.ailoop-neon-blue/0.5)]">AILOOP</span> e descubra como revolucionar sua presença digital.
+            Fale agora com um especialista da <span className="text-neon-cyan font-semibold filter drop-shadow-[0_0_4px_rgba(0,255,255,0.5)]">AILOOP</span> e descubra como revolucionar sua presença digital.
           </motion.p>
 
           {/* Neural Network Visualization */}

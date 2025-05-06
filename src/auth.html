@@ -4,8 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Autenticação - AILOOP</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="auth.css">
-    <!-- Futuramente, adicionar aqui link para biblioteca de ícones (ex: Lucide) -->
 </head>
 <body>
     <div class="auth-container">
@@ -18,38 +20,164 @@
         </header>
 
         <main class="auth-content">
-            <section class="form-panel" id="signup-panel">
-                {/* <!-- Conteúdo do Formulário de Cadastro aqui --> */}
+            <section class="form-panel active-panel" id="signup-panel">
                 <h1 class="form-title">Crie sua Conta</h1>
                 <form id="signup-form">
-                    <div class="form-group">
-                        <label for="firstName">Primeiro nome</label>
-                        <input type="text" id="firstName" name="firstName" placeholder="Seu primeiro nome">
+                    <div class="form-row">
+                        <div class="form-group form-group-half">
+                            <label for="firstName">Primeiro nome</label>
+                            <div class="input-wrapper">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user icon-placeholder"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                                <input type="text" id="firstName" name="firstName" placeholder="Nome">
+                            </div>
+                        </div>
+                        <div class="form-group form-group-half">
+                            <label for="lastName">Sobrenome</label>
+                            <div class="input-wrapper">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user icon-placeholder"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                                <input type="text" id="lastName" name="lastName" placeholder="Sobrenome">
+                            </div>
+                        </div>
                     </div>
+
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input type="email" id="email" name="email" placeholder="seu@email.com">
+                        <div class="input-wrapper">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail icon-placeholder"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                            <input type="email" id="email" name="email" placeholder="seu@email.com">
+                        </div>
                     </div>
-                    {/* <!-- Mais campos virão aqui --> */}
-                    <button type="submit" class="cta-button">CADASTRAR</button>
+
+                    <div class="form-row">
+                        <div class="form-group form-group-half">
+                            <label for="birthDate">Data de nascimento</label>
+                            <div class="input-wrapper">
+                                <span class="icon-placeholder" data-lucide="calendar-days"></span>
+                                <input type="text" id="birthDate" name="birthDate" placeholder="DD/MM/AAAA" onfocus="(this.type='date')" onblur="(this.type='text')">
+                            </div>
+                        </div>
+                        <div class="form-group form-group-half">
+                            <label for="gender">Gênero</label>
+                            <div class="input-wrapper">
+                                <span class="icon-placeholder" data-lucide="users"></span>
+                                <select id="gender" name="gender">
+                                    <option value="" disabled selected>Selecione...</option>
+                                    <option value="male">Masculino</option>
+                                    <option value="female">Feminino</option>
+                                    <option value="other">Outro</option>
+                                    <option value="prefer_not_say">Prefiro não dizer</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Telefone</label>
+                        <div class="input-wrapper">
+                            <span class="icon-placeholder" data-lucide="phone"></span>
+                            <input type="tel" id="phone" name="phone" placeholder="(XX) XXXXX-XXXX">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group form-group-half">
+                            <label for="country">País</label>
+                            <div class="input-wrapper">
+                                <span class="icon-placeholder" data-lucide="map-pin"></span>
+                                <select id="country" name="country">
+                                    <option value="" disabled selected>Selecione o País</option>
+                                    <option value="BR">Brasil</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group form-group-half">
+                            <label for="city">Cidade</label>
+                            <div class="input-wrapper">
+                                <span class="icon-placeholder" data-lucide="map-pin"></span>
+                                <input type="text" id="city" name="city" placeholder="Sua cidade">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="address">Endereço</label>
+                        <div class="input-wrapper">
+                            <span class="icon-placeholder" data-lucide="home"></span>
+                            <input type="text" id="address" name="address" placeholder="Rua, Número, Bairro">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="postalCode">Código Postal</label>
+                        <div class="input-wrapper">
+                            <span class="icon-placeholder" data-lucide="hash"></span>
+                            <input type="text" id="postalCode" name="postalCode" placeholder="XXXXX-XXX">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Senha</label>
+                        <div class="input-wrapper">
+                            <span class="icon-placeholder" data-lucide="lock"></span>
+                            <input type="password" id="password" name="password" placeholder="Crie uma senha forte">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirmar senha</label>
+                        <div class="input-wrapper">
+                            <span class="icon-placeholder" data-lucide="lock"></span>
+                            <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirme sua senha">
+                        </div>
+                    </div>
+
+                    <div class="form-group-checkbox">
+                        <input type="checkbox" id="terms" name="terms">
+                        <label for="terms">Ao confirmar, você concorda com a <a href="#">Política de Privacidade</a> da AILOOP e aceita os <a href="#">Termos de Uso</a>.</label>
+                    </div>
+
+                    <button type="submit" class="cta-button">Criar Conta</button>
                 </form>
             </section>
 
             <section class="form-panel" id="signin-panel" style="display: none;">
-                {/* <!-- Conteúdo do Formulário de Login aqui --> */}
                 <h1 class="form-title">Acessar Conta</h1>
-                {/* <!-- ... formulário de login ... --> */}
+                <form id="signin-form">
+                    <div class="form-group">
+                        <label for="signinEmail">Email</label>
+                        <div class="input-wrapper">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail icon-placeholder"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                            <input type="email" id="signinEmail" name="signinEmail" placeholder="seu@email.com">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="signinPassword">Senha</label>
+                        <div class="input-wrapper">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-lock icon-placeholder"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                            <input type="password" id="signinPassword" name="signinPassword" placeholder="Sua senha">
+                        </div>
+                    </div>
+                    <button type="submit" class="cta-button">Entrar</button>
+                    <p class="form-link"><a href="#" onclick="document.querySelector('.auth-tab[data-tab=recovery]').click(); return false;">Esqueceu a senha?</a></p>
+                </form>
             </section>
 
             <section class="form-panel" id="recovery-panel" style="display: none;">
-                {/* <!-- Conteúdo do Formulário de Recuperação de Senha aqui --> */}
                 <h1 class="form-title">Recuperar Senha</h1>
-                {/* <!-- ... formulário de recuperação ... --> */}
+                <form id="recovery-form">
+                    <div class="form-group">
+                        <label for="recoveryEmail">Email</label>
+                        <div class="input-wrapper">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail icon-placeholder"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                            <input type="email" id="recoveryEmail" name="recoveryEmail" placeholder="Digite seu email de cadastro">
+                        </div>
+                    </div>
+                    <button type="submit" class="cta-button">Enviar Link de Recuperação</button>
+                </form>
             </section>
 
             <aside class="branding-panel">
                 <div class="branding-logo">
-                    {/* <!-- Placeholder para o Logo AILOOP --> */}
                     <h2>AILOOP</h2>
                 </div>
                 <div class="branding-welcome">
@@ -59,7 +187,12 @@
             </aside>
         </main>
     </div>
-
-    <script src="auth.js"></script> {/* Para interatividade das abas no futuro */}
+    <script>
+        // Script para Lucide Icons (NÃO MAIS NECESSÁRIO se usar SVGs inline como acima)
+        // document.addEventListener('DOMContentLoaded', () => {
+        //     // lucide.createIcons(); // REMOVIDO
+        // });
+    </script>
+    <script src="auth.js"></script>
 </body>
 </html> 

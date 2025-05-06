@@ -1,15 +1,48 @@
+/* Importar Fontes (Exemplo - Adicionar ao HTML ou via CSS @import) */
+/* @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Orbitron:wght@700;900&display=swap'); */
+
 /* Estilos Globais e Reset Básico */
 body, html {
     margin: 0;
     padding: 0;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    background-color: #080810; /* Fundo escuro principal AILOOP (exemplo) */
-    color: #E0E0E0; /* Cor de texto padrão clara */
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background-color: #05050A; /* Um preto ainda mais profundo para o fundo */
+    color: #E0E0E0;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    overflow-x: hidden; /* Prevenir scroll horizontal */
+    overflow: hidden; /* Para o efeito de fundo animado */
+    position: relative; /* Para pseudo-elementos de fundo */
+}
+
+/* Camadas de Fundo Animado */
+body::before, body::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: -1; /* Atrás de todo o conteúdo */
+}
+
+body::before {
+    background: 
+        radial-gradient(ellipse at 70% 30%, rgba(0, 229, 255, 0.05) 0%, transparent 40%), /* Ciano suave */
+        radial-gradient(ellipse at 30% 70%, rgba(138, 43, 226, 0.05) 0%, transparent 40%); /* Roxo suave */
+    animation: subtleShifting 25s ease-in-out infinite alternate;
+}
+
+body::after {
+    background:
+        linear-gradient(45deg, rgba(0, 100, 150, 0.05) 0%, transparent 50%),
+        linear-gradient(-45deg, rgba(50, 0, 100, 0.05) 0%, transparent 50%);
+    animation: subtleShifting 35s ease-in-out infinite alternate-reverse;
+    opacity: 0.7;
+}
+
+@keyframes subtleShifting {
+    0% { transform: translate(0,0) scale(1); opacity: 0.6; }
+    50% { opacity: 0.9; }
+    100% { transform: translate(10px, 5px) scale(1.05); opacity: 0.6; }
 }
 
 * {
@@ -19,188 +52,418 @@ body, html {
 /* Container Principal de Autenticação */
 .auth-container {
     width: 100%;
-    max-width: 1200px; /* Largura máxima para o conteúdo */
-    background-color: #0F0F18; /* Fundo do card/container um pouco mais claro */
-    border-radius: 12px; /* Cantos arredondados para o container geral */
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    overflow: hidden; /* Para garantir que os cantos arredondados se apliquem às filhas */
-    margin: 20px; /* Margem para não colar nas bordas da tela */
+    max-width: 1100px; /* Ajustado levemente */
+    background-color: rgba(15, 15, 24, 0.85); /* #0F0F18 com leve transparência para ver o fundo */
+    border-radius: 16px; /* Mais arredondado */
+    box-shadow: 0 0 40px rgba(0, 229, 255, 0.1), 0 0 60px rgba(138, 43, 226, 0.05); /* Sombra neon */
+    overflow: hidden;
+    margin: 20px;
+    border: 1px solid rgba(0, 229, 255, 0.1); /* Borda neon sutil */
+    position: relative; /* Para z-index se necessário */
+    z-index: 1;
+    backdrop-filter: blur(10px); /* Efeito de vidro fosco */
 }
 
 /* Cabeçalho com Abas */
 .auth-header {
-    padding: 20px 40px;
-    background-color: #1A1A2E; /* Cor de fundo para a barra de abas */
-    border-bottom: 1px solid #2A2A3E;
+    padding: 18px 40px; /* Ajustado */
+    background-color: rgba(26, 26, 46, 0.5); /* #1A1A2E com transparência */
+    border-bottom: 1px solid rgba(0, 229, 255, 0.15); /* Borda neon mais forte */
 }
 
 .auth-tabs {
     display: flex;
-    justify-content: center; /* Centralizar abas ou flex-start */
-    gap: 10px;
+    justify-content: center;
+    gap: 15px; /* Aumentado */
 }
 
 .auth-tab {
     background-color: transparent;
     border: none;
-    color: #A0A0C0; /* Cor para abas inativas */
-    padding: 10px 20px;
-    font-size: 16px;
-    font-weight: 500;
+    color: #A0A0C0;
+    padding: 12px 25px; /* Aumentado */
+    font-size: 15px; /* Ajustado */
+    font-weight: 600; /* Aumentado */
     cursor: pointer;
-    border-radius: 6px;
-    transition: background-color 0.3s, color 0.3s;
+    border-radius: 8px; /* Aumentado */
+    transition: all 0.3s ease;
+    position: relative;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
 }
 
 .auth-tab:hover {
     color: #FFFFFF;
-    background-color: #2A2A3E; /* Leve destaque no hover */
+    background-color: rgba(0, 229, 255, 0.1); /* Fundo neon ciano no hover */
 }
 
 .auth-tab.active-tab {
-    color: #FFFFFF; /* Cor para aba ativa */
-    /* Um azul neon AILOOP para o indicador */
-    box-shadow: inset 0 -3px 0 0 #00E5FF; /* Indicador de aba ativa (ex: ciano AILOOP) */
+    color: #00E5FF; /* Ciano AILOOP para texto ativo */
+    font-weight: 700;
+    /* Indicador neon mais pronunciado */
+    box-shadow: 
+        inset 0 -2px 0 0 #00E5FF,
+        0 0 15px rgba(0, 229, 255, 0.3); /* Brilho suave ao redor */
 }
 
-/* Conteúdo Principal (Layout de Duas Colunas) */
+/* Conteúdo Principal */
 .auth-content {
     display: flex;
-    /* Removido min-height daqui, já que o body cuida disso e o container tem seu próprio tamanho */
 }
 
-/* Painel do Formulário (Coluna Esquerda) */
+/* Painel do Formulário */
 .form-panel {
-    flex: 1; /* Ocupa o espaço disponível, pode ser ajustado com flex-basis ou max-width */
-    padding: 40px;
-    background-color: #0F0F18; /* Mesmo fundo do container geral */
-    display: flex; /* Para centralizar o formulário em si */
+    flex: 1.1; /* Ajuste proporção */
+    padding: 50px 40px; /* Aumentado padding */
+    background-color: transparent; /* O fundo do auth-container agora é visível */
+    display: flex;
     flex-direction: column;
-    align-items: center; /* Centraliza o conteúdo do formulário */
+    align-items: center;
 }
 
-#signup-form {
+#signup-form, #signin-form, #recovery-form {
     width: 100%;
-    max-width: 450px; /* Largura máxima para o formulário */
+    max-width: 480px;
 }
 
 .form-title {
+    font-family: 'Orbitron', sans-serif; /* Fonte Display */
     color: #FFFFFF;
-    margin-bottom: 30px;
-    font-size: 28px;
+    margin-bottom: 35px;
+    font-size: 32px; /* Aumentado */
     text-align: center;
+    letter-spacing: 0.03em;
+    text-shadow: 0 0 10px rgba(0, 229, 255, 0.3);
+}
+
+/* Melhorias no .form-group e introdução de .input-wrapper */
+.form-row {
+    display: flex;
+    gap: 20px; /* Espaço entre campos na mesma linha */
+    width: 100%;
 }
 
 .form-group {
-    margin-bottom: 20px;
+    margin-bottom: 22px;
+    width: 100%; /* Para que o .form-group-half funcione corretamente */
+}
+
+.form-group-half {
+    flex: 1; /* Ocupa metade do espaço no .form-row */
 }
 
 .form-group label {
     display: block;
-    color: #A0A0C0; /* Cor dos rótulos */
-    margin-bottom: 8px;
-    font-size: 14px;
+    color: #B0B0D0; /* Mais claro */
+    margin-bottom: 10px;
+    font-size: 13px; /* Ajustado */
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
 }
 
+.input-wrapper {
+    position: relative;
+    display: flex; 
+    align-items: center; 
+}
+
+/* Estilo para os ícones SVG Lucide inline */
+.input-wrapper svg.lucide.icon-placeholder {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    stroke: #707090; /* Cor inicial do traço do ícone */
+    fill: none; /* A maioria dos ícones Lucide são baseados em traço */
+    pointer-events: none; 
+    width: 18px; 
+    height: 18px; 
+    transition: stroke 0.3s; /* Adicionar transição para a cor do traço */
+}
+
+/* Estilo geral para todos os inputs e selects */
 .form-group input[type="text"],
 .form-group input[type="email"],
-.form-group input[type="password"] {
+.form-group input[type="password"],
+.form-group input[type="tel"],
+.form-group input[type="date"],
+.form-group select {
     width: 100%;
-    padding: 12px 15px;
-    background-color: #1A1A2E; /* Fundo do input */
-    border: 1px solid #2A2A3E; /* Borda do input */
-    border-radius: 6px;
-    color: #E0E0E0; /* Cor do texto do input */
-    font-size: 16px;
+    padding: 14px 18px;
+    padding-left: 45px; /* Espaço para o ícone à esquerda */
+    background-color: rgba(26, 26, 46, 0.7); /* Fundo do input mais escuro e translúcido */
+    border: 1px solid rgba(0, 229, 255, 0.2); /* Borda neon ciano sutil */
+    border-radius: 8px; /* Cantos mais arredondados */
+    color: #E0E0E0;
+    font-size: 15px;
+    font-family: 'Inter', sans-serif;
+    transition: border-color 0.3s, box-shadow 0.3s;
 }
 
-.form-group input[type="text"]::placeholder,
-.form-group input[type="email"]::placeholder,
-.form-group input[type="password"]::placeholder {
-    color: #606080; /* Cor do placeholder */
+/* Foco para inputs e selects, e mudança de cor do ícone SVG */
+.form-group .input-wrapper:focus-within svg.lucide.icon-placeholder {
+    stroke: #00E5FF; /* Cor do traço do ícone no foco do input wrapper */
+}
+
+.form-group input[type="text"]:focus,
+.form-group input[type="email"]:focus,
+.form-group input[type="password"]:focus,
+.form-group input[type="tel"]:focus,
+.form-group input[type="date"]:focus,
+.form-group select:focus {
+    border-color: #00E5FF; /* Borda ciano brilhante no foco */
+    box-shadow: 0 0 15px rgba(0, 229, 255, 0.3); /* Brilho neon no foco */
+    outline: none;
+}
+
+/* Estilo para placeholders e opção desabilitada do select */
+.form-group input::placeholder, 
+.form-group select option[value=""] /* Estilo para a option "Selecione..." */
+{
+    color: #707090; /* Placeholder mais sutil */
+}
+.form-group select {
+    color: #E0E0E0; /* Cor do texto do select quando uma opção é selecionada */
+}
+.form-group select:has(option[value=""]:checked) {
+    color: #707090; /* Cor do texto do select quando "Selecione..." está selecionado */
+}
+
+/* Estilização do select para parecer com inputs e ter seta customizada */
+.form-group select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23707090%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.4-12.8z%22%2F%3E%3C%2Fsvg%3E');
+    background-repeat: no-repeat;
+    background-position: right 18px center;
+    background-size: 10px auto;
+    padding-right: 45px; /* Espaço para a seta customizada */
+}
+
+/* Para inputs do tipo date, sutilizar o ícone nativo */
+.form-group input[type="date"]::-webkit-calendar-picker-indicator {
+    opacity: 0.3;
+    cursor: pointer;
+    filter: invert(1) brightness(0.7) sepia(1) hue-rotate(180deg) saturate(5);
+}
+
+/* Estilização do Checkbox Customizado */
+.form-group-checkbox {
+    display: flex;
+    align-items: center; /* Melhor alinhamento vertical */
+    margin-top: 10px;
+    margin-bottom: 25px;
+    cursor: pointer; /* Para permitir clique no rótulo também */
+}
+
+.form-group-checkbox input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    background-color: rgba(26, 26, 46, 0.7);
+    border: 1px solid rgba(0, 229, 255, 0.3);
+    border-radius: 4px;
+    position: relative;
+    margin-right: 12px;
+    flex-shrink: 0;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+.form-group-checkbox input[type="checkbox"]:checked {
+    background-color: #00E5FF;
+    border-color: #00E5FF;
+}
+
+.form-group-checkbox input[type="checkbox"]:checked::before {
+    content: '\2713'; 
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(0.9); /* Ajuste de escala do check */
+    font-size: 16px; /* Aumentado */
+    color: #0F0F18; 
+    font-weight: bold;
+    line-height: 1; /* Para melhor centralização do check */
+}
+
+.form-group-checkbox label {
+    color: #A0A0C0;
+    font-size: 13px;
+    line-height: 1.5;
+    margin-bottom: 0; 
+    text-transform: none; 
+    letter-spacing: normal; 
+    font-weight: 400;
+    cursor: pointer;
+}
+
+.form-group-checkbox label a {
+    color: #00E5FF;
+    text-decoration: none;
+    transition: color 0.3s, text-shadow 0.3s;
+}
+
+.form-group-checkbox label a:hover {
+    color: #FFFFFF;
+    text-decoration: underline;
+    text-shadow: 0 0 5px rgba(0, 229, 255, 0.5);
+}
+
+/* Link "Esqueceu a senha?" */
+.form-link {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.form-link a {
+    color: #A0A0C0;
+    font-size: 14px;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.form-link a:hover {
+    color: #00E5FF;
+    text-decoration: underline;
 }
 
 /* Botão CTA */
 .cta-button {
     width: 100%;
-    padding: 15px;
-    background-color: #0095FF; /* Azul AILOOP principal para o CTA */
+    padding: 16px; /* Aumentado */
+    background-image: linear-gradient(to right, #00E5FF 0%, #1F42FF 100%); /* Gradiente neon AILOOP */
     color: #FFFFFF;
     border: none;
-    border-radius: 6px;
+    border-radius: 8px;
     font-size: 16px;
-    font-weight: bold;
+    font-weight: 700; /* Bold */
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
     cursor: pointer;
-    transition: background-color 0.3s;
-    margin-top: 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 229, 255, 0.2);
+    margin-top: 15px;
 }
 
 .cta-button:hover {
-    background-color: #007ACC; /* Azul mais escuro no hover */
+    background-image: linear-gradient(to right, #00CFFD 0%, #0032E0 100%); /* Gradiente mais intenso */
+    box-shadow: 0 8px 25px rgba(0, 229, 255, 0.4);
+    transform: translateY(-2px);
+}
+
+.cta-button:active {
+    transform: translateY(0px);
+    box-shadow: 0 5px 15px rgba(0, 229, 255, 0.2);
 }
 
 /* Painel da Marca (Coluna Direita) */
 .branding-panel {
-    flex: 1.2; /* Ligeiramente maior que o painel do formulário */
+    flex: 1; /* Ajuste proporção */
     padding: 60px 40px;
-    background: linear-gradient(135deg, #1A1A2E 0%, #0A0A14 100%); /* Gradiente sutil para o painel da marca */
+    background: transparent; /* O fundo do auth-container agora é visível */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
-    border-top-right-radius: 12px; /* Para combinar com o container pai */
-    border-bottom-right-radius: 12px;
+    position: relative; /* Para overlay de ruído */
+    overflow: hidden; /* Para pseudo-elementos */
+}
+
+/* Overlay de Ruído Sutil (opcional) */
+.branding-panel::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyAQMAAAAk8RryAAAABlBMVEUAAAAAAAClZ7nPAAAAAXRSTlMAQObYZgAAABVJREFUOMtjYBgFo2AUjIJRMApGwSigLwAACwYBXsCoTsEAAAAASUVORK5CYII='); /* Ruído sutil */
+    opacity: 0.03;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.branding-logo {
+    z-index: 2;
 }
 
 .branding-logo h2 {
-    font-size: 48px; /* Tamanho do placeholder do logo */
-    color: #00E5FF; /* Cor neon AILOOP */
-    margin-bottom: 20px;
-    font-weight: bold;
+    font-family: 'Orbitron', sans-serif; /* Fonte Display */
+    font-size: 64px; /* Aumentado */
+    color: #FFFFFF;
+    margin-bottom: 25px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    /* Efeito Neon no Logo */
+    text-shadow:
+        0 0 5px #00E5FF,
+        0 0 10px #00E5FF,
+        0 0 20px #00E5FF,
+        0 0 40px #1F42FF, /* Um toque de azul no brilho externo */
+        0 0 70px #1F42FF;
+    animation: pulseLogo 5s infinite alternate ease-in-out;
+}
+
+@keyframes pulseLogo {
+    0% { text-shadow: 0 0 5px #00E5FF, 0 0 10px #00E5FF, 0 0 15px #00E5FF, 0 0 20px #1F42FF, 0 0 30px #1F42FF; }
+    100% { text-shadow: 0 0 10px #00E5FF, 0 0 20px #00E5FF, 0 0 30px #00E5FF, 0 0 50px #1F42FF, 0 0 80px #1F42FF; }
+}
+
+.branding-welcome {
+    z-index: 2;
 }
 
 .branding-welcome h3 {
-    font-size: 24px;
+    font-family: 'Orbitron', sans-serif; /* Fonte Display */
+    font-size: 26px; /* Aumentado */
     color: #FFFFFF;
-    margin-bottom: 10px;
-    font-weight: 600;
+    margin-bottom: 15px;
+    font-weight: 700;
+    text-shadow: 0 0 8px rgba(0, 229, 255, 0.2);
 }
 
 .branding-welcome p {
-    font-size: 16px;
-    color: #A0A0C0; /* Cor do texto descritivo */
-    line-height: 1.6;
-    max-width: 350px;
+    font-size: 15px; /* Ajustado */
+    color: #B0B0D0; /* Mais claro */
+    line-height: 1.7;
+    max-width: 380px;
 }
 
-/* Responsividade Básica */
-@media (max-width: 900px) { /* Ponto de quebra para layout de coluna única */
+/* Responsividade (Ajustes para o novo estilo) */
+@media (max-width: 900px) {
     .auth-content {
         flex-direction: column;
     }
-
+    .form-row {
+        flex-direction: column; 
+        gap: 0; 
+    }
+    .form-group-half {
+        flex-basis: auto; 
+    }
     .branding-panel {
-        order: -1; /* Painel da marca primeiro no mobile */
-        padding: 40px 20px;
-        border-radius: 0;
-        border-top-left-radius: 12px; /* Manter cantos do container */
-        border-top-right-radius: 12px;
-        border-bottom-right-radius: 0; /* Remover para mobile */
+        order: -1;
+        padding: 50px 20px;
+        border-top-right-radius: 16px; 
+        border-top-left-radius: 16px;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
     }
-
     .form-panel {
-        padding: 30px 20px;
+        padding: 40px 20px;
     }
-
     .auth-header {
         padding: 15px 20px;
     }
-
     .auth-tab {
-        padding: 8px 15px;
-        font-size: 14px;
+        padding: 10px 18px;
+        font-size: 13px;
     }
+    .branding-logo h2 { font-size: 48px; }
+    .branding-welcome h3 { font-size: 22px; }
 }
 
 @media (max-width: 600px) {
@@ -208,12 +471,22 @@ body, html {
         margin: 0;
         border-radius: 0;
         min-height: 100vh;
+        border: none;
+        box-shadow: none;
     }
     .branding-panel {
-        border-top-left-radius: 0;
-        border-top-right-radius: 0;
+        border-radius: 0;
     }
-    #signup-form {
+    #signup-form, #signin-form, #recovery-form {
         max-width: 100%;
+    }
+    .form-title { font-size: 26px; }
+    .branding-logo h2 { font-size: 40px; }
+    .branding-welcome h3 { font-size: 20px; }
+    .form-group-checkbox {
+        align-items: center; /* Melhorar alinhamento do checkbox em mobile */
+    }
+    .form-group-checkbox input[type="checkbox"] {
+        top: 0; /* Resetar ajuste de topo */
     }
 } 

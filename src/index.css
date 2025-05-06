@@ -157,7 +157,7 @@
   }
   
   .section-connect {
-    @apply absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-ailoop-neon-blue via-ailoop-purple to-ailoop-orange;
+    @apply absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-neon-cyan via-neon-purple to-neon-orange;
     transform: translateX(-50%);
   }
   
@@ -234,6 +234,72 @@
   .stat-value {
     /* @apply h-full bg-ailoop-neon-blue rounded-full; */
     @apply h-full bg-neon-cyan rounded-full; /* Changed background color */
+  }
+
+  /* Estilos para AuthPage */
+  .input-wrapper-react {
+    @apply relative;
+  }
+
+  .lucide-icon-auth {
+    @apply absolute left-3 top-1/2 -translate-y-1/2 w-[18px] h-[18px] text-neutral-500 transition-colors duration-300;
+  }
+
+  .input-wrapper-react:focus-within .lucide-icon-auth {
+    @apply text-neon-cyan;
+  }
+
+  .form-input-react {
+    @apply w-full pl-10 pr-3 py-3 bg-neutral-800/50 border border-neutral-700 rounded-lg text-white placeholder-neutral-500 focus:ring-neon-cyan focus:border-neon-cyan transition-all duration-300;
+  }
+  
+  .form-select-react {
+    @apply w-full pl-10 pr-8 py-3 bg-neutral-800/50 border border-neutral-700 rounded-lg text-white placeholder-neutral-500 focus:ring-neon-cyan focus:border-neon-cyan transition-all duration-300 appearance-none;
+     /* Adapte o background-image da seta do select se necessário, ou use um componente Select de shadcn/ui */
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23A0A0C0%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.4-12.8z%22%2F%3E%3C%2Fsvg%3E');
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 0.65em auto;
+  }
+  .form-select-react:has(option[value=""]:checked) {
+      @apply text-neutral-500;
+  }
+  .form-select-react option {
+      @apply bg-neutral-800 text-white;
+  }
+
+
+  .cta-button-react {
+    @apply w-full py-3 px-4 bg-gradient-to-r from-neon-cyan to-neon-cyan text-white font-semibold rounded-lg shadow-md hover:shadow-lg hover:from-neon-cyan/90 hover:to-neon-cyan/90 transform hover:scale-[1.02] transition-all duration-300 ease-in-out uppercase tracking-wider;
+  }
+
+  .form-checkbox-react {
+    @apply w-5 h-5 rounded bg-neutral-700 border-neutral-600 text-neon-cyan focus:ring-neon-cyan focus:ring-offset-neutral-900 shrink-0 mt-0.5;
+  }
+
+  .ailoop-logo-glow-auth {
+    text-shadow: 0 0 5px #00FFFF, 
+                 0 0 10px #00FFFF, 
+                 0 0 20px #00FFFF, 
+                 0 0 40px #00FFFF, 
+                 0 0 70px #00FFFF;
+    animation: pulseLogoReactAuth 5s infinite alternate ease-in-out;
+  }
+
+  /* Camadas de fundo para AuthPage */
+  .auth-bg-layer-1, .auth-bg-layer-2 {
+    @apply absolute top-0 left-0 right-0 bottom-0 -z-10;
+  }
+  .auth-bg-layer-1 {
+    background: radial-gradient(ellipse at 70% 30%, rgba(0, 255, 255, 0.05) 0%, transparent 40%),
+                radial-gradient(ellipse at 30% 70%, rgba(160, 32, 240, 0.05) 0%, transparent 40%);
+    animation: authBgLayerAnimation 25s ease-in-out infinite alternate;
+  }
+  .auth-bg-layer-2 {
+    background: linear-gradient(45deg, rgba(0, 255, 255, 0.05) 0%, transparent 50%),
+                linear-gradient(-45deg, rgba(160, 32, 240, 0.05) 0%, transparent 50%);
+    animation: authBgLayerAnimation 35s ease-in-out infinite alternate-reverse;
+    opacity: 0.7;
   }
 }
 
@@ -813,4 +879,28 @@
 
 .orange-glow-text {
   animation: orange-glow-pulse 2.5s ease-in-out infinite;
+}
+
+/* Keyframes para animações da AuthPage (Coloque no final do arquivo ou onde seus keyframes são definidos) */
+@keyframes pulseLogoReactAuth {
+  0% {
+    text-shadow: 0 0 5px #00FFFF, 
+                 0 0 10px #00FFFF, 
+                 0 0 15px #00FFFF, 
+                 0 0 20px #00FFFF, 
+                 0 0 30px #00FFFF;
+  }
+  100% {
+    text-shadow: 0 0 10px #00FFFF, 
+                 0 0 20px #00FFFF, 
+                 0 0 30px #00FFFF, 
+                 0 0 50px #00FFFF, 
+                 0 0 80px #00FFFF;
+  }
+}
+
+@keyframes authBgLayerAnimation {
+  0% { transform: translate(0,0) scale(1); opacity: 0.6; }
+  50% { opacity: 0.9; }
+  100% { transform: translate(10px, 5px) scale(1.05); opacity: 0.6; }
 }

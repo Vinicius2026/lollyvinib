@@ -8,33 +8,43 @@ import WhyUsSection from '@/components/WhyUsSection';
 import CTASection from '@/components/CTASection';
 import Footer from '@/components/Footer';
 import TechPanel from '@/components/TechPanel';
-import { motion } from 'framer-motion';
+import ExecutiveTeamSection from '@/components/sections/ExecutiveTeamSection';
+import { motion, AnimatePresence } from 'framer-motion';
+import InteractiveQuiz from "@/components/landing/InteractiveQuiz";
+import { fadeInUp } from "@/lib/motion/config";
 
 const Index: React.FC = () => {
   return (
     <div className="min-h-screen bg-ailoop-dark-blue">
       <Navbar />
-      <HeroSection />
-
-      <div className="mt-6 md:mt-8 mb-12 md:mb-16">
-        <ShowcaseSection />
-      </div>
-
-      {/* Efeito de Nebulosa Roxa */}
-      <div
-        className="h-32 md:h-48 w-full relative -mt-16 md:-mt-24 mb-0 md:mb-0 pointer-events-none"
-        style={{
-          backgroundImage:
-            'radial-gradient(ellipse at center, rgba(160, 32, 240, 0.25) 0%, rgba(10, 10, 10, 0) 70%)'
-        }}
-      />
-
-      <TechPanel />
-      <AboutSection />
-      <ServicesSection />
-      <WhyUsSection />
-      <CTASection />
-      <Footer />
+      <main className="flex-grow">
+        <motion.div variants={fadeInUp} initial="hidden" animate="visible" transition={{ duration: 0.6, delay: 0.1 }}>
+          <HeroSection />
+        </motion.div>
+        <motion.div variants={fadeInUp} initial="hidden" animate="visible" transition={{ duration: 0.6, delay: 0.3 }}>
+          <TechPanel />
+        </motion.div>
+        <motion.div variants={fadeInUp} initial="hidden" animate="visible" transition={{ duration: 0.6, delay: 0.4 }}>
+          <WhyUsSection />
+        </motion.div>
+        <motion.div variants={fadeInUp} initial="hidden" animate="visible" transition={{ duration: 0.6, delay: 0.5 }}>
+          <AnimatePresence mode="wait">
+            <InteractiveQuiz />
+          </AnimatePresence>
+        </motion.div>
+        <motion.div variants={fadeInUp} initial="hidden" animate="visible" transition={{ duration: 0.6, delay: 0.6 }}>
+          <ServicesSection />
+        </motion.div>
+        <motion.div variants={fadeInUp} initial="hidden" animate="visible" transition={{ duration: 0.6, delay: 0.7 }}>
+          <AboutSection />
+        </motion.div>
+        <motion.div variants={fadeInUp} initial="hidden" animate="visible" transition={{ duration: 0.6, delay: 0.8 }}>
+          <CTASection />
+        </motion.div>
+      </main>
+      <motion.div variants={fadeInUp} initial="hidden" animate="visible" transition={{ duration: 0.6, delay: 0.9 }}>
+        <Footer />
+      </motion.div>
     </div>
   );
 };

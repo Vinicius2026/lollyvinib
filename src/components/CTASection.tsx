@@ -1,256 +1,260 @@
 import React from 'react';
-import { /* Button */ AnimatedButton } from "@/components/animated/AnimatedButton";
-import { MessageSquare, Calendar } from 'lucide-react';
-// Importar o SVG de colaboração
-import LiveCollaborationIllustration from '@/assets/illustrations/undraw_live-collaboration_i8an.svg?react';
 import { motion } from 'framer-motion';
-import { fadeInUp } from '@/lib/motion/config';
+import { Button } from "@/components/ui/button";
+import { MessageSquare, CalendarIcon, Zap, Shapes } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
-// Placeholder removido
-/*
-const LiveCollaborationPlaceholder = () => (
-  <div className="aspect-video bg-white/5 rounded-lg flex items-center justify-center text-gray-500 border border-white/10 max-w-sm mx-auto">
-    [Ilustração "Live collaboration" - Cor Principal: #00E1FF]
+// --- Mock Icon Components (Replace with actual icons if available) ---
+const BrainNetworkIcon = () => ( // Placeholder for top icon
+  <Shapes className="w-full h-full text-ailoop-blue animate-spin-slow opacity-80 filter drop-shadow-[0_0_8px_theme(colors.ailoop-neon-blue/0.6)]" />
+);
+
+// Simple placeholder for Neural Network Visualization
+const NeuralNetworkVisualization = () => (
+  <div className="relative w-full max-w-md h-64 mx-auto my-8 md:my-12 overflow-hidden">
+    {/* Placeholder elements */}
+    <div className="absolute inset-0 flex items-center justify-center">
+      <div className="w-3/4 h-3/4 border-2 border-ailoop-neon-blue/30 rounded-lg animate-pulse-slow"></div>
+      <Zap className="absolute text-ailoop-purple opacity-50 w-12 h-12 animate-ping" />
+    </div>
+    {/* Add more complex SVG or Canvas animation here later */}
   </div>
 );
-*/
 
+
+// --- Animation Variants ---
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15, // Slightly slower stagger for elements
+      delayChildren: 0.2,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: 'easeOut' },
+  },
+};
+
+const networkBuildVariants = {
+    hidden: { opacity: 0, scale: 0.8 },
+    visible: {
+        opacity: 1,
+        scale: 1,
+        transition: { duration: 0.8, delay: 0.5, ease: [0.16, 1, 0.3, 1] } // Expo out ease
+    }
+};
+
+// --- Componente Principal Refatorado ---
 const CTASection: React.FC = () => {
   return (
-    <section id="contact" className="bg-gradient-to-r from-ailoop-blue to-ailoop-deep-blue py-24 px-4 relative overflow-hidden">
-      {/* Surrealistic background elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {/* Floating geometric shapes with gradients */}
-        <div className="absolute -top-20 left-1/4 w-60 h-60 bg-gradient-to-br from-ailoop-neon-blue/10 to-transparent opacity-20 rotate-45 rounded-3xl blur-2xl surreal-float"></div>
-        <div className="absolute top-1/3 -right-20 w-80 h-80 bg-gradient-to-br from-ailoop-purple/10 to-transparent opacity-20 -rotate-12 rounded-full blur-3xl surreal-float" style={{ animationDelay: '1s' }}></div>
-        <div className="absolute -bottom-10 left-1/3 w-72 h-72 bg-gradient-to-br from-ailoop-orange/10 to-transparent opacity-20 rotate-12 rounded-full blur-3xl surreal-float" style={{ animationDelay: '2s' }}></div>
-        
-        {/* Broken lines and patterns */}
-        <div className="absolute top-20 left-0 right-0 h-px bg-gradient-to-r from-transparent via-ailoop-neon-blue/20 to-transparent"></div>
-        <div className="absolute bottom-32 left-0 right-0 h-px bg-gradient-to-r from-transparent via-ailoop-orange/20 to-transparent"></div>
-        
-        {/* Diagonal and vertical lines */}
-        <div className="absolute top-0 left-1/4 w-px h-60 bg-gradient-to-b from-transparent via-ailoop-neon-blue/20 to-transparent rotate-45 transform origin-top"></div>
-        <div className="absolute bottom-0 right-1/4 w-px h-60 bg-gradient-to-t from-transparent via-ailoop-pink/20 to-transparent -rotate-45 transform origin-bottom"></div>
-        
-        {/* Neural network style dots and connections */}
-        <div className="absolute top-1/4 left-10 w-3 h-3 bg-ailoop-neon-blue/30 rounded-full neural-connection"></div>
-        <div className="absolute top-1/3 right-1/4 w-3 h-3 bg-ailoop-purple/30 rounded-full neural-connection"></div>
-        <div className="absolute bottom-1/3 left-1/3 w-3 h-3 bg-ailoop-pink/30 rounded-full neural-connection"></div>
-        <div className="absolute top-2/3 right-10 w-3 h-3 bg-ailoop-orange/30 rounded-full neural-connection"></div>
-        
-        <div className="absolute top-[25%] left-[40px] w-[150px] h-px bg-gradient-to-r from-ailoop-neon-blue/30 to-transparent rotate-[30deg] neural-connection"></div>
-        <div className="absolute top-[33%] right-[25%] w-[100px] h-px bg-gradient-to-l from-ailoop-purple/30 to-transparent rotate-[-15deg] neural-connection"></div>
-        <div className="absolute bottom-[33%] left-[33%] w-[80px] h-px bg-gradient-to-r from-ailoop-pink/30 to-transparent rotate-[45deg] neural-connection"></div>
-        <div className="absolute bottom-[40%] right-[100px] w-[120px] h-px bg-gradient-to-l from-ailoop-orange/30 to-transparent rotate-[-30deg] neural-connection"></div>
-      </div>
+    <motion.section
+      id="cta-section" // Added an ID
+      className="relative bg-[#080810] text-white overflow-hidden py-20 md:py-28" // Slightly darker bg
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.2 }}
+      variants={containerVariants} // Apply container variants for staggering children
+    >
+      {/* Background Noise Texture */}
+      <div className="absolute inset-0 z-0 opacity-[0.03] bg-[url('/noise.png')]"></div> {/* Assuming noise.png exists */}
 
-      <div className="container mx-auto max-w-4xl relative z-10">
-        <motion.div 
-          className="relative fractured-frame bg-white/[0.03] backdrop-blur-sm border border-white/10 rounded-[2.5rem] p-8 md:p-12 overflow-hidden"
-          variants={fadeInUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-        >
-          {/* Asymmetrical background shapes */}
-          <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-ailoop-neon-blue/10 to-transparent rounded-full filter blur-3xl opacity-30 -translate-y-1/2 translate-x-1/2"></div>
-          <div className="absolute -bottom-20 -left-20 w-64 h-64 bg-gradient-to-br from-ailoop-purple/10 to-transparent rounded-full filter blur-3xl opacity-30"></div>
-          <div className="absolute bottom-10 right-10 w-40 h-40 bg-gradient-to-br from-ailoop-orange/10 to-transparent rounded-full filter blur-3xl opacity-30"></div>
-          
-          {/* Broken frame design elements */}
-          <div className="absolute top-0 left-[10%] w-[30%] h-1 bg-gradient-to-r from-ailoop-neon-blue/40 to-transparent"></div>
-          <div className="absolute top-0 right-[10%] w-[30%] h-1 bg-gradient-to-l from-ailoop-neon-blue/40 to-transparent"></div>
-          <div className="absolute bottom-0 left-[5%] w-[40%] h-1 bg-gradient-to-r from-ailoop-orange/40 to-transparent"></div>
-          <div className="absolute bottom-0 right-[15%] w-[30%] h-1 bg-gradient-to-l from-ailoop-orange/40 to-transparent"></div>
-          
-          <div className="absolute left-0 top-[15%] h-[25%] w-1 bg-gradient-to-b from-ailoop-neon-blue/40 to-transparent"></div>
-          <div className="absolute left-0 bottom-[15%] h-[25%] w-1 bg-gradient-to-t from-ailoop-orange/40 to-transparent"></div>
-          <div className="absolute right-0 top-[10%] h-[30%] w-1 bg-gradient-to-b from-ailoop-neon-blue/40 to-transparent"></div>
-          <div className="absolute right-0 bottom-[10%] h-[30%] w-1 bg-gradient-to-t from-ailoop-orange/40 to-transparent"></div>
-          
-          <div className="relative z-10">
-            <div className="flex flex-col items-center text-center mb-8 md:mb-12 relative">
-              {/* Stylized brain neural network graphic */}
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 opacity-70">
-                <BrainNetworkIcon />
-              </div>
-              
-              <h2 className="text-3xl md:text-5xl font-bold thin-text bg-clip-text text-transparent bg-gradient-to-r from-white via-ailoop-neon-blue to-white mt-10">
-                Quer entender como a IA pode acelerar seu negócio?
-              </h2>
-              
-              <div className="w-32 h-1 bg-gradient-to-r from-ailoop-neon-blue via-ailoop-purple to-ailoop-orange my-6"></div>
-              
-              <p className="text-xl text-gray-300 max-w-2xl thin-text">
-                Fale agora com um especialista da <span className="text-white font-semibold">AILOOP</span> e descubra como revolucionar sua presença digital.
-              </p>
-            </div>
-            
-            {/* Ilustração adicionada aqui */}
-            <div className="mb-8 md:mb-12 max-w-sm mx-auto">
-              {/* Usar o componente SVG importado */}
-              <LiveCollaborationIllustration className="w-full h-auto" />
-            </div>
-            
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-              {/* Botão Primário (WhatsApp) - Estilo Amarelo/Transparente */}
-              <AnimatedButton 
-                className="w-full sm:w-auto flex items-center gap-2 bg-black/20 border border-yellow-400/60 text-gray-200 backdrop-blur-sm rounded-lg px-8 py-4 text-lg transition-all duration-300 ease-out hover:bg-yellow-900/10 hover:border-yellow-400/90 hover:text-yellow-300"
-                // Mantendo scale do customWhileHover original se houver ou adicionando um sutil
-                customWhileHover={{ scale: 1.03 }}
-              >
-                <MessageSquare className="w-6 h-6" />
-                <span className="text-lg">WhatsApp direto</span>
-              </AnimatedButton>
-              
-              {/* Botão Secundário (Agendar) - Estilo Branco/Transparente */}
-              <AnimatedButton 
-                variant="outline" // Pode manter ou remover dependendo do estilo final
-                className="w-full sm:w-auto flex items-center gap-2 bg-black/20 border border-white/30 text-gray-300 backdrop-blur-sm rounded-lg px-8 py-4 text-lg transition-all duration-300 ease-out hover:bg-white/10 hover:border-white/60 hover:text-white"
-                // Mantendo scale do customWhileHover original se houver ou adicionando um sutil
-                customWhileHover={{ scale: 1.03 }}
-              >
-                <Calendar className="w-6 h-6 text-ailoop-neon-blue" />
-                <span className="text-lg">Agendar uma conversa</span>
-              </AnimatedButton>
-            </div>
+       {/* Refined Background Gradient (subtle radial) */}
+       <div className="absolute inset-0 z-0 opacity-50 bg-[radial-gradient(ellipse_at_center,rgba(15,15,24,0.6),rgba(8,8,16,0.9))]"></div>
 
-            {/* Seção: Para quem é o Chat Agente - Layout Ajustado */}
-            <motion.div 
-              className="mt-16 pt-8 border-t border-white/10"
-              variants={fadeInUp} 
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.1 }}
-              transition={{ delay: 0.2 }}
+
+      {/* Main Card Container */}
+      <motion.div
+        className={cn(
+            "relative container max-w-4xl mx-auto px-6 py-12 md:px-10 md:py-16 z-10 rounded-3xl", // Larger padding, more rounded
+            "bg-gradient-radial from-[#0F0F18] to-[#080810]/90", // Dark radial gradient background
+            "border border-transparent", // Base transparent border
+             // Refined border gradient (inner glow effect)
+            "shadow-[inset_0_0_0_1px_rgba(139,92,246,0.3),_inset_0_0_0_2px_rgba(34,211,238,0.3)]",
+            "backdrop-blur-xl" // Stronger glass effect
+        )}
+        variants={itemVariants} // Animate the card itself
+        style={{ perspective: '1000px' }} // Needed for 3D tilt/parallax
+        whileHover={{ scale: 1.005 }} // Subtle respiratory movement base
+        transition={{ type: 'spring', stiffness: 400, damping: 25 }}
+      >
+
+        {/* Decorative Corner Brackets (Refined) */}
+        <motion.div
+            className="absolute -top-2 -left-2 w-16 h-16 border-l-2 border-t-2 border-ailoop-neon-blue/70 rounded-tl-xl opacity-60 filter drop-shadow-[0_0_5px_theme(colors.ailoop-neon-blue/0.5)] animate-pulse-subtle"
+            initial={{ opacity: 0, x: -10, y: -10 }}
+            animate={{ opacity: 0.6, x: 0, y: 0 }}
+            transition={{ delay: 0.3, duration: 0.5 }}
+        ></motion.div>
+        <motion.div
+            className="absolute -bottom-2 -right-2 w-16 h-16 border-r-2 border-b-2 border-ailoop-purple/70 rounded-br-xl opacity-60 filter drop-shadow-[0_0_5px_theme(colors.ailoop-purple/0.5)] animate-pulse-subtle"
+            initial={{ opacity: 0, x: 10, y: 10 }}
+            animate={{ opacity: 0.6, x: 0, y: 0 }}
+            transition={{ delay: 0.4, duration: 0.5 }}
+        ></motion.div>
+
+
+        {/* Content Wrapper */}
+        <div className="relative z-20 flex flex-col items-center text-center">
+
+           {/* Animated Top Icon */}
+            <motion.div
+                className="w-16 h-16 mb-6 md:mb-8"
+                 initial={{ opacity: 0, scale: 0.5 }}
+                 animate={{ opacity: 1, scale: 1 }}
+                 transition={{ delay: 0.2, duration: 0.7, type: 'spring', bounce: 0.5 }}
             >
-              <h3 className="text-2xl font-semibold text-center mb-8 bg-clip-text text-transparent bg-gradient-to-r from-white via-ailoop-neon-blue to-white">
-                Para quem é o nosso Chat Agente?
-              </h3>
-              {/* Alterado para justify-start e lista reordenada */}
-              <div className="flex flex-wrap justify-start gap-3">
-                {[ 
-                  'E-commerce', 'Agências de Marketing', 'Infoprodutores', 'Clínicas Médicas', 
-                  'Clínicas Odontológicas', 'Restaurantes/Delivery', 'Corretores de Imóveis', 
-                  'Empresas SaaS', 'Consultores', 'Profissionais Liberais', 'Advogados', 
-                  'Contadores', 'Serviços Locais', 'Academias', 'Salões de Beleza', 
-                  'Escolas/Cursos', 'Hotéis/Pousadas'
-                ].map((publico) => (
-                  <span 
-                    key={publico}
-                    className="bg-white/5 border border-white/15 rounded-full px-4 py-1.5 text-sm text-gray-300 backdrop-blur-sm cursor-default hover:bg-white/10 hover:border-white/25 transition-colors"
-                  >
-                    {publico}
-                  </span>
-                ))}
-              </div>
+                <BrainNetworkIcon />
             </motion.div>
-            {/* Fim da Seção */}
-            
-            {/* Geometric accent element */}
-            <div className="absolute -bottom-2 -right-2 w-16 h-16 bg-transparent border-r-2 border-b-2 border-ailoop-orange/30 rounded-br-xl"></div>
-            <div className="absolute -top-2 -left-2 w-16 h-16 bg-transparent border-l-2 border-t-2 border-ailoop-neon-blue/30 rounded-tl-xl"></div>
-          </div>
-        </motion.div>
-      </div>
-    </section>
+
+          {/* Title (Larger, Gradient Text) */}
+          <motion.h2
+            className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 bg-gradient-to-r from-white via-blue-300 to-white bg-clip-text text-transparent"
+            variants={itemVariants}
+          >
+            Quer entender como a IA pode acelerar seu negócio?
+          </motion.h2>
+
+          {/* Subtitle (Improved Spacing, Highlighted AILOOP) */}
+          <motion.p
+            className="text-lg md:text-xl text-neutral-300 max-w-2xl mb-8 md:mb-12 leading-relaxed" // Increased leading
+            variants={itemVariants}
+          >
+            Fale agora com um especialista da <span className="text-ailoop-blue font-semibold filter drop-shadow-[0_0_4px_theme(colors.ailoop-neon-blue/0.5)]">AILOOP</span> e descubra como revolucionar sua presença digital.
+          </motion.p>
+
+          {/* Neural Network Visualization */}
+          <motion.div
+             variants={networkBuildVariants} // Custom animation for build-up
+             className="w-full" // Ensure it takes width
+          >
+             <NeuralNetworkVisualization />
+          </motion.div>
+
+
+          {/* Button Container */}
+          <motion.div
+             className="flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-6 mt-8 md:mt-0" // Adjusted margin top
+             variants={itemVariants} // Animate buttons as a group initially
+          >
+            {/* WhatsApp Button (Primary) */}
+            <motion.button
+              whileHover={{ scale: 1.03, filter: 'brightness(1.1)' }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ type: 'spring', stiffness: 300, damping: 15 }}
+              className={cn(
+                  "relative group inline-flex items-center justify-center px-6 py-3 rounded-lg",
+                  "bg-gradient-to-r from-[#0D9488] to-[#10B981] text-white font-medium shadow-md",
+                  "hover:shadow-lg hover:shadow-emerald-500/30 transition-all duration-300",
+                  "focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[#080810] focus:ring-emerald-500"
+              )}
+              // onClick={() => window.open('YOUR_WHATSAPP_LINK', '_blank')} // Add your link here
+            >
+               {/* Subtle pulsing border on hover */}
+               <span className="absolute inset-[-2px] rounded-lg bg-gradient-to-r from-emerald-400 to-emerald-600 opacity-0 group-hover:opacity-70 group-hover:animate-pulse-border blur transition-opacity duration-300"></span>
+               <span className="relative z-10 flex items-center">
+                 <MessageSquare className="w-5 h-5 mr-2" />
+                 WhatsApp direto
+               </span>
+            </motion.button>
+
+            {/* Agendar Button (Secondary) */}
+             <motion.button
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ type: 'spring', stiffness: 300, damping: 15 }}
+              className={cn(
+                  "relative group inline-flex items-center justify-center px-6 py-3 rounded-lg border",
+                   // Border gradient
+                  "border-transparent bg-clip-padding bg-[#0A0A14]/70", // Semi-transparent dark bg
+                   "shadow-[inset_0_0_0_1px_rgba(139,92,246,0.5),_inset_0_0_0_2px_rgba(34,211,238,0.3)]", // Gradient border via shadow
+                  "text-neutral-200 font-medium transition-all duration-300 overflow-hidden",
+                  "focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[#080810] focus:ring-ailoop-blue"
+              )}
+               // onClick={() => window.open('YOUR_CALENDLY_LINK', '_blank')} // Add your link here
+            >
+               {/* Fill effect on hover */}
+               <span className="absolute inset-0 bg-gradient-to-r from-ailoop-blue/20 via-ailoop-purple/20 to-transparent transition-all duration-500 ease-out opacity-0 group-hover:opacity-100 -translate-x-full group-hover:translate-x-0"></span>
+               <span className="relative z-10 flex items-center">
+                  <CalendarIcon className="w-5 h-5 mr-2" /> {/* Using Lucide icon */}
+                  Agendar uma conversa
+               </span>
+            </motion.button>
+          </motion.div>
+
+        </div>
+        {/* End Content Wrapper */}
+
+      </motion.div>
+      {/* End Main Card Container */}
+
+       {/* Removed the "Para quem é o nosso Chat Agente?" section as it might belong elsewhere */}
+
+    </motion.section>
   );
 };
 
-// Brain network icon component with enhanced surreal design
-const BrainNetworkIcon = () => (
-  <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
-    <defs>
-      <linearGradient id="brain_grad1" x1="35" y1="30" x2="65" y2="30" gradientUnits="userSpaceOnUse">
-        <stop stopColor="#00E1FF" />
-        <stop offset="1" stopColor="#6236FF" />
-      </linearGradient>
-      <linearGradient id="brain_grad2" x1="15" y1="60" x2="35" y2="60" gradientUnits="userSpaceOnUse">
-        <stop stopColor="#00E1FF" />
-        <stop offset="1" stopColor="#6236FF" />
-      </linearGradient>
-      <linearGradient id="brain_grad3" x1="65" y1="60" x2="85" y2="60" gradientUnits="userSpaceOnUse">
-        <stop stopColor="#6236FF" />
-        <stop offset="1" stopColor="#FF36AB" />
-      </linearGradient>
-      <linearGradient id="brain_grad4" x1="42" y1="80" x2="58" y2="80" gradientUnits="userSpaceOnUse">
-        <stop stopColor="#6236FF" />
-        <stop offset="1" stopColor="#FF8A00" />
-      </linearGradient>
-      
-      <filter id="glow">
-        <feGaussianBlur stdDeviation="2.5" result="blur" />
-        <feComposite in="SourceGraphic" in2="blur" operator="over" />
-      </filter>
-      
-      <linearGradient id="line_grad1" x1="50" y1="45" x2="25" y2="55" gradientUnits="userSpaceOnUse">
-        <stop stopColor="#00E1FF" />
-        <stop offset="1" stopColor="#6236FF" />
-      </linearGradient>
-      <linearGradient id="line_grad2" x1="50" y1="45" x2="75" y2="55" gradientUnits="userSpaceOnUse">
-        <stop stopColor="#6236FF" />
-        <stop offset="1" stopColor="#FF36AB" />
-      </linearGradient>
-      <linearGradient id="line_grad3" x1="25" y1="70" x2="50" y2="80" gradientUnits="userSpaceOnUse">
-        <stop stopColor="#00E1FF" />
-        <stop offset="1" stopColor="#6236FF" />
-      </linearGradient>
-      <linearGradient id="line_grad4" x1="75" y1="70" x2="50" y2="80" gradientUnits="userSpaceOnUse">
-        <stop stopColor="#FF8A00" />
-        <stop offset="1" stopColor="#6236FF" />
-      </linearGradient>
-      
-      <linearGradient id="inner_grad1" x1="45" y1="30" x2="55" y2="30" gradientUnits="userSpaceOnUse">
-        <stop stopColor="white" />
-        <stop offset="1" stopColor="#00E1FF" />
-      </linearGradient>
-      <linearGradient id="inner_grad2" x1="22" y1="60" x2="28" y2="60" gradientUnits="userSpaceOnUse">
-        <stop stopColor="white" />
-        <stop offset="1" stopColor="#00E1FF" />
-      </linearGradient>
-      <linearGradient id="inner_grad3" x1="72" y1="60" x2="78" y2="60" gradientUnits="userSpaceOnUse">
-        <stop stopColor="white" />
-        <stop offset="1" stopColor="#FF36AB" />
-      </linearGradient>
-      <linearGradient id="inner_grad4" x1="48" y1="80" x2="52" y2="80" gradientUnits="userSpaceOnUse">
-        <stop stopColor="white" />
-        <stop offset="1" stopColor="#FF8A00" />
-      </linearGradient>
-    </defs>
-    
-    {/* Neural network structure with glow effect */}
-    <g filter="url(#glow)">
-      <circle cx="50" cy="30" r="15" fill="url(#brain_grad1)" opacity="0.8" />
-      <circle cx="25" cy="60" r="10" fill="url(#brain_grad2)" opacity="0.8" />
-      <circle cx="75" cy="60" r="10" fill="url(#brain_grad3)" opacity="0.8" />
-      <circle cx="50" cy="80" r="8" fill="url(#brain_grad4)" opacity="0.8" />
-    </g>
-    
-    {/* Neural connections */}
-    <path d="M50 45L25 55" stroke="url(#line_grad1)" strokeWidth="1.5" strokeDasharray="2 2" />
-    <path d="M50 45L75 55" stroke="url(#line_grad2)" strokeWidth="1.5" />
-    <path d="M25 70L50 80" stroke="url(#line_grad3)" strokeWidth="1.5" />
-    <path d="M75 70L50 80" stroke="url(#line_grad4)" strokeWidth="1.5" strokeDasharray="3 3" />
-    
-    {/* Inner core nodes */}
-    <circle cx="50" cy="30" r="5" fill="url(#inner_grad1)" />
-    <circle cx="25" cy="60" r="3" fill="url(#inner_grad2)" />
-    <circle cx="75" cy="60" r="3" fill="url(#inner_grad3)" />
-    <circle cx="50" cy="80" r="2" fill="url(#inner_grad4)" />
-    
-    {/* Additional small nodes for complexity */}
-    <circle cx="40" cy="40" r="1.5" fill="white" opacity="0.7" />
-    <circle cx="60" cy="40" r="1.5" fill="white" opacity="0.7" />
-    <circle cx="35" cy="70" r="1.5" fill="white" opacity="0.7" />
-    <circle cx="65" cy="70" r="1.5" fill="white" opacity="0.7" />
-    
-    {/* Subtle connection lines */}
-    <path d="M40 40L50 30" stroke="white" strokeWidth="0.5" opacity="0.5" />
-    <path d="M60 40L50 30" stroke="white" strokeWidth="0.5" opacity="0.5" />
-    <path d="M35 70L25 60" stroke="white" strokeWidth="0.5" opacity="0.5" />
-    <path d="M65 70L75 60" stroke="white" strokeWidth="0.5" opacity="0.5" />
-  </svg>
-);
-
 export default CTASection;
+// --- Helper CSS for Animations (Ensure these are in your global CSS or tailwind.config.js) ---
+/*
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.animate-spin-slow {
+  animation: spin-slow 15s linear infinite;
+}
+
+@keyframes pulse-subtle {
+  0%, 100% { opacity: 0.6; filter: drop-shadow(0 0 5px currentColor); }
+  50% { opacity: 0.8; filter: drop-shadow(0 0 8px currentColor); }
+}
+.animate-pulse-subtle {
+  animation: pulse-subtle 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse-border {
+ 0%, 100% { opacity: 0.7; }
+ 50% { opacity: 1; }
+}
+.animate-pulse-border {
+ animation: pulse-border 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse-slow {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.7; }
+}
+.animate-pulse-slow {
+ animation: pulse-slow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+*/
+
+// --- Ensure Tailwind Theme Colors are Defined ---
+/* tailwind.config.js example:
+ theme: {
+   extend: {
+     colors: {
+       'ailoop-blue': '#6366F1', // Example blue
+       'ailoop-neon-blue': '#22D3EE', // Example cyan/neon
+       'ailoop-purple': '#8B5CF6', // Example purple
+       // ... other colors
+     },
+     backgroundImage: {
+        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+      }
+   }
+ }
+*/
+
+// Make sure to install lucide-react if not already: npm install lucide-react
+// Add noise.png to your public folder or adjust path.
+// Add necessary animation keyframes and theme colors to your global CSS / tailwind config.

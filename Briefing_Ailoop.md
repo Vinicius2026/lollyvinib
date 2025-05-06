@@ -2,19 +2,22 @@
 
 ## Resumo do Projeto e Tecnologias
 
-Este projeto é uma aplicação web desenvolvida com as seguintes tecnologias:
+Este projeto é uma aplicação web desenvolvida com as seguintes tecnologias principais (confirmado via `package.json` e uso):
 
 *   **Build Tool:** Vite
 *   **Framework UI:** React
 *   **Linguagem:** TypeScript
 *   **Estilização:** Tailwind CSS
-*   **Biblioteca de Componentes:** shadcn/ui (baseada em Radix UI)
-*   **Roteamento:** React Router DOM
-*   **Gerenciamento de Dados/Estado:** TanStack Query (React Query)
-*   **Formulários:** React Hook Form com Zod para validação
+*   **Biblioteca de Componentes:** shadcn/ui (Radix UI)
+*   **Roteamento:** React Router DOM (`react-router-dom`)
+*   **Gerenciamento de Dados/Estado:** TanStack Query (`@tanstack/react-query`)
+*   **Formulários:** React Hook Form (`react-hook-form`) com Zod (`zod`) para validação
 *   **Gráficos:** Recharts
-*   **Ícones:** Lucide React
-*   **Animação Base:** tailwindcss-animate (integrado com shadcn/ui)
+*   **Ícones:** Lucide React (`lucide-react`), React Icons (`react-icons`)
+*   **Animação:** Framer Motion (`framer-motion`), tailwindcss-animate
+*   **Componentes UI Adicionais:** Sonner (toasts), CMDK (command menu), Vaul (drawer), Input OTP, React Day Picker, Embla Carousel, React Resizable Panels, etc.
+*   **3D:** React Three Fiber (`@react-three/fiber`), Drei (`@react-three/drei`), Postprocessing
+*   **Outros:** clsx, tailwind-merge, date-fns, Next Themes
 
 O propósito específico da aplicação "Ailoop" não está detalhado nos arquivos de configuração ou README analisados. O projeto parece ter sido iniciado usando a plataforma "Lovable".
 
@@ -128,13 +131,31 @@ Considerando a stack React/Tailwind, as seguintes bibliotecas podem ser avaliada
   - Removida por decisão de design, incluindo o componente e o texto associado.
 - ✅ Ajustados paddings/margens da `HeroSection` e espaçamento entre seções para melhor fluxo visual.
 
+### 5. Funcionalidades e Componentes Adicionais (Adicionado 2024-07-28)
+- ✅ Implementado componente `InteractiveQuiz.tsx`:
+    - Apresenta um quizz com perguntas de múltipla escolha e sim/não.
+    - Lógica inclui gerenciamento de estado (pergunta atual, respostas), validação básica, e fluxo condicional (ex: pular para o fim se responder "Não" na primeira pergunta).
+    - Possui opção de coletar número de WhatsApp no final.
+    - Estilizado com Tailwind CSS (fundo rosa transparente, layout de card).
+    - Integrado à página principal (`src/pages/Index.tsx`) antes da `CTASection`.
+- ✅ Depuração da Renderização do Quiz:
+    - Investigado problema onde o quiz não aparecia.
+    - Testes realizados: simplificação do componente, verificação de erros no console, checagem de cache/build.
+    - Identificado e corrigido problema relacionado à diretiva `'use client';` (necessária no componente pai que renderiza o quiz).
+    - Isolado e temporariamente removido componente `Globe` para teste, posteriormente restaurado.
+- ✅ Refatorado `CTASection.tsx` (Contexto da Conversa Anterior - "Implementação de Projetos"):
+    - Implementado design visual com fundo gradiente, texto estilizado e animações conforme solicitado.
+    - Corrigido erro de importação de ícone (`WhatsappIcon` inexistente em `lucide-react`, substituído por `MessageSquare`).
+
 ## Contexto Atual e Próximos Passos Imediatos
 
-*   **Estado:** O site possui animações de entrada consistentes na maioria das seções, botões com estilo padronizado e refinado, e novos elementos visuais/informativos (glow nos ícones, seção de público, placeholders de logos).
+*   **Estado:** O site possui animações de entrada consistentes, botões com estilo padronizado, novos elementos visuais (glow, imagens), componentes interativos (quiz) e seções de conteúdo atualizadas.
 *   **Próximos Passos:**
     *   Implementar a nova animação de personagem cartoon na Hero Section.
     *   Inserir os códigos SVG reais dos logos de tecnologia nos placeholders da `TechPanel`.
     *   Aplicar animação de entrada `fadeInUp` ao componente `Footer`.
+    *   Testar e refinar a integração e visualização do `InteractiveQuiz` na página.
+    *   Implementar lógica de backend para receber e processar os resultados do `InteractiveQuiz`.
 
 ## Estrutura de Arquivos e Pastas (Base)
 

@@ -57,9 +57,9 @@ const ZapIaShowcase: React.FC = () => {
           initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: "circOut" }}
-          className="text-4xl md:text-5xl lg:text-6xl font-inter font-bold text-neutral-900 mb-16 md:mb-20"
+          className="text-4xl md:text-5xl lg:text-6xl font-orbitron font-bold text-neutral-900 mb-16 md:mb-20 uppercase tracking-tight"
         >
-          ZAP IA TEXTO + VOZ <span className="block md:inline">99% HUMANIZADA</span>
+          Fremen IA Texto & Voz
         </motion.h1>
 
         {/* Layout para os dois cards lado a lado */}

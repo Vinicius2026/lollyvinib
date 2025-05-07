@@ -20,10 +20,47 @@ const FeatureCard: React.FC<FeatureCardProps> = ({
   index = 0,
 }) => {
   let iconSrc = '';
+  let animationProps = {}; // Inicia vazio, apenas o cérebro terá animação complexa
+
   if (iconType === 'bar-chart-arrow') {
     iconSrc = '/image_grande/icon-zv-medio-1.png';
-  } else if (iconType === 'eye-play') {
+    // Nenhuma animationProps é definida aqui, então ele ficará estático com opacidade 1
+    // animationProps = { ... } // Linhas da animação anterior removidas
+  } else if (iconType === 'eye-play') { // Cérebro
     iconSrc = '/image_grande/icon-zv-medio-2.png';
+    animationProps = {
+      animate: {
+        opacity: [
+          1, 0.3, 0.3, 1, 
+          1,               
+          0.1, 1, 0.1, 1, 0.1, 1, 
+          1,               
+          0.3, 0.3, 1,     
+        ],
+      },
+      transition: {
+        duration: 7, 
+        repeat: Infinity,
+        ease: "linear", 
+        times: [
+          0,    
+          0.07, 
+          0.50, 
+          0.57, 
+          0.60, 
+          0.62, 
+          0.65, 
+          0.68, 
+          0.71, 
+          0.74, 
+          0.77, 
+          0.80, 
+          0.87, 
+          0.93, 
+          1,    
+        ],
+      },
+    };
   }
 
   return (
@@ -48,15 +85,7 @@ const FeatureCard: React.FC<FeatureCardProps> = ({
             src={iconSrc} 
             alt={`Ícone para ${title}`} 
             className="w-60 h-60 md:w-72 md:h-72 object-contain"
-            animate={{
-              opacity: [1, 0.3, 0.3, 1]
-            }}
-            transition={{
-              duration: 5,
-              repeat: Infinity,
-              ease: "easeInOut",
-              times: [0, 0.2, 0.8, 1]
-            }}
+            {...animationProps}
           />
         )}
       </div>

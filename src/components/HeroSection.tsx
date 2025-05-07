@@ -78,6 +78,18 @@ const HeroSection: React.FC = () => {
             </span>
           ))}
         </div>
+
+        {/* Novo Texto da História */}
+        <motion.p
+          className="text-white font-serif italic text-lg md:text-xl max-w-2xl text-center my-6" // Adicionado my-6 para margem vertical
+          variants={fadeInUp} // Reutilizando a animação fadeInUp
+          initial="hidden"
+          whileInView="visible" // Para animar quando entra na visão
+          viewport={{ once: true, amount: 0.3 }} // Configuração do viewport
+          transition={{ delay: 0.5, duration: 0.6 }} // Delay para aparecer após a lista
+        >
+          Nosso site conta com uma Inteligencia Aritificial de amplo contexto que melhora todos os dias nossas tecnologias. Estudamos a cada minuto o que está dando certo para todos.
+        </motion.p>
         
         {/* Botões Originais */}
         <div className="flex flex-wrap gap-4 justify-center pt-8">

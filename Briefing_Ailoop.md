@@ -72,15 +72,36 @@ O objetivo é re-estilizar visualmente as seções existentes do projeto React/V
   - Apresentação em 5 passos com ícones e descrições.
 - ✅ Implementação da Seção 4: Sua Equipe AILOOP Dedicada: Humanos e IA.
   - Divisão em Liderança, Especialistas Humanos e Robôs IA.
-  - Nomes e papéis definidos para humanos e IAs (Orion, Vox, Cortex, Momentum, Guardian, Synapse, Pixel, Echo).
+  - Nomes e papéis definidos para humanos e IAs (Fremen, Mavelito, Piraq, Verlini, Dramontin, Roromiro, Cof).
   - Cards estilizados para apresentação da equipe.
   - ✨ Design da seção revisado e atualizado (conforme conversa "Revamping AILOOP's Team Section Design").
+  - ✅ Atualização das imagens dos personagens IA (substituindo placeholders ou imagens anteriores):
+    - Piraq: `1astro.png` -> `3astro3.png`.
+    - Verlini: `1astro.png` -> `4astro4.png`.
+    - Dramontin: `1astro.png` -> `5astro5.png`.
+    - Roromiro (anteriormente Rororomiro): `1astro.png` -> `6astro6.png`.
+    - Cof: `1astro.png` -> `7astro7.png`.
+    - (Nota: Imagens de Fremen e Mavelito são `1astro.png` e `2astro2.png` respectivamente, conforme código atual).
+  - ✅ Renomeado personagem IA "Rororomiro" para "Roromiro".
+  - ✅ Ajuste de layout na sub-seção "IA Dedicada à Performance": Aumentada margem inferior do título para melhor espaçamento.
+  - ✅ Melhorias no componente `AIProfileCard.tsx` (impactando a exibição dos personagens IA):
+    - Adicionada prop `imageContainerClassName` para permitir personalização do tamanho do contêiner da imagem (usada inicialmente para Verlini).
+    - Posteriormente, o tamanho padrão do contêiner da imagem foi aumentado em aproximadamente 50% para todos os cards de IA.
+    - O padding interno dos cards de IA foi ajustado para acomodar o novo tamanho padrão da imagem.
+    - A personalização específica de `imageContainerClassName` para Verlini em `ServicosHorasPage.tsx` foi removida após o aumento global do tamanho da imagem.
 - ✅ Implementação da Seção 5: Serviços Disponíveis Sob Demanda.
   - Grid de serviços com ícones, nomes e descrições.
 - ✅ Implementação da Seção 6: Benefícios da Flexibilidade AILOOP.
   - Cards destacando Zero Desperdício, Sem Contratos Mensais, Acesso On-Demand e Resultados Mensuráveis.
-- 🚧 Pendente: Implementação das Seções 7 (USP), 8 (Prova Social) e 9 (CTA Final) - Código a ser fornecido para inserção manual.
-- 🚧 Pendente: Adição de Navbar e Footer à página `ServicosHorasPage.tsx`.
+- ✅ Implementação da Seção 7 (USP): Transformada na nova `ComparativeAdvantageSection`.
+  - Criados componentes `AdvantageItem.tsx`, `AdvantageColumn.tsx` e `ComparativeAdvantageSection.tsx` em `src/components/features/ServicosHorasPage/`.
+  - Nova seção usa layout de duas colunas dinâmico, com tratamentos visuais distintos para "Modelo Tradicional" e "AILOOP".
+  - Animações Framer Motion para entrada da seção, colunas e itens.
+  - Estilização com Tailwind CSS, incluindo glassmorphism e acentos neon.
+  - Título da seção alterado para "Abandone a Rigidez. Abrace a Inteligência Flexível."
+  - Corrigido ícone `UsersX` para `UserX`.
+- 🚧 Pendente: Implementação das Seções 8 (Prova Social) e 9 (CTA Final) - Código a ser fornecido para inserção manual.
+- 🚧 Pendente: Adição de Navbar e Footer à página `ServicosHorasPage.tsx` (Navbar e Footer já estão sendo usados, verificar se há algo específico pendente).
 - 🚧 Pendente: Implementação do sofisticado plano de fundo animado (R3F/Framer Motion) conforme conceito.
 
 ## Sugestões de Bibliotecas de Animação (Intermediárias/Avançadas)
@@ -118,6 +139,14 @@ Considerando a stack React/Tailwind, as seguintes bibliotecas podem ser avaliada
 - ✅ Padronizado estilo dos botões principais (Hero, Navbar, CTA) para tema "luxuoso/transparente" (fundo escuro semi-transparente, borda sutil, blur).
 - ✅ Refinados efeitos de hover nos botões de preço (ServicesSection) com diferenciação para premium.
 - ✅ Ajustado texto e ícones dos botões na HeroSection.
+- ✅ **Página Index.tsx:**
+    - ✅ Botão "ACESSAR PÁGINA PREÇOS POR HORA" (abaixo da `ComparativeAdvantageSection`): 
+        - Texto alterado e emoji removido.
+        - Estilo alterado para efeito "vidro" escuro (bg-black/30, backdrop-blur-xl, border-white/10).
+        - Margem superior ajustada para aproximá-lo da seção acima.
+        - Efeito de sombra refinado para maior profundidade.
+    - ✅ Botão "Quero ver Agente Assistente de uma Clinica Dentaria" (abaixo do `InteractiveQuiz`):
+        - Estilo atualizado para corresponder ao efeito "vidro" do botão "ACESSAR PÁGINA PREÇOS POR HORA".
 
 ### 2. Layout e Design
 - ✅ Redesenhada a seção "Por que escolher a AILOOP"
@@ -134,6 +163,9 @@ Considerando a stack React/Tailwind, as seguintes bibliotecas podem ser avaliada
 - ✅ Adicionado efeito de brilho (glow) aos ícones na WhyUsSection.
 - ✅ Adicionada subseção "Para quem é o Chat Agente?" na CTASection com lista de públicos estilizada.
 - ✅ Inserida estrutura (placeholders) para faixa de logos de tecnologia na TechPanel.
+- ✅ **Seção de Vantagens Comparativas (`ComparativeAdvantageSection`):**
+    - ✅ Adicionada à página `ServicosHorasPage.tsx`, substituindo a antiga seção USP.
+    - ✅ Adicionada também à página `Index.tsx` (entre `WhyUsSection` e `CTASection`).
 
 ### 3. Animações e Efeitos
 - ✅ Implementadas animações usando Framer Motion
@@ -229,7 +261,7 @@ A estrutura principal do projeto dentro do diretório `src` é organizada da seg
             *   ✅ Otimizado o `text-shadow` (classe `shadowClass`) aplicado nas opções de preço (40k, 80k) no dropdown. O brilho e o `hover` do brilho foram suavizados (ex: de `[text-shadow:0_0_3px_rgba(...,0.6)] hover:[text-shadow:0_0_5px_rgba(...,0.8)]` para `[text-shadow:0_0_2px_rgba(...,0.5)] hover:[text-shadow:0_0_4px_rgba(...,0.7)]`).
 *   **Próximas Ações de Otimização (além das já listadas):**
     *   Revisar e aplicar `React.memo`, `useCallback`, `useMemo` onde necessário.
-    *   Verificar todos os usos de `box-shadow`, `drop-shadow`, e `filter` para animações contínuas e avaliar alternativas mais performáticas se necessário (ex: animar opacidade de pseudo-elementos com o brilho).
+    *   Verificar todos os usos de `box-shadow`, `drop-shadow`, e `filter` para animações contínuas e avaliar alternativas mais performáticas se necessário (ex: animar opacidade de pseudo-elementos com o brilho). 
 
 ### 2. Melhorias de Acessibilidade
 - [ ] Adicionar suporte a `prefers-reduced-motion`

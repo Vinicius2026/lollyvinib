@@ -10,6 +10,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import InteractiveQuiz from "@/components/landing/InteractiveQuiz";
 import { fadeInUp } from "@/lib/motion/config";
 import CrystalDataHorizonBackground from "@/components/backgrounds/CrystalDataHorizonBackground";
+import { ComparativeAdvantageSection } from '@/components/features/ServicosHorasPage/ComparativeAdvantageSection';
 
 const Index: React.FC = () => {
   return (
@@ -49,15 +50,34 @@ const Index: React.FC = () => {
           >
             <button
               type="button"
-              className="px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-semibold text-lg rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-opacity-75 tracking-wide whitespace-normal min-w-[300px] max-w-[90%] sm:max-w-[600px]"
+              className="px-8 py-4 bg-black/30 backdrop-blur-xl border border-white/10 hover:bg-orange-700 hover:border-white/20 text-white font-semibold text-lg rounded-lg shadow-[0_0_15px_5px_rgba(100,100,200,0.07),_0_0_5px_1px_rgba(200,200,255,0.05)_inset] hover:shadow-[0_0_20px_7px_rgba(120,120,220,0.1),_0_0_8px_2px_rgba(220,220,255,0.07)_inset] transform hover:scale-105 transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-neon-cyan/80 focus:ring-offset-2 focus:ring-offset-brand-dark tracking-wide whitespace-normal min-w-[300px] max-w-[90%] sm:max-w-[600px]"
             >
-              Quero ver Agente Assistente de uma Clinica Dentaria
+              VER AGENTE REAL CLINICA DENTARIA (WHATSAPP)
             </button>
           </motion.div>
         </div>
 
         <motion.div variants={fadeInUp} initial="hidden" animate="visible" transition={{ duration: 0.6, delay: 0.6 }}>
           <WhyUsSection />
+        </motion.div>
+
+        <motion.div variants={fadeInUp} initial="hidden" animate="visible" transition={{ duration: 0.6, delay: 0.65 }}>
+          <ComparativeAdvantageSection />
+        </motion.div>
+
+        <motion.div 
+          className="text-center mt-8 mb-8 sm:mt-10 sm:mb-12 px-4"
+          variants={fadeInUp} 
+          initial="hidden" 
+          animate="visible" 
+          transition={{ duration: 0.6, delay: 0.68 }}
+        >
+          <a 
+            href="/servicos-horas" 
+            className="inline-block px-8 py-4 sm:px-10 sm:py-5 bg-black/30 backdrop-blur-xl border border-white/10 hover:bg-white/5 hover:border-white/20 text-white font-semibold text-base sm:text-lg rounded-lg shadow-[0_0_15px_5px_rgba(100,100,200,0.07),_0_0_5px_1px_rgba(200,200,255,0.05)_inset] hover:shadow-[0_0_20px_7px_rgba(120,120,220,0.1),_0_0_8px_2px_rgba(220,220,255,0.07)_inset] transform hover:scale-105 transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-neon-cyan/80 focus:ring-offset-2 focus:ring-offset-brand-dark tracking-wide uppercase"
+          >
+            ACESSAR PÁGINA PREÇOS POR HORA
+          </a>
         </motion.div>
 
         <motion.div variants={fadeInUp} initial="hidden" animate="visible" transition={{ duration: 0.6, delay: 0.7 }}>

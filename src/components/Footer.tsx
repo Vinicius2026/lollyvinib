@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Instagram, Twitter, Linkedin, Zap } from 'lucide-react'; // Usando Zap como exemplo, substitua se necessário
+import { Instagram, Twitter, Linkedin, Zap, ChevronRight } from 'lucide-react'; // Usando Zap como exemplo, substitua se necessário
 
 // Supondo que fadeInUp esteja definido em algum lugar global ou defina localmente
 const fadeInUp = {
@@ -47,11 +47,35 @@ const Footer: React.FC = () => {
             <h3 className="text-lg font-semibold text-white mb-5 tracking-wide">
               Navegação
             </h3>
-            <ul className="space-y-3">
-              <li><Link to="/servicos-fixos" className="hover:text-ailoop-neon-blue transition-colors duration-200 text-sm">Serviços Preço Fixo</Link></li>
-              <li><Link to="/#about" className="hover:text-ailoop-neon-blue transition-colors duration-200 text-sm">Sobre Nós</Link></li>
-              <li><Link to="/#contact" className="hover:text-ailoop-neon-blue transition-colors duration-200 text-sm">Contato</Link></li>
-              <li><Link to="/blog" className="hover:text-ailoop-neon-blue transition-colors duration-200 text-sm">Blog</Link></li>
+            <ul className="space-y-3 text-sm">
+              <li><Link to="/servicos-fixos" className="hover:text-ailoop-neon-blue transition-colors duration-200">Serviços Preço Fixo</Link></li>
+              <li><Link to="/#about" className="hover:text-ailoop-neon-blue transition-colors duration-200">Sobre Nós</Link></li>
+              <li><Link to="/#contact" className="hover:text-ailoop-neon-blue transition-colors duration-200">Contato</Link></li>
+              <li><Link to="/blog" className="hover:text-ailoop-neon-blue transition-colors duration-200">Blog</Link></li>
+              <li>
+                <span className="flex items-center cursor-default text-neutral-400 hover:text-neutral-200 transition-colors duration-200">
+                  <ChevronRight className="w-3 h-3 mr-1.5 text-neutral-500 flex-shrink-0" />
+                  Trabalhe conosco
+                </span>
+              </li>
+              <li>
+                <span className="flex items-center cursor-default text-neutral-400 hover:text-neutral-200 transition-colors duration-200">
+                  <ChevronRight className="w-3 h-3 mr-1.5 text-neutral-500 flex-shrink-0" />
+                  Youtube Canal CEO
+                </span>
+              </li>
+              <li>
+                <span className="flex items-center cursor-default text-neutral-400 hover:text-neutral-200 transition-colors duration-200">
+                  <ChevronRight className="w-3 h-3 mr-1.5 text-neutral-500 flex-shrink-0" />
+                  Escola e Treinamentos
+                </span>
+              </li>
+              <li>
+                <span className="flex items-center cursor-default text-neutral-400 hover:text-neutral-200 transition-colors duration-200">
+                  <ChevronRight className="w-3 h-3 mr-1.5 text-neutral-500 flex-shrink-0" />
+                  Cuidamos do Rio de Janeiro
+                </span>
+              </li>
             </ul>
           </div>
 
@@ -60,9 +84,12 @@ const Footer: React.FC = () => {
             <h3 className="text-lg font-semibold text-white mb-5 tracking-wide">
               Legal
             </h3>
-            <ul className="space-y-3">
-              <li><Link to="/termos" className="hover:text-ailoop-purple transition-colors duration-200 text-sm">Termos de Serviço</Link></li>
-              <li><Link to="/privacidade" className="hover:text-ailoop-purple transition-colors duration-200 text-sm">Política de Privacidade</Link></li>
+            <ul className="space-y-3 text-sm">
+              <li><Link to="/termos" className="hover:text-ailoop-purple transition-colors duration-200">Termos de Serviço</Link></li>
+              <li><Link to="/privacidade" className="hover:text-ailoop-purple transition-colors duration-200">Política de Privacidade</Link></li>
+              <li><Link to="/#politica-uso" className="hover:text-ailoop-purple transition-colors duration-200">Política de uso</Link></li>
+              <li><Link to="/#parceria-comercial" className="hover:text-ailoop-purple transition-colors duration-200">Parceria Comercial</Link></li>
+              <li><Link to="/#imprensa" className="hover:text-ailoop-purple transition-colors duration-200">Imprensa</Link></li>
             </ul>
           </div>
           
@@ -97,11 +124,11 @@ const Footer: React.FC = () => {
               <p className="text-neutral-500">
                 Site desenvolvido com IA pela própria AILOOP
               </p>
-              <p className="font-medium text-white">
-                Vinicius Beni - <span className="text-ailoop-neon-blue/80 text-xs font-normal">Founder</span>
+              <p className="font-semibold text-white mt-1">
+                EDCRED Founder
               </p>
-              <p className="mt-1 text-xs font-mono uppercase tracking-wider text-ailoop-purple/70">
-                EdCred Founder Prive
+              <p className="text-neutral-400 text-xs">
+                Vinicius Beni Development
               </p>
             </div>
           </div>

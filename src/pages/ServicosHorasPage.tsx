@@ -5,13 +5,14 @@ import {
   Handshake, BarChart3, ShoppingCart, Hourglass, Users2, Eye, ShieldCheck, Sparkles, Settings2, 
   Search, Mic, Bot, LineChart, Megaphone, FileText, Filter, Palette, Shield, TrendingDown, 
   LockOpen, CheckSquare, RotateCcw, Lightbulb, MessageSquareText, ThumbsUp, Rocket, 
-  BadgePercent, CalendarDays 
+  BadgePercent, CalendarDays, MessageCircle
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import Navbar from '@/components/Navbar'; 
 import Footer from '@/components/Footer'; 
 import HumanProfileCard from '@/components/HumanProfileCard'; // NOVO
 import AIProfileCard from '@/components/AIProfileCard'; // NOVO
+import { ComparativeAdvantageSection } from '@/components/features/ServicosHorasPage/ComparativeAdvantageSection'; // NOVO IMPORT
 
 // Animation variants
 const fadeInUp = {
@@ -24,6 +25,161 @@ const cardFadeInUp = {
   initial: { opacity: 0, y: 40 },
   animate: { opacity: 1, y: 0 },
   transition: { duration: 0.5, ease: "easeOut" }
+};
+
+const sectionFadeInUp = {
+  initial: { opacity: 0, y: 50 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.7, ease: "easeOut" }
+};
+
+const cardGridVariants = {
+  animate: {
+    transition: {
+      staggerChildren: 0.08,
+    },
+  },
+};
+
+const cardVariants = {
+  initial: { opacity: 0, y: 30, scale: 0.95 },
+  animate: { opacity: 1, y: 0, scale: 1 },
+  transition: { duration: 0.4, ease: "easeOut" }
+};
+
+// Definição da interface para os props do ServiceCard
+interface ServiceCardProps {
+  icon: React.ElementType;
+  title: string;
+  description: string;
+  neonColorName: 'cyan' | 'electricblue' | 'magenta' | 'purple' | 'orange' | 'lime' | 'yellow' | 'white' | 'teal';
+  index: number;
+}
+
+// Lista de serviços atualizada
+const allAvailableServices: Omit<ServiceCardProps, 'index'>[] = [
+  { title: "Análise de Dados com IA", icon: LineChart, description: "Insights profundos para decisões estratégicas.", neonColorName: 'cyan' },
+  { title: "Criação de Copy Persuasiva", icon: FileText, description: "Textos que vendem e engajam seu público.", neonColorName: 'electricblue' },
+  { title: "Gestão de Tráfego Avançada", icon: Megaphone, description: "Maximize o ROI de seus anúncios online.", neonColorName: 'magenta' },
+  { title: "Desenvolvimento de Funil de Vendas", icon: Filter, description: "Converta leads em clientes de forma otimizada.", neonColorName: 'purple' },
+  { title: "Consultoria Estratégica de Marketing", icon: Users, description: "Planejamento e direcionamento para seus objetivos.", neonColorName: 'orange' },
+  { title: "Otimização SEO Completa", icon: Search, description: "Melhore seu ranking e visibilidade orgânica.", neonColorName: 'lime' },
+  { title: "Design de Landing Pages Otimizadas", icon: Palette, description: "Páginas focadas em conversão e experiência do usuário.", neonColorName: 'yellow' },
+  { title: "Automação de Marketing com IA", icon: Bot, description: "com Agentes Assistentes Inteligentes e educados com material da sua empresa.", neonColorName: 'white' },
+  { 
+    title: "Gestão da Operação", 
+    icon: MessageCircle, 
+    description: "Metodo OpenAI para conectar todos os fluxos de agentes em tempo real com o time humano. Criando um fluxo de implementação rápido, profissional, que deslumbra atingir o maior nível de qualidade possível.", 
+    neonColorName: 'cyan' // Cor conforme imagem mais recente
+  },
+  {
+    title: "Whatsapp Agente Assistente IAL",
+    icon: Sparkles, 
+    description: "Agente humanizado que entende texto, audio, imagem, contexto em modo geral. Ele é educado com dados da sua empresa e atende de forma personalizada, a ponto de atingir uma semelhança de até 99% com um humano conversando, treinado para gerar vendas e ou agendamentos. Esse serviço de implementação está restrito ao plano de Preços Fixos. Acesse a página de Preços Fixos para contratar.",
+    neonColorName: 'cyan' // Cor conforme imagem mais recente (era lime)
+  }
+];
+
+const standardServices = allAvailableServices.slice(0, 8);
+const specialServices = allAvailableServices.slice(8);
+
+// Helper para classes de hover dinâmicas (APENAS BORDA NEON)
+const getNeonBorderHoverClasses = (colorName: ServiceCardProps['neonColorName']) => {
+  if (colorName === 'white') {
+    return "hover:border-white"; // Borda branca sólida no hover
+  }
+  // return `hover:border-neon-${colorName}`; // DIAGNÓSTICO: Comentado
+  return 'hover:border-sky-500'; // DIAGNÓSTICO: Fallback para azul
+};
+
+const getNeonIconColorClass = (colorName: ServiceCardProps['neonColorName']) => {
+  if (colorName === 'white') return 'text-white';
+  // return `text-neon-${colorName}`; // DIAGNÓSTICO: Comentado
+  return 'text-sky-500'; // DIAGNÓSTICO: Fallback para azul
+};
+
+const getNeonTitleColorClass = (colorName: ServiceCardProps['neonColorName']) => {
+  if (colorName === 'white') return 'text-white';
+  // return `text-neon-${colorName}`; // DIAGNÓSTICO: Comentado
+  return 'text-sky-500'; // DIAGNÓSTICO: Fallback para azul
+};
+
+// Componente ServiceCard (para os 8 serviços padrão)
+const ServiceCard: React.FC<ServiceCardProps> = ({ icon: Icon, title, description, neonColorName, index }) => {
+  const borderHoverClass = getNeonBorderHoverClasses(neonColorName);
+  const iconColorClass = getNeonIconColorClass(neonColorName);
+  const titleColorClass = getNeonTitleColorClass(neonColorName);
+
+  return (
+    <motion.div
+      className={cn(
+        "font-inter group relative flex flex-col p-6 rounded-xl overflow-hidden h-full",
+        "bg-neutral-950", // FUNDO MAIS ESCURO, SEM BLUR E SEM TRANSPARÊNCIA SIGNIFICATIVA
+        "border-2 border-transparent", // Borda transparente para manter o layout, será colorida no hover
+        "transition-colors duration-200 ease-in-out", // Transição apenas para cores (borda)
+        borderHoverClass // Aplicando a classe de borda no hover
+      )}
+      variants={cardVariants}
+      whileHover={{ scale: 1.02, y: -4, transition: { duration: 0.2, ease: "easeInOut" } }} // Hover mais sutil
+    >
+      <div className="mb-5">
+        <Icon className={cn("w-10 h-10 sm:w-12 sm:h-12", iconColorClass, "transition-colors duration-300 stroke-[1.5]")} />
+      </div>
+      <h4 className={cn(
+          "font-semibold text-lg sm:text-xl mb-2.5",
+          titleColorClass,
+          "transition-colors duration-300"
+      )}>
+        {title}
+      </h4>
+      <p className="text-neutral-400 text-sm sm:text-[0.9rem] leading-relaxed flex-grow">
+        {description}
+      </p>
+    </motion.div>
+  );
+};
+
+// NOVO Componente SpecialServiceCard
+const SpecialServiceCard: React.FC<ServiceCardProps> = ({ icon: Icon, title, description, neonColorName, index }) => {
+  const iconColor = neonColorName === 'white' ? 'text-white' : `text-neon-${neonColorName}`;
+  const borderColor = neonColorName === 'white' ? 'border-white' : `border-neon-${neonColorName}`;
+  const shadowColor = neonColorName === 'white' ? 'shadow-[0_0_20px_-5px_rgba(255,255,255,0.3)]' : `shadow-[0_0_20px_-5px_theme(colors.neon-${neonColorName}/0.4)]`;
+  const hoverShadowColor = neonColorName === 'white' ? 'hover:shadow-[0_0_30px_-5px_rgba(255,255,255,0.5)]' : `hover:shadow-[0_0_30px_-5px_theme(colors.neon-${neonColorName}/0.6)]`;
+  
+  // Usando as classes de fallback azul para diagnóstico visual rápido, ATÉ QUE O PROBLEMA DE SUMIR SEJA RESOLVIDO
+  // ASSIM QUE O PROBLEMA ORIGINAL DE SUMIR TUDO FOR RESOLVIDO, REVERTER PARA AS CORES NEON REAIS ABAIXO:
+  const diagnosticIconColor = 'text-sky-500'; // getNeonIconColorClass(neonColorName);
+  const diagnosticTitleColor = 'text-sky-500'; // getNeonTitleColorClass(neonColorName);
+  const diagnosticBorderColor = 'border-sky-500'; // borderColor;
+  const diagnosticShadowColor = 'shadow-[0_0_20px_-5px_theme(colors.sky-500/0.4)]'; // shadowColor;
+  const diagnosticHoverShadowColor = 'hover:shadow-[0_0_30px_-5px_theme(colors.sky-500/0.6)]'; // hoverShadowColor;
+
+
+  return (
+    <motion.div
+      className={cn(
+        "font-inter group relative flex flex-col p-8 rounded-xl overflow-hidden h-full w-full max-w-2xl mx-auto", // Centralizado e com largura máxima
+        "bg-neutral-900", // Fundo um pouco diferente
+        "border-2", // Borda mais espessa
+        diagnosticBorderColor, // Borda neon persistente (usando fallback azul por agora)
+        diagnosticShadowColor, // Sombra neon persistente (usando fallback azul por agora)
+        diagnosticHoverShadowColor, // Sombra mais forte no hover (usando fallback azul por agora)
+        "transition-all duration-300 ease-in-out"
+      )}
+      variants={cardVariants} // Pode ter variantes próprias se necessário
+      whileHover={{ scale: 1.03, transition: { duration: 0.2, ease: "easeInOut" } }}
+    >
+      <div className="mb-6">
+        <Icon className={cn("w-12 h-12 sm:w-14 sm:h-14", diagnosticIconColor, "stroke-[1.5]")} />
+      </div>
+      <h4 className={cn("font-semibold text-xl sm:text-2xl mb-3", diagnosticTitleColor)}>
+        {title}
+      </h4>
+      <p className="text-neutral-300 text-base leading-relaxed flex-grow">
+        {description}
+      </p>
+    </motion.div>
+  );
 };
 
 const ServicosHorasPage: React.FC = () => {
@@ -588,7 +744,7 @@ const ServicosHorasPage: React.FC = () => {
             <motion.p className="font-sans text-lg sm:text-xl text-neutral-300 max-w-2xl mx-auto" variants={fadeInUp} > Em poucos passos, você transforma investimento em resultados tangíveis com o banco de horas AILOOP. </motion.p>
           </motion.div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 lg:gap-4">
-            {howItWorksSteps.map((step, index) => ( <motion.div key={index} className="bg-neutral-800/50 border border-neutral-700/60 rounded-xl p-6 text-center flex flex-col items-center shadow-lg hover:shadow-neon-purple/20 transition-all duration-300 transform hover:-translate-y-1.5" variants={fadeInUp} initial="initial" whileInView="animate" viewport={{ once: true, amount: 0.3 }} transition={{delay: index * 0.1}} > <div className={cn("mb-5 p-4 bg-gradient-to-br rounded-full shadow-inner shadow-black/50 inline-block", step.color.replace('text-', 'from-').replace('-400', '/70').replace('-500', '/70').replace('-cyan', '-cyan/70').replace('-purple', '-purple/70').replace('-blue', '-blue/70'), step.color.replace('text-', 'to-').replace('-400', '/40').replace('-500', '/40').replace('-cyan', '-cyan/40').replace('-purple', '-purple/40').replace('-blue', '-blue/40'))}> <step.icon className={cn("w-8 h-8", step.color, "opacity-90")} /> </div> <h4 className={cn("font-serif text-lg font-semibold mb-2", step.color)}>{step.title}</h4> <p className="font-sans text-sm text-neutral-400 leading-relaxed">{step.description}</p> </motion.div> ))}
+            {howItWorksSteps.map((step, index) => ( <motion.div key={index} className="bg-neutral-800/50 border border-neutral-700/60 rounded-xl p-6 text-center flex flex-col items-center shadow-lg hover:shadow-neon-purple/20 transition-all duration-300 transform hover:-translate-y-1.5" variants={fadeInUp} initial="initial" whileInView="animate" viewport={{ once: true, amount: 0.3 }} transition={{delay: index * 0.1}} > <div className={cn("mb-5 p-4 bg-gradient-to-br rounded-full shadow-inner shadow-black/50 inline-block", step.color.replace('text-', 'from-').replace('-400', '/70').replace('-500', '/70').replace('-cyan', '-cyan/70').replace('-purple', '-purple/70').replace('-blue', '-blue/70'), step.color.replace('text-','to-').replace('-400','/40').replace('-500','/40').replace('-cyan','-cyan/40').replace('-purple','-purple/40').replace('-blue','-blue/40'))}> <step.icon className={cn("w-8 h-8", step.color, "opacity-90")} /> </div> <h4 className={cn("font-serif text-lg font-semibold mb-2", step.color)}>{step.title}</h4> <p className="font-sans text-sm text-neutral-400 leading-relaxed">{step.description}</p> </motion.div> ))}
           </div>
         </section>
 
@@ -691,12 +847,62 @@ const ServicosHorasPage: React.FC = () => {
         {/* FIM DA NOVA ESTRUTURA DA EQUIPE */}
 
         {/* Seção 5: Serviços Disponíveis */}
-        <section id="servicos-disponiveis" className="w-full max-w-6xl mx-auto py-16 sm:py-24 px-4 relative z-10">
-          <motion.div initial="initial" whileInView="animate" viewport={{ once: true, amount: 0.2 }} transition={{ staggerChildren: 0.2 }} className="text-center mb-12 md:mb-16" >
-            <motion.h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-neon-cyan to-neon-purple" variants={fadeInUp} > Ative Sua Estratégia: Serviços AILOOP ao Seu Comando </motion.h2>
-            <motion.p className="font-sans text-lg sm:text-xl text-neutral-300 max-w-2xl mx-auto" variants={fadeInUp} > Com suas horas AILOOP, você pode solicitar um arsenal de soluções de marketing. Ative o que precisar, quando precisar. </motion.p>
+        <section id="servicos-disponiveis" className="w-full max-w-6xl xl:max-w-7xl mx-auto py-20 sm:py-28 px-4 relative z-10 font-inter">
+          <motion.div 
+            className="text-center mb-14 md:mb-20"
+            initial="initial"
+            whileInView="animate"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={sectionFadeInUp}
+          >
+            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-neon-cyan to-neon-purple">
+              Seu Arsenal de Marketing Sob Demanda
+            </h2>
+            <p className="text-lg sm:text-xl text-neutral-300 max-w-3xl mx-auto">
+              Ative o poder da AILOOP com um conjunto de serviços especializados, prontos para impulsionar sua estratégia quando você precisar.
+            </p>
           </motion.div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-8"> {availableServices.map((service, index) => ( <motion.div key={index} className="bg-neutral-800/40 border border-neutral-700/60 rounded-xl p-6 flex flex-col items-center text-center shadow-lg hover:border-transparent hover:shadow-2xl transition-all duration-300 ease-out group hover:bg-gradient-to-br hover:from-neutral-800/60 hover:via-neutral-900/70 hover:to-brand-dark transform hover:-translate-y-1.5" variants={fadeInUp} initial="initial" whileInView="animate" viewport={{ once: true, amount: 0.3 }} transition={{delay: index * 0.05}} > <div className={cn("p-3.5 mb-4 rounded-full bg-gradient-to-br from-neutral-700/60 to-neutral-800/40 border border-neutral-600/70 group-hover:scale-110 group-hover:border-current transition-all duration-300", service.color.replace("text-","group-hover:border-"))}> <service.icon className={cn("w-7 h-7", service.color, "transition-colors duration-300 group-hover:opacity-100 opacity-80")} /> </div> <h4 className={cn("font-serif text-lg font-semibold mb-2", service.color, "group-hover:text-white transition-colors duration-300")}>{service.name}</h4> <p className="font-sans text-sm text-neutral-400 leading-relaxed flex-grow">{service.description}</p> </motion.div> ))} </div>
+
+          <motion.div 
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
+            variants={cardGridVariants}
+            initial="initial"
+            whileInView="animate"
+            viewport={{ once: true, amount: 0.1 }}
+          >
+            {standardServices.map((service, index) => (
+              <ServiceCard
+                key={index}
+                icon={service.icon}
+                title={service.title}
+                description={service.description}
+                neonColorName={service.neonColorName as ServiceCardProps['neonColorName']}
+                index={index}
+              />
+            ))}
+          </motion.div>
+
+          {/* Nova Seção para Cards Especiais */}
+          {specialServices.length > 0 && (
+            <motion.div 
+              className="mt-16 md:mt-20 flex flex-col items-center space-y-8 px-4"
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.1 }}
+              transition={{ duration: 0.7, ease: "easeOut", staggerChildren: 0.2 }}
+            >
+              {specialServices.map((service, index) => (
+                <SpecialServiceCard
+                  key={`special-${index}`}
+                  icon={service.icon}
+                  title={service.title}
+                  description={service.description}
+                  neonColorName={service.neonColorName as ServiceCardProps['neonColorName']}
+                  index={index}
+                />
+              ))}
+            </motion.div>
+          )}
         </section>
 
         {/* Seção 6: Benefícios */}
@@ -711,13 +917,10 @@ const ServicosHorasPage: React.FC = () => {
       </section>
 
         {/* Seção 7: USP */}
-        <motion.section id="usp" className="relative z-10 w-full max-w-6xl py-16 sm:py-24 px-4 sm:px-6 lg:px-8 text-center" initial="initial" whileInView="animate" viewport={{ once: true, amount: 0.2 }} variants={{ animate: { transition: { staggerChildren: 0.2 } } }} > <motion.h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-neon-purple to-pink-500" variants={fadeInUp} > Agências Tradicionais e Contratos Engessados? </motion.h2> <motion.p className="font-serif text-2xl sm:text-3xl md:text-4xl font-bold mb-12 text-neutral-100" variants={fadeInUp} > Com AILOOP, <span className="text-neon-cyan">Você Dita o Ritmo</span> e o Investimento. </motion.p> <motion.div className="grid md:grid-cols-2 gap-8 sm:gap-12 text-left max-w-4xl mx-auto" variants={fadeInUp} > <div className="bg-neutral-800/60 backdrop-blur-sm p-6 sm:p-8 rounded-xl border border-neutral-700/70 shadow-xl hover:border-neon-cyan/80 transition-all duration-300"> <h3 className="font-sans text-xl sm:text-2xl font-semibold text-neon-cyan mb-3">Modelo Tradicional Inflexível</h3> <ul className="space-y-2 text-neutral-300 font-sans text-sm sm:text-base"> <li className="flex items-start"><TrendingDown className="w-5 h-5 mr-3 mt-1 text-red-500 flex-shrink-0" /><span>Contratos de longo prazo e mensalidades fixas, mesmo sem demanda total.</span></li> <li className="flex items-start"><TrendingDown className="w-5 h-5 mr-3 mt-1 text-red-500 flex-shrink-0" /><span>Escopo limitado e dificuldade para escalar ou reduzir serviços rapidamente.</span></li> <li className="flex items-start"><TrendingDown className="w-5 h-5 mr-3 mt-1 text-red-500 flex-shrink-0" /><span>Equipes generalistas com possível desalinhamento estratégico específico.</span></li> <li className="flex items-start"><TrendingDown className="w-5 h-5 mr-3 mt-1 text-red-500 flex-shrink-0" /><span>Menor transparência no uso efetivo do investimento.</span></li> </ul> </div> <div className="bg-neutral-800/60 backdrop-blur-sm p-6 sm:p-8 rounded-xl border border-neutral-700/70 shadow-xl hover:border-neon-purple/80 transition-all duration-300"> <h3 className="font-sans text-xl sm:text-2xl font-semibold text-neon-purple mb-3">AILOOP: Flexibilidade Inteligente</h3> <ul className="space-y-2 text-neutral-300 font-sans text-sm sm:text-base"> <li className="flex items-start"><Rocket className="w-5 h-5 mr-3 mt-1 text-green-500 flex-shrink-0" /><span>Pagamento único por pacotes de horas, use quando e como precisar.</span></li> <li className="flex items-start"><Rocket className="w-5 h-5 mr-3 mt-1 text-green-500 flex-shrink-0" /><span>Acesso sob demanda a uma equipe completa (Humanos + IA) altamente especializada.</span></li> <li className="flex items-start"><Rocket className="w-5 h-5 mr-3 mt-1 text-green-500 flex-shrink-0" /><span>Total controle e transparência sobre o investimento e a alocação de horas.</span></li> <li className="flex items-start"><Rocket className="w-5 h-5 mr-3 mt-1 text-green-500 flex-shrink-0" /><span>Escalabilidade dinâmica para atender picos de demanda ou projetos específicos.</span></li> </ul> </div> </motion.div> </motion.section>
-        
-        {/* Seção 8: Prova Social */}
-        <motion.section id="prova-social" className="relative z-10 w-full max-w-6xl py-16 sm:py-24 px-4 sm:px-6 lg:px-8" initial="initial" whileInView="animate" viewport={{ once: true, amount: 0.2 }} variants={{ animate: { transition: { staggerChildren: 0.2 } } }} > <motion.h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold mb-16 text-center text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-ailoop-blue" variants={fadeInUp} > Quem Confia na AILOOP, <span className="block sm:inline mt-2 sm:mt-0">Transforma Resultados.</span> </motion.h2> <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"> {testimonials.map((testimonial, index) => ( <motion.div key={index} className="bg-neutral-800/50 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-neutral-700/60 flex flex-col items-center text-center hover:shadow-ailoop-blue/25 hover:border-ailoop-blue/70 transition-all duration-300 transform hover:scale-105" variants={fadeInUp} > <img src={testimonial.avatar} alt={testimonial.name} className="w-20 h-20 rounded-full mb-4 border-2 border-neon-cyan shadow-md" /> <p className="font-sans text-neutral-300 italic mb-4 text-sm sm:text-base leading-relaxed">"{testimonial.quote}"</p> <h3 className="font-sans text-lg font-semibold text-neon-cyan">{testimonial.name}</h3> <p className="font-sans text-sm text-neutral-400">{testimonial.company}</p> </motion.div> ))} </div> <motion.div className="mt-16 sm:mt-24 text-center" variants={fadeInUp}> <h3 className="font-sans text-xl sm:text-2xl font-semibold text-neutral-400 mb-8">Empresas que já aceleram com AILOOP:</h3> <div className="flex flex-wrap justify-center items-center gap-8 sm:gap-12 opacity-70 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-300"> <Lightbulb className="w-20 h-20 sm:w-24 sm:h-24 text-neutral-500 hover:text-neon-cyan transition-colors" aria-label="Logo Empresa 1" /> <MessageSquareText className="w-20 h-20 sm:w-24 sm:h-24 text-neutral-500 hover:text-neon-purple transition-colors" aria-label="Logo Empresa 2" /> <ThumbsUp className="w-20 h-20 sm:w-24 sm:h-24 text-neutral-500 hover:text-sky-400 transition-colors" aria-label="Logo Empresa 3" /> <Shield className="w-20 h-20 sm:w-24 sm:h-24 text-neutral-500 hover:text-pink-500 transition-colors" aria-label="Logo Empresa 4" /> </div> </motion.div> </motion.section>
+        <ComparativeAdvantageSection /> {/* NOVA SEÇÃO SUBSTITUINDO A ANTIGA USP */}
         
         {/* Seção 9: CTA Final */}
-        <motion.section id="cta-final" className="relative z-10 w-full py-20 sm:py-32 px-4 sm:px-6 lg:px-8 text-center bg-gradient-to-t from-ailoop-blue/15 via-brand-dark to-brand-dark mt-10" initial="initial" whileInView="animate" viewport={{ once: true, amount: 0.3 }} variants={{ animate: { transition: { staggerChildren: 0.2 } } }} > <motion.h2 className="font-serif text-4xl sm:text-5xl md:text-6xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-neon-cyan to-neon-purple" variants={fadeInUp} > Pronto Para Ter o Futuro do Marketing ao Seu Alcance? </motion.h2> <motion.p className="font-sans text-lg sm:text-xl text-neutral-300 max-w-2xl mx-auto mb-12" variants={fadeInUp} > Escolha seu pacote de horas AILOOP e comece a construir resultados extraordinários com flexibilidade total. Nossa equipe de ponta (humanos + IA) está pronta para impulsionar seu sucesso. </motion.p> <motion.div className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-center justify-center" variants={fadeInUp} > <motion.button className="font-sans px-10 py-5 bg-gradient-to-r from-neon-cyan via-sky-500 to-neon-purple text-brand-dark font-semibold rounded-lg text-lg sm:text-xl hover:from-neon-purple hover:via-sky-500 hover:to-neon-cyan transition-all duration-300 ease-in-out shadow-[0_0_20px_theme(colors.neon-cyan/0.5),_0_0_40px_theme(colors.neon-purple/0.3)] hover:shadow-[0_0_30px_theme(colors.neon-cyan/0.7),_0_0_60px_theme(colors.neon-purple/0.5)] transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-neon-cyan focus:ring-offset-2 focus:ring-offset-brand-dark" whileHover={{ scale: 1.05, transition: { type: "spring", stiffness: 300, damping: 15 } }} whileTap={{ scale: 0.95 }} onClick={() => document.getElementById('planos-horas')?.scrollIntoView({ behavior: 'smooth' })} > Ver Pacotes de Horas </motion.button> <motion.a href="#contact" className="font-sans px-10 py-5 border-2 border-neon-purple text-neon-purple font-semibold rounded-lg text-lg sm:text-xl hover:bg-neon-purple/20 hover:text-white transition-all duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-neon-purple focus:ring-offset-2 focus:ring-offset-brand-dark" whileHover={{ scale: 1.05, transition: { type: "spring", stiffness: 300, damping: 15 } }} whileTap={{ scale: 0.95 }} > Fale com um Estrategista </motion.a> </motion.div> </motion.section>
+        <motion.section id="cta-final" className="relative z-10 w-full py-20 sm:py-32 px-4 sm:px-6 lg:px-8 text-center bg-gradient-to-t from-ailoop-blue/15 via-brand-dark to-brand-dark mt-10" initial="initial" whileInView="animate" viewport={{ once: true, amount: 0.3 }} variants={{ animate: { transition: { staggerChildren: 0.2 } } }} > <motion.h2 className="font-serif text-4xl sm:text-5xl md:text-6xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-neon-cyan to-neon-purple" variants={fadeInUp} > Pronto Para Ter o Futuro do Marketing ao Seu Alcance? </motion.h2> <motion.p className="font-sans text-lg sm:text-xl text-neutral-300 max-w-2xl mx-auto mb-12" variants={fadeInUp} > Escolha seu pacote de horas AILOOP e comece a construir resultados extraordinários com flexibilidade total. Nossa equipe de ponta (humanos + IA) está pronta para impulsionar seu sucesso. </motion.p> <motion.div className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-center justify-center" variants={fadeInUp} > <motion.button className="font-sans px-10 py-5 bg-gradient-to-r from-neon-cyan via-sky-500 to-neon-purple text-brand-dark font-semibold rounded-lg text-lg sm:text-xl hover:from-neon-purple hover:via-sky-500 hover:to-neon-cyan transition-all duration-300 ease-in-out shadow-[0_0_20px_theme(colors.neon-cyan/0.5),_0_0_40px_theme(colors.neon-purple/0.3)] hover:shadow-[0_0_30px_theme(colors.neon-cyan/0.7),_0_0_60px_theme(colors.neon-purple/0.5)] transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-neon-cyan focus:ring-offset-2 focus:ring-offset-brand-dark" whileHover={{ scale: 1.05, transition: { type: "spring", stiffness: 300, damping: 15 } }} whileTap={{ scale: 0.95 }} onClick={() => document.getElementById('planos-horas')?.scrollIntoView({ behavior: 'smooth' })} > Ver Pacotes de Horas </motion.button> <motion.a href="#contact" className="font-sans px-10 py-5 border-2 border-neon-purple text-neon-purple font-semibold rounded-lg text-lg sm:text-xl hover:bg-neon-purple/20 hover:text-white transition-all duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-neon-purple focus:ring-offset-2 focus:ring-offset-brand-dark" whileHover={{ scale: 1.05, transition: { type: "spring", stiffness: 300, damping: 15 } }} whileTap={{ scale: 0.95 }} > Fale com Fremen </motion.a> </motion.div> </motion.section>
     </div>
       <Footer />
     </>

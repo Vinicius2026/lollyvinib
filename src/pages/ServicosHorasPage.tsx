@@ -7,15 +7,23 @@ import {
   LockOpen, CheckSquare, RotateCcw, Lightbulb, MessageSquareText, ThumbsUp, Rocket, 
   BadgePercent, CalendarDays 
 } from 'lucide-react';
-import { cn } from '@/lib/utils'; // Assumindo que está em src/lib/utils.ts
-import Navbar from '@/components/Navbar'; // Assumindo que está em src/components/Navbar.tsx
-import Footer from '@/components/Footer'; // Assumindo que está em src/components/Footer.tsx
+import { cn } from '@/lib/utils';
+import Navbar from '@/components/Navbar'; 
+import Footer from '@/components/Footer'; 
+import HumanProfileCard from '@/components/HumanProfileCard'; // NOVO
+import AIProfileCard from '@/components/AIProfileCard'; // NOVO
 
 // Animation variants
 const fadeInUp = {
   initial: { opacity: 0, y: 60 },
   animate: { opacity: 1, y: 0 },
   transition: { duration: 0.6, ease: "easeOut" }
+};
+
+const cardFadeInUp = {
+  initial: { opacity: 0, y: 40 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.5, ease: "easeOut" }
 };
 
 const ServicosHorasPage: React.FC = () => {
@@ -155,57 +163,91 @@ const ServicosHorasPage: React.FC = () => {
       role: "Conector Admin-Cliente & Onboarding AI Specialist",
       description: "Ele ajuda o contato do administrador junto do time com o cliente. Ele gera onboard ou seja o primeiro contato entre time ativo e cliente. Eleuda nas solicitações do cliente, e o cliente pode se comunicar com ele dentro do Whatsapp por texto e voz. Ele anota as novas demandas, atualiza quando o profissional iniciou em conjunto com a IAs iniciou a tarefa e quantas horas prevista seria aquela tarefa, para o cliente confirmar ou não. Ele faz isso em todas as etapas. Após receber a demanda do cliente ele analisa por 30 alguns minutos em horario comercial em conjunto com equipe humana. Define quantas horas ou minutos serão utilizados e aguarda resposta. Tudo isso feito em menos de 1h das 08h as 22h sendo em horario comercial a revisão da solicitação é feita em 10 a 15 minutos.",
       color: "text-yellow-400", 
-      icon: MessageSquareText 
+      icon: MessageSquareText,
+      imageUrl: '/Image_astros/1astro.png'
     },
     {
       name: "Mavelito",
       role: "Estrategista de IA Rabugento & Profissional",
       description: "Um personagem meio rabugento mais muito profissional. Ele é uma IAs que intensifica a estratégia do projeto. Ele não revê somente uma vez logo no inicio. Ele cria a estratégia do zero ou adapta em conjunto com variáveis existentes na empresa. Ele faz 5 versões completas, limpas e de altas chances de conversão, realiza as 5 e gera 1 opção para o Estratégista analisar. Não é nem perto de pegar o texto e aplicar em uma inteligência artificial de texto normal. Após analisarmos profundamente, e em etapas humanas talvez migrando para partes mais complexas como revisão e atribuição de novos cargos do time para essa parte. Isso tudo a IA Mavelito coordena, sugestiona, revisa e aplica sempre em conjunto com uma manipulação humana.",
       color: "text-red-500", 
-      icon: Brain 
+      icon: Brain,
+      imageUrl: '/Image_astros/2astro2.png'
     },
     {
       name: "Dramontin",
       role: "Gestor de Tráfego Cybernético Focado em Resultados",
       description: "Gestor de tráfego cybernético que não liga muito para traqueamento. A diversão de Dramontin é ver as vendas entrando no dashboard final. Dramontin antes de ser Gestor de Tráfego Senior Cybernético, ele era um grande estrategista e com especializações em neuromarketing. Ele adapta na Gestão de Tráfego suas expertises de personas de comprar e estratégias de hierarquias de campanhas que aumentam as chances de até no inicio já converter. Ele pode ser melhor até mesmo que 10 gestores seniors juntos. Quem realiza a aplicação final é um humano gestor de tráfego senior também.",
       color: "text-orange-400", 
-      icon: TrendingUp 
+      icon: TrendingUp,
+      imageUrl: '/Image_astros/5astro5.png'
     },
     {
       name: "Piraq",
       role: "Gestor de Funis Estratégico e Vigilante",
       description: "Um gestor de funis estratégico. Ele cuida de todas as etapas dos funis sinalizando com alertas de dispositivos dos envolvidos nos projetos, humanos e IAs, são alertas de oportunidade, ajustes de rota, designer e redesigner, ele avisa que iniciou uma nova simulação de funil de acordo com o que já está ativo que foi ele quem criou também, e solicita aprovação para editar variáveis que podem ser aprovadas pelos Estratégistas Humanos diretamente sem consentimento do cliente ou pode ser condicionado ao cliente aprovar também.",
       color: "text-teal-400", 
-      icon: Filter 
+      icon: Filter,
+      imageUrl: '/Image_astros/3astro3.png'
     },
     {
       name: "Verlini",
       role: "Copywriter Sênior com Alma de Escritor Clássico",
       description: "Copy acima da media com a cabeça de escritor antigo. Ele tem paciência em revisar e gerar cenários disruptivos de copy utilizando AIDA com IA. Ele é bem engraçado. É senior e interage com todos os setores para entender complexidades. Ele também gera cenários para tentar a melhor aplicação possível. Tem treinamento de máquina contínua, fica estudando melhorias e atualizações de links.",
       color: "text-indigo-400", 
-      icon: Mic 
+      icon: Mic,
+      imageUrl: '/Image_astros/4astro4.png'
     },
     {
-      name: "Rororomiro",
+      name: "Roromiro",
       role: "Super Administrador e Orquestrador de IAs",
       description: "Administrador que controla todos as IAs, todos alertas, todos controles de notificações. Ele revisa estratégias em conjunto com o Estratégista e gera um documento MASTER que serve como guia para todos humanos e inteligencias artificias em anexo no time. Ele controla tudo e reforça a inteligencia de todas ações em 2x. Diminuindo drasticamente a margem de erro. É uma das estrelas do nosso time. Ele simula tudo que está acontecendo no negocio do cliente, como funis, campanhas, copy, e fica treinando em modo de aprendizagem, quando ele passa da fase de aprendizagem, ele simula a operação em background sem ser aplicado ao negocio do cliente e verifica as oportunidades, upgrades etc...",
       color: "text-green-400", 
-      icon: ShieldCheck 
+      icon: ShieldCheck,
+      imageUrl: '/Image_astros/6astro6.png'
     },
     {
       name: "Cof",
       role: "Programador IA Multi-Frequência Premiado",
       description: "Ele é um programador IA que utiliza 5 frequências de contextos. As maiores e mais bem aplicadas do mundo. OpenAI, Claude, Gemini, TourB e IALoop. Desenvolve websites, soluções web e desktop, apps, saas e muitas outras aplicações. Já recebeu prêmios de tecnologia IA para desenvolvimento code.",
       color: "text-purple-400", 
-      icon: Zap 
+      icon: Zap,
+      imageUrl: '/Image_astros/7astro7.png'
     }
   ];
 
-  const aiTeamDataForLayout = {
-    left: aiTeam.slice(0, 3), // As primeiras 3 IAs à esquerda
-    right: aiTeam.slice(3, 6), // As próximas 3 IAs à direita
-    centerBottom: aiTeam.slice(6) // A última IA (Cof) centralizada abaixo, ou pode ser ajustado
-  };
+  // Ajuste para Rororomiro ser o único com outline, conforme interpretação da imagem original
+  const teamBlocksLayout = [
+    // CEO
+    { id: "ceo-block", title: "", members: [{ ...humanTeam.ceo[0], type: 'human', id: humanTeam.ceo[0].name }], type: 'human-block' },
+    // Diretores
+    { id: "directors-block", title: "Liderança Estratégica", members: humanTeam.directors.map(d => ({ ...d, type: 'human', id: d.name })), type: 'human-block' },
+    // IAs Estratégicas
+    {
+      id: "strategic-ai-block",
+      title: "Inteligência Artificial Estratégica",
+      members: [
+        { ...aiTeam.find(p => p.name === "Fremen"), type: 'ai', id: "Fremen" },
+        { ...aiTeam.find(p => p.name === "Mavelito"), type: 'ai', id: "Mavelito" },
+        { ...aiTeam.find(p => p.name === "Piraq"), type: 'ai', id: "Piraq" },
+        { ...aiTeam.find(p => p.name === "Verlini"), type: 'ai', id: "Verlini" },
+      ].filter(member => member && member.name).map(m => ({...m, isOutline: false})),
+      type: 'ai-block'
+    },
+    // Especialistas
+    { id: "specialists-block", title: "Especialistas em Ação", members: humanTeam.specialists.map(s => ({ ...s, type: 'human', id: s.name })), type: 'human-block' },
+    // IAs Operacionais
+    {
+      id: "operational-ai-block",
+      title: "IA Dedicada à Performance",
+      members: [
+        { ...aiTeam.find(p => p.name === "Dramontin"), type: 'ai', id: "Dramontin", isOutline: false },
+        { ...aiTeam.find(p => p.name === "Roromiro"), type: 'ai', id: "Roromiro", isOutline: true }, // Rororomiro com outline
+        { ...aiTeam.find(p => p.name === "Cof"), type: 'ai', id: "Cof", isOutline: false },
+      ].filter(member => member && member.name),
+      type: 'ai-block'
+    }
+  ];
 
   const availableServices = [
     { name: "Análise de Dados com IA", icon: LineChart, description: "Insights profundos para decisões estratégicas.", color: "text-neon-cyan" },
@@ -296,13 +338,54 @@ const ServicosHorasPage: React.FC = () => {
       )}
        {activeTier === tier && ( // Indicador de aba ativa (barra inferior)
           <motion.div 
-            className="absolute inset-x-0 bottom-0 h-0.5 bg-gradient-to-r from-neon-cyan via-ailoop-blue to-neon-purple"
+            className="absolute inset-0 bottom-0 h-0.5 bg-gradient-to-r from-neon-cyan via-ailoop-blue to-neon-purple"
             layoutId="activeToggleIndicatorServicos" // layoutId único para este grupo de toggles
           />
         )}
     </motion.button>
   );
 
+  // Função para mapear classes de cor Tailwind para neonColorName do AIProfileCard
+  const mapTailwindColorToNeonName = (tailwindColorClass: string): 'blue' | 'cyan' | 'purple' | 'green' | 'orange' | 'yellow' | 'red' | 'pink' => {
+    if (tailwindColorClass.includes('yellow')) return 'yellow';
+    if (tailwindColorClass.includes('red')) return 'red';
+    if (tailwindColorClass.includes('orange')) return 'orange';
+    if (tailwindColorClass.includes('teal') || tailwindColorClass.includes('cyan')) return 'cyan'; // teal mapeado para cyan
+    if (tailwindColorClass.includes('indigo') || tailwindColorClass.includes('purple')) return 'purple'; // indigo mapeado para purple
+    if (tailwindColorClass.includes('green')) return 'green';
+    if (tailwindColorClass.includes('blue')) return 'blue'; 
+    if (tailwindColorClass.includes('pink')) return 'pink';
+    return 'cyan'; // Default
+  };
+
+  // Placeholder para a Linha Divisória Impactante
+  const ImpactSectionDivider: React.FC<{className?: string}> = ({className}) => (
+    <motion.div 
+      className={cn(
+        "h-0.5 w-2/3 max-w-md my-12 md:my-16 bg-gradient-to-r from-neutral-800 via-neutral-600 to-neutral-800 mx-auto", // Estilo base
+        "shadow-[0_0_8px_1px_rgba(150,150,150,0.3)]", // Brilho sutil
+        className
+      )}
+      variants={fadeInUp} initial="initial" whileInView="animate" viewport={{ once: true, amount: 0.1 }}
+    ></motion.div>
+  );
+
+  // Linha Conectora Vertical com Terminais Estilizados
+  const VerticalTeamConnector: React.FC<{className?: string, heightClass?: string}> = ({className, heightClass = "h-16 md:h-20"}) => (
+    <div className={cn("relative flex justify-center", heightClass, className)}> 
+      {/* Terminal Superior */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-2 h-2 bg-neutral-500 rounded-full shadow-md"></div>
+      <motion.div 
+        className={cn(
+          "w-px h-full mx-auto bg-gradient-to-b from-neutral-600 via-neutral-400 to-neutral-600 relative",
+          "shadow-[0_0_6px_0.5px_rgba(200,200,200,0.3)]",
+        )}
+        variants={fadeInUp} initial="initial" whileInView="animate" viewport={{ once: true, amount: 0.1 }}
+      ></motion.div>
+      {/* Terminal Inferior */}
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-2 h-2 bg-neutral-500 rounded-full shadow-md"></div>
+    </div>
+  );
 
   return (
     <>
@@ -332,23 +415,23 @@ const ServicosHorasPage: React.FC = () => {
         </motion.div>
 
         {/* Hero Section Refinada - INSPIRADA NA NINJAPROMO */}
-        <motion.section
+      <motion.section
           className="relative z-10 flex flex-col items-center text-center w-full max-w-5xl py-16 sm:py-20 px-4"
-          initial="initial"
-          animate="animate"
+        initial="initial"
+        animate="animate"
           variants={{ animate: { transition: { staggerChildren: 0.15 } } }}
-        >
-          <motion.h1
+      >
+        <motion.h1
             className="font-serif text-4xl sm:text-5xl md:text-6xl font-bold mb-4"
-            variants={fadeInUp}
-          >
+          variants={fadeInUp}
+        >
             Planos Flexíveis,{' '}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-neon-purple to-purple-600">
               Pagamento Único.
             </span>
-          </motion.h1>
+        </motion.h1>
 
-          <motion.p
+        <motion.p
             className="font-sans text-lg sm:text-xl text-neutral-300 max-w-2xl mx-auto mb-10"
             variants={fadeInUp}
           >
@@ -363,27 +446,27 @@ const ServicosHorasPage: React.FC = () => {
             <DurationToggle label="Pacotes Base" tier="monthly" activeTier={durationTier} onClick={() => setDurationTier('monthly')} />
             <DurationToggle label="Volume Trimestral" tier="tri_monthly" activeTier={durationTier} onClick={() => setDurationTier('tri_monthly')} discount="10% OFF" />
             <DurationToggle label="Volume Anual" tier="annual" activeTier={durationTier} onClick={() => setDurationTier('annual')} discount="20% OFF" />
-          </motion.div>
+        </motion.div>
         </motion.section>
 
 
         {/* Seção 2: Planos de Horas AILOOP - REESTILIZADA */}
         <section id="planos-horas" className="w-full max-w-6xl xl:max-w-7xl mx-auto py-10 sm:py-16 px-4 relative z-10">
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 xl:gap-8">
-            {plans.map((plan, index) => (
-              <motion.div
+          {plans.map((plan, index) => (
+            <motion.div
                 key={plan.id}
-                className={cn(
+              className={cn(
                   "rounded-2xl p-6 flex flex-col relative overflow-hidden transition-all duration-300 ease-in-out transform-gpu border",
                   plan.highlight 
                     ? "bg-gradient-to-br from-blue-600/80 via-purple-600/70 to-pink-600/60 border-transparent shadow-[0_0_40px_-5px_theme(colors.ailoop-blue/0.4),_0_0_60px_-15px_theme(colors.neon-purple/0.2)] ring-1 ring-purple-500/80 scale-[1.02] lg:scale-105 z-10"
                     : "bg-neutral-850/80 border-neutral-700/70 shadow-xl shadow-black/20 hover:shadow-2xl hover:shadow-ailoop-blue/10 hover:-translate-y-1.5",
                   plan.isCustom && "border-yellow-500/50"
-                )}
-                variants={fadeInUp}
-                initial="initial"
-                whileInView="animate"
+              )}
+              variants={fadeInUp}
+              initial="initial"
+              whileInView="animate"
                 viewport={{ once: true, amount: 0.2 }}
                 transition={{delay: index * 0.08, duration: 0.5}}
               >
@@ -438,36 +521,36 @@ const ServicosHorasPage: React.FC = () => {
                     )}
                 
                     <p className="font-sans text-sm text-neutral-300 mb-6 min-h-[60px] sm:min-h-[80px]">{plan.description}</p>
-                
-                    <ul className="space-y-2.5 mb-8 text-left flex-grow">
-                      {plan.features.map((feature, fIndex) => (
-                        <li key={fIndex} className="flex items-start text-sm">
+              
+              <ul className="space-y-2.5 mb-8 text-left flex-grow">
+                {plan.features.map((feature, fIndex) => (
+                  <li key={fIndex} className="flex items-start text-sm">
                           <CheckCircle className={cn(
                               "w-4 h-4 mr-2.5 flex-shrink-0 mt-0.5", 
                               plan.highlight ? "text-sky-300" : "text-green-500")}
                           />
                           <span className={plan.highlight ? "text-neutral-200" : "text-neutral-300"}>{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
+                  </li>
+                ))}
+              </ul>
                 </div>
-                
-                <motion.button 
-                  className={cn(
+
+              <motion.button 
+                className={cn(
                     "w-full mt-auto font-sans px-6 py-3 text-white font-semibold rounded-lg text-base transition-all duration-300 ease-in-out transform hover:brightness-110 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-brand-dark",
-                    plan.buttonGradient,
+                  plan.buttonGradient,
                     plan.highlight 
                       ? "shadow-[0_0_15px_var(--tw-gradient-from)/60,_0_0_25px_var(--tw-gradient-to)/40] focus:ring-[var(--tw-gradient-from)]" 
                       : "bg-opacity-80 hover:bg-opacity-100 shadow-md hover:shadow-lg focus:ring-current"
-                  )}
+                )}
                   whileHover={{ scale: 1.03, transition: { type: "spring", stiffness: 350, damping: 15 } }}
                   whileTap={{ scale: 0.98 }}
-                >
+              >
                   {plan.isCustom ? "Fale Conosco" : `Adquirir ${plan.name}`}
-                </motion.button>
-              </motion.div>
-            ))}
-          </div>
+              </motion.button>
+            </motion.div>
+          ))}
+        </div>
 
            <motion.div
             className="mt-16 sm:mt-20 py-10 px-6 bg-neutral-800/50 backdrop-blur-sm border border-neutral-700/60 rounded-xl shadow-lg"
@@ -496,9 +579,9 @@ const ServicosHorasPage: React.FC = () => {
                 </div>
             </motion.div>
 
-        </section>
+      </section>
 
-        {/* Seção 3: Como Funciona */}
+      {/* Seção 3: Como Funciona */}
         <section id="como-funciona" className="w-full max-w-5xl mx-auto py-16 sm:py-24 px-4 relative z-10">
           <motion.div initial="initial" whileInView="animate" viewport={{ once: true, amount: 0.2 }} transition={{ staggerChildren: 0.2 }} className="text-center mb-12 md:mb-16" >
             <motion.h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-neon-cyan to-neon-purple" variants={fadeInUp} > Seu Marketing Sob Comando: Simples Assim </motion.h2>
@@ -509,301 +592,103 @@ const ServicosHorasPage: React.FC = () => {
           </div>
         </section>
 
-        {/* Texto Explicativo do Processo e Garantia */}
+        {/* Textos introdutórios da seção da equipe - REFINADO para Monochromatic Futurism */}
         <motion.div
-          className="max-w-3xl mx-auto text-center mb-12 md:mb-16 px-4"
+          className="max-w-3xl mx-auto text-center mb-16 md:mb-20 px-4"
           variants={fadeInUp}
           initial="initial"
           whileInView="animate"
           viewport={{ once: true, amount: 0.2 }}
         >
-          <p className="font-sans text-lg sm:text-xl text-neutral-200 leading-relaxed mb-6">
+          <p className="font-sans text-lg sm:text-xl text-neutral-300 leading-relaxed mb-6">
             Quando você faz uma solicitação, nossas IAs analisam e propõem a equipe ideal de especialistas (humanos e IAs), a estimativa de horas e a margem de erro para o seu projeto.
           </p>
-          <p className="font-serif text-xl sm:text-2xl text-transparent bg-clip-text bg-gradient-to-r from-neon-cyan to-green-400 font-semibold p-4 border-2 border-neon-cyan/50 rounded-lg shadow-lg shadow-neon-cyan/20 inline-block">
-            E o mais importante: <strong className="block sm:inline mt-1 sm:mt-0">Se a solução proposta não funcionar, as horas NÃO são contabilizadas em seu pacote. Simples assim.</strong>
+          <p className="font-serif text-xl sm:text-2xl text-neutral-100 font-semibold p-5 border border-neutral-700 rounded-lg shadow-md bg-neutral-800/30 inline-block">
+            E o mais importante: <strong className="block sm:inline mt-1 sm:mt-0 text-white">Se a solução proposta não funcionar, as horas NÃO são contabilizadas em seu pacote. Simples assim.</strong>
           </p>
         </motion.div>
 
-        {/* NOVA ESTRUTURA DA EQUIPE - COM IAs NAS LATERAIS */}
-        <div className="relative flex flex-col items-center w-full px-4">
-          {/* Container Principal da Equipe: Humanos no Centro, IAs nas Laterais */}
-          <div className="relative w-full max-w-7xl mx-auto flex justify-center items-start">
-            {/* Coluna para IAs da Esquerda (Apenas em telas maiores) */}
-            <div className="hidden lg:flex flex-col items-center space-y-10 mr-8 xl:mr-16 mt-24 sticky top-24 self-start">
-              {aiTeamDataForLayout.left.map((robot, index) => (
-                <motion.div
-                  key={robot.name + "-side-left"}
-                  className="flex flex-col items-center text-center group w-32"
-                  variants={fadeInUp}
+        {/* SEÇÃO DA EQUIPE - Layout com Blocos Distintos e Divisórias Impactantes */}
+        <div className="relative flex flex-col items-center w-full px-4 bg-[#0A0A0A] bg-[radial-gradient(ellipse_at_center,rgba(28,28,30,0.3)_0%,rgba(10,10,10,0.7)_70%)] py-20 sm:py-28">
+          
+          <motion.h2 
+            className="font-serif text-4xl sm:text-5xl md:text-6xl tracking-wider font-bold text-[#F0F0F0] mb-10 md:mb-12 text-center"
+            variants={fadeInUp} initial="initial" whileInView="animate" viewport={{ once: true, amount: 0.2 }}
+          >
+            Nossa Equipe de <span className="text-transparent bg-clip-text bg-gradient-to-r from-neutral-400 via-neutral-100 to-neutral-400">Especialistas Dedicados</span>
+          </motion.h2>
+
+          <div className="relative w-full max-w-5xl mx-auto flex flex-col items-center">
+            {teamBlocksLayout.map((block, blockIndex) => (
+              <React.Fragment key={block.id}>
+                {/* Conector ANTES do bloco de CEO e ANTES de outros títulos de bloco */}
+                {(blockIndex === 0 && block.members.length === 1 && !block.title) ? (
+                   <VerticalTeamConnector heightClass="h-10 md:h-12" className="mb-8 md:mb-10" /> // Conector menor para o CEO
+                ) : block.title && blockIndex > 0 ? (
+                  <VerticalTeamConnector className="mb-8 md:mb-10" />
+                ) : null}
+
+                {block.title && (
+                  <div className={cn(
+                    "relative flex justify-center w-full",
+                    block.id === "operational-ai-block" ? "mt-4 mb-10 md:mt-6 md:mb-16" : "my-4 md:my-6"
+                  )}>
+                    <div className="hidden sm:block absolute left-0 top-1/2 -translate-y-1/2 w-[calc(50%-7rem)] max-w-xs h-px bg-neutral-600"></div>
+                    <motion.h3 
+                      className="relative font-serif text-xl sm:text-2xl md:text-3xl tracking-wider font-semibold text-[#E0E0E0] text-center bg-neutral-800/70 px-6 py-3 rounded-lg border border-neutral-600 shadow-lg mx-auto whitespace-nowrap"
+                      variants={fadeInUp} initial="initial" whileInView="animate" viewport={{ once: true, amount: 0.2}}
+                    >
+                      {block.title}
+                    </motion.h3>
+                    <div className="hidden sm:block absolute right-0 top-1/2 -translate-y-1/2 w-[calc(50%-7rem)] max-w-xs h-px bg-neutral-600"></div>
+                  </div>
+                )}
+                
+                <motion.div 
+                  className={cn(
+                      "flex justify-center items-stretch flex-wrap gap-5 md:gap-8 w-full",
+                      block.members.length === 1 && "max-w-xs sm:max-w-sm md:max-w-md mx-auto"
+                  )}
+                  variants={{ animate: { transition: { staggerChildren: 0.07 } } }}
                   initial="initial"
                   whileInView="animate"
-                  viewport={{ once: true, amount: 0.2 }}
-                  transition={{ delay: index * 0.1 + 0.5 }} // Atraso para aparecerem depois dos humanos
+                  viewport={{ once: true, amount: 0.1 }}
                 >
-                  <div className={cn(
-                    "relative w-24 h-24 rounded-full flex items-center justify-center border-2 shadow-lg group-hover:shadow-xl transition-all duration-300 ease-in-out transform group-hover:scale-110",
-                    robot.color.replace('text-', 'border-'),
-                    robot.color.replace('text-', 'shadow-').replace('-400', '-500/20').replace('-500', '-600/20')
-                  )}>
-                    <div className={cn("absolute inset-0 rounded-full opacity-20 group-hover:opacity-30 transition-opacity duration-300", robot.color.replace('text-', 'bg-'))}></div>
-                    <robot.icon className={cn("w-12 h-12 relative z-10 opacity-90 group-hover:opacity-100 transition-opacity duration-300", robot.color)} />
-                  </div>
-                  <h5 className={cn("font-serif text-xs font-bold mt-2", robot.color)}>{robot.name}</h5>
-                  <p className="text-xs text-neutral-400 leading-tight">{robot.role.split('&')[0].trim()}</p> {/* Mostra apenas a primeira parte do role para economizar espaço */}
-                </motion.div>
-              ))}
-            </div>
-
-            {/* Centro: Estrutura Hierárquica dos Humanos */}
-            <div className="flex-grow max-w-3xl">
-              {/* CEO */}
-              <motion.div
-                variants={fadeInUp}
-                initial="initial"
-                whileInView="animate"
-                viewport={{ once: true, amount: 0.3 }}
-                className="mb-10 md:mb-12 flex flex-col items-center w-full"
-              >
-                {humanTeam.ceo.map(member => (
-                  <div key={member.name} className="flex flex-col items-center text-center">
-                    <div className="relative p-1 bg-gradient-to-br from-ailoop-blue via-sky-500 to-cyan-400 rounded-full shadow-xl shadow-ailoop-blue/40">
-                      <img 
-                        src={member.avatar} 
-                        alt={member.name} 
-                        className="w-28 h-28 sm:w-36 sm:h-36 rounded-full border-4 border-brand-dark object-cover"
-                      />
-                    </div>
-                    <h4 className={cn("font-serif text-xl sm:text-2xl font-bold mt-4", member.color)}>{member.name}</h4>
-                    <p className="font-sans text-sm sm:text-base text-neutral-300">{member.role}</p>
-                  </div>
-                ))}
-              </motion.div>
-
-              {/* Linha de Conexão Simples (Vertical) */}
-              <motion.div 
-                className="h-12 md:h-16 w-1 bg-neutral-700/70 mx-auto rounded-full"
-                variants={fadeInUp} initial="initial" whileInView="animate" viewport={{ once: true, amount: 0.3 }}
-              ></motion.div>
-
-              {/* Diretores */}
-              <motion.div
-                initial="initial" whileInView="animate" viewport={{ once: true, amount: 0.2 }}
-                className="mb-10 md:mb-12 w-full max-w-4xl mx-auto"
-                variants={{ animate: { transition: { staggerChildren: 0.1 } } }}
-              >
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 md:gap-10">
-                  {humanTeam.directors.map((member, index) => (
+                  {block.members.map((member: any) => (
                     <motion.div 
-                      key={member.name} 
-                      className="flex flex-col items-center text-center group"
-                      variants={fadeInUp}
+                      key={member.id + "-wrapper"} 
+                      variants={cardFadeInUp} 
+                      className="flex"
+                      initial="initial" whileInView="animate" viewport={{ once: true, amount: 0.2}}
                     >
-                      <div className="relative p-0.5 bg-neutral-700/80 rounded-full group-hover:bg-gradient-to-br group-hover:from-neon-cyan/80 group-hover:via-sky-500/80 group-hover:to-ailoop-blue/80 transition-all duration-300 shadow-lg group-hover:shadow-neon-cyan/30">
-                        <img 
-                          src={member.avatar} alt={member.name} 
-                          className="w-24 h-24 sm:w-28 sm:h-28 rounded-full border-2 border-brand-dark object-cover transform transition-transform duration-300 group-hover:scale-105"
+                      {member.type === 'human' ? (
+                        <HumanProfileCard 
+                          name={member.name}
+                          role={member.role}
+                          avatarUrl={member.avatar}
+                          className="w-44 sm:w-48 md:w-52 h-full"
                         />
-                      </div>
-                      <h5 className="font-sans text-lg sm:text-xl font-semibold mt-3 mb-0.5 text-neutral-100 group-hover:text-neon-cyan transition-colors duration-300">{member.name}</h5>
-                      <p className="font-sans text-xs sm:text-sm text-neutral-400">{member.role}</p>
+                      ) : (
+                        <AIProfileCard 
+                          name={member.name}
+                          role={member.role?.split('&')[0].trim() || 'IA Specialist'}
+                          neonColorName={mapTailwindColorToNeonName(member.color || 'text-neon-cyan')}
+                          className="w-44 sm:w-48 md:w-52 h-full"
+                          isOutline={member.isOutline || false}
+                          imageUrl={member.imageUrl}
+                        />
+                      )}
                     </motion.div>
                   ))}
-                </div>
-              </motion.div>
-
-              {/* Linha de Conexão Simples */}
-              <motion.div 
-                className="h-10 md:h-12 w-px bg-neutral-700/50 mx-auto mb-6 md:mb-8"
-                variants={fadeInUp} initial="initial" whileInView="animate" viewport={{ once: true, amount: 0.3 }}
-              ></motion.div>
-              
-              {/* Especialistas */}
-              <motion.div 
-                viewport={{ once: true, amount: 0.1 }} className="w-full"
-                initial="initial" whileInView="animate" variants={{ animate: { transition: { staggerChildren: 0.05 } } }}
-              >
-                <h3 className="font-serif text-xl sm:text-2xl font-semibold mb-6 md:mb-8 text-center text-sky-400/80 group-hover:text-sky-400 transition-colors duration-300">
-                  Nossa Equipe de Especialistas Dedicados
-                </h3>
-                <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-8 md:gap-x-8 md:gap-y-10 max-w-5xl mx-auto">
-                  {humanTeam.specialists.map((member, index) => (
-                    <motion.div 
-                      key={member.name} 
-                      className="flex flex-col items-center text-center group"
-                      variants={fadeInUp}
-                    >
-                      <div className="relative p-0.5 bg-neutral-800/90 rounded-full group-hover:bg-gradient-to-br group-hover:from-sky-600/70 group-hover:to-teal-500/70 transition-all duration-300 shadow-md group-hover:shadow-sky-500/30">
-                        <img 
-                          src={member.avatar} alt={member.name} 
-                          className="w-20 h-20 sm:w-24 sm:h-24 rounded-full border-2 border-brand-dark object-cover transform transition-transform duration-300 group-hover:scale-105"
-                        />
-                      </div>
-                      <h5 className="font-sans text-md sm:text-lg font-semibold mt-3 mb-0.5 text-neutral-200 group-hover:text-sky-400 transition-colors duration-300">{member.name}</h5>
-                      <p className="font-sans text-xs sm:text-sm text-neutral-400">{member.role}</p>
-                    </motion.div>
-                  ))}
-                </div>
-              </motion.div>
-            </div> {/* Fim do Centro: Humanos */}
-
-            {/* Coluna para IAs da Direita (Apenas em telas maiores) */}
-            <div className="hidden lg:flex flex-col items-center space-y-10 ml-8 xl:ml-16 mt-24 sticky top-24 self-start">
-              {aiTeamDataForLayout.right.map((robot, index) => (
-                 <motion.div
-                  key={robot.name + "-side-right"}
-                  className="flex flex-col items-center text-center group w-32"
-                  variants={fadeInUp}
-                  initial="initial"
-                  whileInView="animate"
-                  viewport={{ once: true, amount: 0.2 }}
-                  transition={{ delay: index * 0.1 + 0.5 }} // Atraso para aparecerem depois dos humanos
-                >
-                  <div className={cn(
-                    "relative w-24 h-24 rounded-full flex items-center justify-center border-2 shadow-lg group-hover:shadow-xl transition-all duration-300 ease-in-out transform group-hover:scale-110",
-                    robot.color.replace('text-', 'border-'),
-                    robot.color.replace('text-', 'shadow-').replace('-400', '-500/20').replace('-500', '-600/20')
-                  )}>
-                    <div className={cn("absolute inset-0 rounded-full opacity-20 group-hover:opacity-30 transition-opacity duration-300", robot.color.replace('text-', 'bg-'))}></div>
-                    <robot.icon className={cn("w-12 h-12 relative z-10 opacity-90 group-hover:opacity-100 transition-opacity duration-300", robot.color)} />
-                  </div>
-                  <h5 className={cn("font-serif text-xs font-bold mt-2", robot.color)}>{robot.name}</h5>
-                  <p className="text-xs text-neutral-400 leading-tight">{robot.role.split('&')[0].trim()}</p> {/* Mostra apenas a primeira parte do role */}
                 </motion.div>
-              ))}
-            </div>
 
-          </div> {/* Fim do Container Principal da Equipe */}
-           
-          {/* IA Centralizada Abaixo (Opcional, para Cof ou outras) - Apenas em telas maiores para não sobrecarregar */}
-          <div className="hidden lg:flex flex-col items-center mt-10 md:mt-12 w-full">
-            {aiTeamDataForLayout.centerBottom.map((robot, index) => (
-              <motion.div
-                  key={robot.name + "-side-center-bottom"}
-                  className="flex flex-col items-center text-center group w-32"
-                  variants={fadeInUp}
-                  initial="initial"
-                  whileInView="animate"
-                  viewport={{ once: true, amount: 0.2 }}
-                  transition={{ delay: index * 0.1 + 0.7 }} 
-                >
-                  <div className={cn(
-                    "relative w-24 h-24 rounded-full flex items-center justify-center border-2 shadow-lg group-hover:shadow-xl transition-all duration-300 ease-in-out transform group-hover:scale-110",
-                    robot.color.replace('text-', 'border-'),
-                    robot.color.replace('text-', 'shadow-').replace('-400', '-500/20').replace('-500', '-600/20')
-                  )}>
-                    <div className={cn("absolute inset-0 rounded-full opacity-20 group-hover:opacity-30 transition-opacity duration-300", robot.color.replace('text-', 'bg-'))}></div>
-                    <robot.icon className={cn("w-12 h-12 relative z-10 opacity-90 group-hover:opacity-100 transition-opacity duration-300", robot.color)} />
-                  </div>
-                  <h5 className={cn("font-serif text-xs font-bold mt-2", robot.color)}>{robot.name}</h5>
-                  <p className="text-xs text-neutral-400 leading-tight">{robot.role.split('&')[0].trim()}</p>
-                </motion.div>
+                {/* Conector APÓS cada bloco, exceto o último */}
+                {blockIndex < teamBlocksLayout.length - 1 && <VerticalTeamConnector className="mt-10 md:mt-12" />}
+              </React.Fragment>
             ))}
           </div>
         </div>
         {/* FIM DA NOVA ESTRUTURA DA EQUIPE */}
-
-        {/* SEÇÃO DE DESCRIÇÃO DETALHADA DAS IAs - CARDS DE VIDRO */}
-        <motion.div
-          className="w-full max-w-6xl mx-auto mt-16 md:mt-24 py-10 px-4"
-          initial="initial"
-          whileInView="animate"
-          viewport={{ once: true, amount: 0.1 }}
-          variants={{ animate: { transition: { staggerChildren: 0.1 } } }}
-        >
-          <motion.h3 
-            className="font-serif text-2xl sm:text-3xl font-semibold mb-10 md:mb-12 text-center text-neutral-100"
-            variants={fadeInUp}
-          >
-            Conheça em Detalhe Nossos Agentes de IA
-          </motion.h3>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-            {aiTeam.map((robot, index) => (
-              <motion.div
-                key={robot.name + "-description-card"}
-                className="bg-black/30 backdrop-blur-md border border-neutral-700/80 rounded-xl p-6 shadow-xl hover:border-neutral-500/80 transition-colors duration-300 min-h-[250px] flex flex-col"
-                variants={fadeInUp}
-                initial="initial"
-                whileInView="animate"
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{ delay: index * 0.05 }}
-              >
-                <div className="flex items-center mb-4">
-                  <div className={cn("w-10 h-10 rounded-full flex items-center justify-center border-2 mr-3", robot.color.replace('text-', 'border-'))}>
-                    <robot.icon className={cn("w-5 h-5", robot.color)} />
-                  </div>
-                  <h5 className={cn("font-serif text-xl font-bold", robot.color)}>{robot.name}</h5>
-                </div>
-                {/* <p className={cn("font-sans text-xs uppercase tracking-wider mb-3 font-medium", robot.color, "opacity-70")}>{robot.role}</p> */}
-                <p className="font-sans text-sm text-neutral-300 leading-relaxed flex-grow">
-                  {robot.description}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
-        {/* FIM DA SEÇÃO DE DESCRIÇÃO DAS IAs */}
-
-        {/* Força-Tarefa de IA (Robôs) - DESCRIÇÕES DETALHADAS EM CARDS DE VIDRO (Próxima Etapa) */}
-        <motion.div
-          initial="initial"
-          whileInView="animate"
-          viewport={{ once: true, amount: 0.05 }}
-          className="mt-10 md:mt-12 pt-6 w-full"
-        >
-          <motion.h2 
-            className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold mb-6 text-center text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-ailoop-blue"
-            variants={fadeInUp}
-          >
-            IAs AILOOP Manager: Nossa Força-Tarefa Inteligente
-          </motion.h2>
-          
-          {/* Textos explicativos sobre IAs - Mantidos como antes */}
-          <motion.div 
-            className="max-w-3xl mx-auto space-y-5 mb-10 md:mb-12 text-center px-4"
-            variants={fadeInUp}
-            initial="initial" 
-            whileInView="animate" 
-            viewport={{ once: true, amount: 0.2 }}
-          >
-            <p className="font-sans text-md sm:text-lg text-neutral-200 leading-relaxed bg-neutral-800/40 p-4 rounded-lg border border-neutral-700/60 shadow-md">
-              Todas as ações de todas as IAs são <strong className={cn(aiTeam[0]?.color || 'text-neon-cyan', "font-semibold")}>manipuladas e supervisionadas por humanos</strong>. Não existe aplicação totalmente automática, garantindo assim um nível superior de qualidade e personalização em cada entrega.
-            </p>
-            <p className="font-sans text-sm sm:text-base text-neutral-300 leading-relaxed border border-neutral-700/80 bg-neutral-800/30 p-4 rounded-lg shadow-inner">
-              <strong className={cn(aiTeam[1]?.color || 'text-sky-400', "font-semibold block mb-1")}>Nota de Transparência:</strong> Você não utiliza manualmente esses Agentes IA. Eles são <strong className={cn(aiTeam[1]?.color || 'text-sky-400', "font-semibold")}>componentes integrais da equipe AILOOP</strong> e contribuem para o ecossistema de aplicação e solução de marketing digital, automação e implementações de inteligência artificial, tanto nos Planos Fixos como em Planos de Horas. Sua configuração de preferências de aprovação, definida no onboarding, dita como e quando nossa equipe (incluindo a atuação das IAs) interage para validações.
-            </p>
-          </motion.div>
-
-          {/* Grid de Círculos para IAs */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-x-4 gap-y-8 md:gap-x-5 md:gap-y-10 max-w-6xl mx-auto justify-items-center">
-            {aiTeam.map((robot, index) => (
-              <motion.div 
-                key={robot.name} 
-                className="flex flex-col items-center text-center group w-32 sm:w-36 md:w-40"
-                variants={fadeInUp}
-                initial="initial"
-                whileInView="animate"
-                viewport={{ once: true, amount: 0.2 }} 
-                transition={{delay: index * 0.05}}
-              >
-                <div 
-                  className={cn(
-                    "relative w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 rounded-full flex items-center justify-center border-2 shadow-lg group-hover:shadow-xl transition-all duration-300 ease-in-out transform group-hover:scale-110",
-                    robot.color.replace('text-', 'border-'),
-                    robot.color.replace('text-', 'shadow-').replace('-400', '-500/70').replace('-500', '-600/70'), // Border color from text color
-                    robot.color.replace('text-', 'shadow-').replace('-400', '-500/30').replace('-500', '-600/30') // Shadow color from text color
-                  )}
-                >
-                  <div className={cn("absolute inset-0 rounded-full opacity-20 group-hover:opacity-30 transition-opacity duration-300", robot.color.replace('text-', 'bg-'))}></div> {/* Inner glow */}
-                  <robot.icon className={cn("w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 relative z-10 opacity-90 group-hover:opacity-100 transition-opacity duration-300", robot.color)} />
-                </div>
-                <h5 className={cn("font-serif text-sm sm:text-md font-bold mt-3", robot.color)}>{robot.name}</h5>
-                 {/* A descrição detalhada pode ser um tooltip ou modal no futuro. Por agora, o foco é no visual da "equipe". */}
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
 
         {/* Seção 5: Serviços Disponíveis */}
         <section id="servicos-disponiveis" className="w-full max-w-6xl mx-auto py-16 sm:py-24 px-4 relative z-10">
@@ -820,11 +705,11 @@ const ServicosHorasPage: React.FC = () => {
             <motion.div initial="initial" whileInView="animate" viewport={{ once: true, amount: 0.2 }} transition={{ staggerChildren: 0.2 }} className="text-center mb-12 md:mb-16" >
               <motion.h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-neon-cyan to-neon-purple" variants={fadeInUp} > A Vantagem AILOOP: Marketing Inteligente, Sem Amarras </motion.h2>
               <motion.p className="font-sans text-lg sm:text-xl text-neutral-300 max-w-2xl mx-auto" variants={fadeInUp} > Descubra por que nosso modelo de banco de horas é a evolução que seu negócio precisa. </motion.p>
-            </motion.div>
+          </motion.div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"> {benefits.map((benefit, index) => ( <motion.div key={index} className="bg-brand-dark border border-neutral-700/80 rounded-xl p-6 flex flex-col items-start text-left shadow-xl hover:shadow-ailoop-blue/25 transition-all duration-300 transform hover:scale-[1.02] hover:border-ailoop-blue/70" variants={fadeInUp} initial="initial" whileInView="animate" viewport={{ once: true, amount: 0.3 }} transition={{delay: index * 0.1}} > <div className={cn("p-3.5 mb-5 rounded-lg bg-gradient-to-br inline-block shadow-md", benefit.color.replace("text-","from-").replace("-400","/70").replace("-500","/70").replace("-cyan","-cyan/70").replace("-purple","-purple/70").replace("-blue","-blue/70"), benefit.color.replace("text-","to-").replace("-400","/40").replace("-500","/40").replace("-cyan","-cyan/40").replace("-purple","-purple/40").replace("-blue","-blue/40"))}> <benefit.icon className={cn("w-7 h-7", benefit.color)} /> </div> <h4 className={cn("font-serif text-xl font-semibold mb-2", benefit.color)}>{benefit.title}</h4> <p className="font-sans text-sm text-neutral-300 leading-relaxed">{benefit.description}</p> </motion.div> ))} </div>
           </div>
-        </section>
-        
+      </section>
+
         {/* Seção 7: USP */}
         <motion.section id="usp" className="relative z-10 w-full max-w-6xl py-16 sm:py-24 px-4 sm:px-6 lg:px-8 text-center" initial="initial" whileInView="animate" viewport={{ once: true, amount: 0.2 }} variants={{ animate: { transition: { staggerChildren: 0.2 } } }} > <motion.h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-neon-purple to-pink-500" variants={fadeInUp} > Agências Tradicionais e Contratos Engessados? </motion.h2> <motion.p className="font-serif text-2xl sm:text-3xl md:text-4xl font-bold mb-12 text-neutral-100" variants={fadeInUp} > Com AILOOP, <span className="text-neon-cyan">Você Dita o Ritmo</span> e o Investimento. </motion.p> <motion.div className="grid md:grid-cols-2 gap-8 sm:gap-12 text-left max-w-4xl mx-auto" variants={fadeInUp} > <div className="bg-neutral-800/60 backdrop-blur-sm p-6 sm:p-8 rounded-xl border border-neutral-700/70 shadow-xl hover:border-neon-cyan/80 transition-all duration-300"> <h3 className="font-sans text-xl sm:text-2xl font-semibold text-neon-cyan mb-3">Modelo Tradicional Inflexível</h3> <ul className="space-y-2 text-neutral-300 font-sans text-sm sm:text-base"> <li className="flex items-start"><TrendingDown className="w-5 h-5 mr-3 mt-1 text-red-500 flex-shrink-0" /><span>Contratos de longo prazo e mensalidades fixas, mesmo sem demanda total.</span></li> <li className="flex items-start"><TrendingDown className="w-5 h-5 mr-3 mt-1 text-red-500 flex-shrink-0" /><span>Escopo limitado e dificuldade para escalar ou reduzir serviços rapidamente.</span></li> <li className="flex items-start"><TrendingDown className="w-5 h-5 mr-3 mt-1 text-red-500 flex-shrink-0" /><span>Equipes generalistas com possível desalinhamento estratégico específico.</span></li> <li className="flex items-start"><TrendingDown className="w-5 h-5 mr-3 mt-1 text-red-500 flex-shrink-0" /><span>Menor transparência no uso efetivo do investimento.</span></li> </ul> </div> <div className="bg-neutral-800/60 backdrop-blur-sm p-6 sm:p-8 rounded-xl border border-neutral-700/70 shadow-xl hover:border-neon-purple/80 transition-all duration-300"> <h3 className="font-sans text-xl sm:text-2xl font-semibold text-neon-purple mb-3">AILOOP: Flexibilidade Inteligente</h3> <ul className="space-y-2 text-neutral-300 font-sans text-sm sm:text-base"> <li className="flex items-start"><Rocket className="w-5 h-5 mr-3 mt-1 text-green-500 flex-shrink-0" /><span>Pagamento único por pacotes de horas, use quando e como precisar.</span></li> <li className="flex items-start"><Rocket className="w-5 h-5 mr-3 mt-1 text-green-500 flex-shrink-0" /><span>Acesso sob demanda a uma equipe completa (Humanos + IA) altamente especializada.</span></li> <li className="flex items-start"><Rocket className="w-5 h-5 mr-3 mt-1 text-green-500 flex-shrink-0" /><span>Total controle e transparência sobre o investimento e a alocação de horas.</span></li> <li className="flex items-start"><Rocket className="w-5 h-5 mr-3 mt-1 text-green-500 flex-shrink-0" /><span>Escalabilidade dinâmica para atender picos de demanda ou projetos específicos.</span></li> </ul> </div> </motion.div> </motion.section>
         
@@ -833,10 +718,10 @@ const ServicosHorasPage: React.FC = () => {
         
         {/* Seção 9: CTA Final */}
         <motion.section id="cta-final" className="relative z-10 w-full py-20 sm:py-32 px-4 sm:px-6 lg:px-8 text-center bg-gradient-to-t from-ailoop-blue/15 via-brand-dark to-brand-dark mt-10" initial="initial" whileInView="animate" viewport={{ once: true, amount: 0.3 }} variants={{ animate: { transition: { staggerChildren: 0.2 } } }} > <motion.h2 className="font-serif text-4xl sm:text-5xl md:text-6xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-neon-cyan to-neon-purple" variants={fadeInUp} > Pronto Para Ter o Futuro do Marketing ao Seu Alcance? </motion.h2> <motion.p className="font-sans text-lg sm:text-xl text-neutral-300 max-w-2xl mx-auto mb-12" variants={fadeInUp} > Escolha seu pacote de horas AILOOP e comece a construir resultados extraordinários com flexibilidade total. Nossa equipe de ponta (humanos + IA) está pronta para impulsionar seu sucesso. </motion.p> <motion.div className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-center justify-center" variants={fadeInUp} > <motion.button className="font-sans px-10 py-5 bg-gradient-to-r from-neon-cyan via-sky-500 to-neon-purple text-brand-dark font-semibold rounded-lg text-lg sm:text-xl hover:from-neon-purple hover:via-sky-500 hover:to-neon-cyan transition-all duration-300 ease-in-out shadow-[0_0_20px_theme(colors.neon-cyan/0.5),_0_0_40px_theme(colors.neon-purple/0.3)] hover:shadow-[0_0_30px_theme(colors.neon-cyan/0.7),_0_0_60px_theme(colors.neon-purple/0.5)] transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-neon-cyan focus:ring-offset-2 focus:ring-offset-brand-dark" whileHover={{ scale: 1.05, transition: { type: "spring", stiffness: 300, damping: 15 } }} whileTap={{ scale: 0.95 }} onClick={() => document.getElementById('planos-horas')?.scrollIntoView({ behavior: 'smooth' })} > Ver Pacotes de Horas </motion.button> <motion.a href="#contact" className="font-sans px-10 py-5 border-2 border-neon-purple text-neon-purple font-semibold rounded-lg text-lg sm:text-xl hover:bg-neon-purple/20 hover:text-white transition-all duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-neon-purple focus:ring-offset-2 focus:ring-offset-brand-dark" whileHover={{ scale: 1.05, transition: { type: "spring", stiffness: 300, damping: 15 } }} whileTap={{ scale: 0.95 }} > Fale com um Estrategista </motion.a> </motion.div> </motion.section>
-      </div>
+    </div>
       <Footer />
     </>
   );
 };
 
-export default ServicosHorasPage;
+export default ServicosHorasPage; 

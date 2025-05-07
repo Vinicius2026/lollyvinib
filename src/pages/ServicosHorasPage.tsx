@@ -16,6 +16,7 @@ import Footer from '@/components/Footer';
 import HumanProfileCard from '@/components/HumanProfileCard'; // NOVO
 import AIProfileCard from '@/components/AIProfileCard'; // NOVO
 import { ComparativeAdvantageSection } from '@/components/features/ServicosHorasPage/ComparativeAdvantageSection'; // NOVO IMPORT
+import { AiloopAdvantageSection } from '@/components/features/ServicosHorasPage/AiloopAdvantageSection'; // NOVA IMPORTAÇÃO DA SEÇÃO DE VANTAGENS
 
 // Animation variants
 const fadeInUp = {
@@ -317,62 +318,13 @@ const ServicosHorasPage: React.FC = () => {
   };
 
   const aiTeam = [
-    {
-      name: "Fremen",
-      role: "Conector Admin-Cliente & Onboarding AI Specialist",
-      description: "Ele ajuda o contato do administrador junto do time com o cliente. Ele gera onboard ou seja o primeiro contato entre time ativo e cliente. Eleuda nas solicitações do cliente, e o cliente pode se comunicar com ele dentro do Whatsapp por texto e voz. Ele anota as novas demandas, atualiza quando o profissional iniciou em conjunto com a IAs iniciou a tarefa e quantas horas prevista seria aquela tarefa, para o cliente confirmar ou não. Ele faz isso em todas as etapas. Após receber a demanda do cliente ele analisa por 30 alguns minutos em horario comercial em conjunto com equipe humana. Define quantas horas ou minutos serão utilizados e aguarda resposta. Tudo isso feito em menos de 1h das 08h as 22h sendo em horario comercial a revisão da solicitação é feita em 10 a 15 minutos.",
-      color: "text-yellow-400", 
-      icon: MessageSquareText,
-      imageUrl: '/Image_astros/1astro.png'
-    },
-    {
-      name: "Mavelito",
-      role: "Estrategista de IA Rabugento & Profissional",
-      description: "Um personagem meio rabugento mais muito profissional. Ele é uma IAs que intensifica a estratégia do projeto. Ele não revê somente uma vez logo no inicio. Ele cria a estratégia do zero ou adapta em conjunto com variáveis existentes na empresa. Ele faz 5 versões completas, limpas e de altas chances de conversão, realiza as 5 e gera 1 opção para o Estratégista analisar. Não é nem perto de pegar o texto e aplicar em uma inteligência artificial de texto normal. Após analisarmos profundamente, e em etapas humanas talvez migrando para partes mais complexas como revisão e atribuição de novos cargos do time para essa parte. Isso tudo a IA Mavelito coordena, sugestiona, revisa e aplica sempre em conjunto com uma manipulação humana.",
-      color: "text-red-500", 
-      icon: Brain,
-      imageUrl: '/Image_astros/2astro2.png'
-    },
-    {
-      name: "Dramontin",
-      role: "Gestor de Tráfego Cybernético Focado em Resultados",
-      description: "Gestor de tráfego cybernético que não liga muito para traqueamento. A diversão de Dramontin é ver as vendas entrando no dashboard final. Dramontin antes de ser Gestor de Tráfego Senior Cybernético, ele era um grande estrategista e com especializações em neuromarketing. Ele adapta na Gestão de Tráfego suas expertises de personas de comprar e estratégias de hierarquias de campanhas que aumentam as chances de até no inicio já converter. Ele pode ser melhor até mesmo que 10 gestores seniors juntos. Quem realiza a aplicação final é um humano gestor de tráfego senior também.",
-      color: "text-orange-400", 
-      icon: TrendingUp,
-      imageUrl: '/Image_astros/5astro5.png'
-    },
-    {
-      name: "Piraq",
-      role: "Gestor de Funis Estratégico e Vigilante",
-      description: "Um gestor de funis estratégico. Ele cuida de todas as etapas dos funis sinalizando com alertas de dispositivos dos envolvidos nos projetos, humanos e IAs, são alertas de oportunidade, ajustes de rota, designer e redesigner, ele avisa que iniciou uma nova simulação de funil de acordo com o que já está ativo que foi ele quem criou também, e solicita aprovação para editar variáveis que podem ser aprovadas pelos Estratégistas Humanos diretamente sem consentimento do cliente ou pode ser condicionado ao cliente aprovar também.",
-      color: "text-teal-400", 
-      icon: Filter,
-      imageUrl: '/Image_astros/3astro3.png'
-    },
-    {
-      name: "Verlini",
-      role: "Copywriter Sênior com Alma de Escritor Clássico",
-      description: "Copy acima da media com a cabeça de escritor antigo. Ele tem paciência em revisar e gerar cenários disruptivos de copy utilizando AIDA com IA. Ele é bem engraçado. É senior e interage com todos os setores para entender complexidades. Ele também gera cenários para tentar a melhor aplicação possível. Tem treinamento de máquina contínua, fica estudando melhorias e atualizações de links.",
-      color: "text-indigo-400", 
-      icon: Mic,
-      imageUrl: '/Image_astros/4astro4.png'
-    },
-    {
-      name: "Roromiro",
-      role: "Super Administrador e Orquestrador de IAs",
-      description: "Administrador que controla todos as IAs, todos alertas, todos controles de notificações. Ele revisa estratégias em conjunto com o Estratégista e gera um documento MASTER que serve como guia para todos humanos e inteligencias artificias em anexo no time. Ele controla tudo e reforça a inteligencia de todas ações em 2x. Diminuindo drasticamente a margem de erro. É uma das estrelas do nosso time. Ele simula tudo que está acontecendo no negocio do cliente, como funis, campanhas, copy, e fica treinando em modo de aprendizagem, quando ele passa da fase de aprendizagem, ele simula a operação em background sem ser aplicado ao negocio do cliente e verifica as oportunidades, upgrades etc...",
-      color: "text-green-400", 
-      icon: ShieldCheck,
-      imageUrl: '/Image_astros/6astro6.png'
-    },
-    {
-      name: "Cof",
-      role: "Programador IA Multi-Frequência Premiado",
-      description: "Ele é um programador IA que utiliza 5 frequências de contextos. As maiores e mais bem aplicadas do mundo. OpenAI, Claude, Gemini, TourB e IALoop. Desenvolve websites, soluções web e desktop, apps, saas e muitas outras aplicações. Já recebeu prêmios de tecnologia IA para desenvolvimento code.",
-      color: "text-purple-400", 
-      icon: Zap,
-      imageUrl: '/Image_astros/7astro7.png'
-    }
+    { name: "Fremen", role: "IA Estrategista Líder", image: "/Image_astros/Fremen.png", description: "Orquestra e otimiza as operações de marketing, conectando IAs especializadas e estrategistas humanos para máxima eficiência e resultados.", type: 'ia', id: "Fremen", isOutline: false },
+    { name: "Mavelito", role: "IA de Performance e Mídia Paga", image: "/Image_astros/Mavelito.png", description: "Especialista em otimizar campanhas de tráfego pago, identificando oportunidades e ajustando lances em tempo real para maximizar o ROI.", type: 'ia', id: "Mavelito", isOutline: false },
+    { name: "Piraq", role: "IA Criativa e de Conteúdo", image: "/Image_astros/Piraq.png", description: "Gera copies persuasivas, roteiros e ideias visuais, adaptando a linguagem e o tom para cada público e plataforma.", type: 'ia', id: "Piraq", isOutline: false },
+    { name: "Verlini", role: "IA de Análise de Dados e BI", image: "/Image_astros/Verlini.png", description: "Processa grandes volumes de dados para extrair insights acionáveis, tendências de mercado e comportamento do consumidor.", type: 'ia', id: "Verlini", isOutline: false },
+    { name: "Dramontin", role: "IA de SEO e Otimização Orgânica", image: "/ailoop-ges/5astro5.png", description: "Analisa e otimiza o conteúdo e a estrutura do site para melhorar o ranking nos motores de busca e aumentar o tráfego orgânico.", type: 'ia', id: "Dramontin", isOutline: false },
+    { name: "Roromiro", role: "IA de Automação e CRM", image: "/ailoop-ges/6astro6.png", description: "Gerencia fluxos de automação de marketing, nutre leads e personaliza a comunicação em escala através do CRM.", type: 'ia', id: "Roromiro", isOutline: true },
+    { name: "Cof", role: "IA de Atendimento e Suporte ao Cliente", image: "/ailoop-ges/7astro7.png", description: "Fornece suporte inteligente e contextualizado, resolvendo dúvidas e engajando clientes em tempo real.", type: 'ia', id: "Cof", isOutline: false },
   ];
 
   // Ajuste para Rororomiro ser o único com outline, conforme interpretação da imagem original
@@ -419,139 +371,6 @@ const ServicosHorasPage: React.FC = () => {
     { name: "Automação de Marketing com IA", icon: Bot, description: "Eficiência e personalização em escala com robôs inteligentes.", color: "text-yellow-400" },
   ];
 
-  const benefits = [
-    { 
-      icon: RotateCcw,
-      title: "Zero Desperdício: Use Cada Minuto", 
-      description: "Suas horas AILOOP acumulam por até 6 meses (ou mais, dependendo do pacote), garantindo que seu investimento seja totalmente aproveitado.",
-      color: "text-green-400"
-    },
-    { 
-      icon: LockOpen, 
-      title: "Sem Contratos Mensais: Total Liberdade", 
-      description: "Diga adeus às mensalidades fixas. Com AILOOP, você tem controle total do seu investimento, ativando serviços conforme sua real necessidade.",
-      color: "text-sky-400"
-    },
-    { 
-      icon: Zap,
-      title: "Acesso On-Demand à Expertise Total", 
-      description: "A equipe certa (humanos + IA), na hora certa. Acesso direto a especialistas para cada demanda específica do seu projeto.",
-      color: "text-neon-purple"
-    },
-    { 
-      icon: CheckSquare,
-      title: "Resultados Mensuráveis e Transparência", 
-      description: "Acompanhe o uso de cada hora e o progresso dos projetos através do seu painel. Foco total em performance e ROI com clareza absoluta.",
-      color: "text-ailoop-blue"
-    },
-  ];
-
-  const testimonials = [
-    {
-      quote: "A flexibilidade dos pacotes de horas da AILOOP transformou nossa forma de gerenciar o marketing. Finalmente temos controle e resultados!",
-      name: "Júlia Santos",
-      company: "InovaTech Soluções",
-      avatar: "https://i.pravatar.cc/100?u=julia"
-    },
-    {
-      quote: "O acesso à equipe de especialistas e às IAs é um diferencial incrível. Nossos projetos nunca avançaram tão rápido e com tanta assertividade.",
-      name: "Carlos Andrade",
-      company: "Startup Visionária",
-      avatar: "https://i.pravatar.cc/100?u=carlos"
-    },
-    {
-      quote: "Poder acionar a AILOOP sob demanda, sem a pressão de um contrato mensal, foi decisivo para nós. A qualidade da entrega é sempre impecável.",
-      name: "Fernanda Lima",
-      company: "E-commerce Crescer",
-      avatar: "https://i.pravatar.cc/100?u=fernanda"
-    },
-  ];
-  
-  // Duration Toggle Component (Estilo NinjaPromo)
-  const DurationToggle: React.FC<{
-    label: string;
-    tier: 'monthly' | 'tri_monthly' | 'annual';
-    activeTier: 'monthly' | 'tri_monthly' | 'annual';
-    onClick: () => void;
-    discount?: string;
-  }> = ({ label, tier, activeTier, onClick, discount }) => {
-    return (
-      <motion.button
-        onClick={onClick}
-        className={cn(
-          "px-4 sm:px-5 py-2 sm:py-2.5 rounded-lg text-xs sm:text-sm font-medium transition-all duration-300 ease-out relative overflow-hidden transform",
-          activeTier === tier
-            ? "bg-white text-brand-dark shadow-md scale-105"
-            : "bg-neutral-700/60 text-neutral-300 hover:bg-neutral-600/80 hover:text-white"
-        )}
-        whileHover={{ y: activeTier !== tier ? -2 : 0 }}
-        whileTap={{ scale: 0.98 }}
-      >
-        {label}
-        {discount && (
-           <span className={cn(
-               "ml-1.5 text-xs font-semibold",
-               activeTier === tier ? "text-green-700" : "text-green-400"
-           )}>
-               {discount}
-           </span>
-        )}
-         {activeTier === tier && (
-            <motion.div 
-              className="absolute inset-0 bottom-0 h-0.5 bg-gradient-to-r from-neon-cyan via-ailoop-blue to-neon-purple"
-              layoutId="activeToggleIndicatorServicos"
-            />
-          )}
-      </motion.button>
-    );
-  };
-
-  // Função para mapear classes de cor Tailwind para neonColorName do AIProfileCard
-  const mapTailwindColorToNeonName = (tailwindColorClass: string): 'blue' | 'cyan' | 'purple' | 'green' | 'orange' | 'yellow' | 'red' | 'pink' => {
-    if (tailwindColorClass.includes('yellow')) return 'yellow';
-    if (tailwindColorClass.includes('red')) return 'red';
-    if (tailwindColorClass.includes('orange')) return 'orange';
-    if (tailwindColorClass.includes('teal') || tailwindColorClass.includes('cyan')) return 'cyan'; // teal mapeado para cyan
-    if (tailwindColorClass.includes('indigo') || tailwindColorClass.includes('purple')) return 'purple'; // indigo mapeado para purple
-    if (tailwindColorClass.includes('green')) return 'green';
-    if (tailwindColorClass.includes('blue')) return 'blue'; 
-    if (tailwindColorClass.includes('pink')) return 'pink';
-    return 'cyan'; // Default
-  };
-
-  // Placeholder para a Linha Divisória Impactante
-  const ImpactSectionDivider: React.FC<{className?: string}> = ({className}) => {
-    return (
-      <motion.div 
-        className={cn(
-          "h-0.5 w-2/3 max-w-md my-12 md:my-16 bg-gradient-to-r from-neutral-800 via-neutral-600 to-neutral-800 mx-auto", // Estilo base
-          "shadow-[0_0_8px_1px_rgba(150,150,150,0.3)]", // Brilho sutil
-          className
-        )}
-        variants={fadeInUp} initial="initial" whileInView="animate" viewport={{ once: true, amount: 0.1 }}
-      ></motion.div>
-    );
-  };
-
-  // Linha Conectora Vertical com Terminais Estilizados
-  const VerticalTeamConnector: React.FC<{className?: string, heightClass?: string}> = ({className, heightClass = "h-16 md:h-20"}) => {
-    return (
-      <div className={cn("relative flex justify-center", heightClass, className)}> 
-        {/* Terminal Superior */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-2 h-2 bg-neutral-500 rounded-full shadow-md"></div>
-        <motion.div 
-          className={cn(
-            "w-px h-full mx-auto bg-gradient-to-b from-neutral-600 via-neutral-400 to-neutral-600 relative",
-            "shadow-[0_0_6px_0.5px_rgba(200,200,200,0.3)]",
-          )}
-          variants={fadeInUp} initial="initial" whileInView="animate" viewport={{ once: true, amount: 0.1 }}
-        ></motion.div>
-        {/* Terminal Inferior */}
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-2 h-2 bg-neutral-500 rounded-full shadow-md"></div>
-      </div>
-    );
-  };
-
   const flowItems = [
     { 
       step: "1",
@@ -597,6 +416,69 @@ const ServicosHorasPage: React.FC = () => {
     },
   ];
   const totalFlowItems = flowItems.length;
+
+  // >>> INÍCIO DAS DEFINIÇÕES DOS COMPONENTES AUXILIARES REINTRODUZIDOS <<<
+  const DurationToggle: React.FC<{
+    label: string;
+    tier: 'monthly' | 'tri_monthly' | 'annual';
+    activeTier: 'monthly' | 'tri_monthly' | 'annual';
+    onClick: () => void;
+    discount?: string;
+  }> = ({ label, tier, activeTier, onClick, discount }) => {
+    const isActive = activeTier === tier;
+    return (
+      <button
+        onClick={onClick}
+        className={cn(
+          "relative px-4 py-2.5 sm:px-5 text-xs sm:text-sm font-medium rounded-lg transition-all duration-200 ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-900",
+          isActive
+            ? "bg-gradient-to-r from-sky-500 via-cyan-400 to-sky-500 text-white shadow-md shadow-cyan-500/30 focus-visible:ring-cyan-500"
+            : "bg-neutral-700/60 hover:bg-neutral-600/80 text-neutral-300 hover:text-neutral-100 focus-visible:ring-neutral-500"
+        )}
+      >
+        {label}
+        {discount && (
+          <span className={cn(
+            "absolute -top-2 -right-2 px-1.5 py-0.5 text-[0.6rem] font-bold rounded-full shadow",
+            isActive ? "bg-yellow-400 text-neutral-800" : "bg-pink-600 text-white"
+          )}>
+            {discount}
+          </span>
+        )}
+      </button>
+    );
+  };
+
+  const mapTailwindColorToNeonName = (tailwindColorClass: string | undefined): 'blue' | 'cyan' | 'purple' | 'green' | 'orange' | 'yellow' | 'red' | 'pink' => {
+    if (!tailwindColorClass) return 'cyan'; // Default se undefined
+    if (tailwindColorClass.includes('cyan')) return 'cyan';
+    if (tailwindColorClass.includes('blue') || tailwindColorClass.includes('sky')) return 'blue';
+    if (tailwindColorClass.includes('purple') || tailwindColorClass.includes('violet')) return 'purple';
+    if (tailwindColorClass.includes('green')) return 'green';
+    if (tailwindColorClass.includes('orange')) return 'orange';
+    if (tailwindColorClass.includes('yellow')) return 'yellow';
+    if (tailwindColorClass.includes('red')) return 'red';
+    if (tailwindColorClass.includes('pink') || tailwindColorClass.includes('fuchsia')) return 'pink';
+    return 'cyan'; // Default
+  };
+  
+  const ImpactSectionDivider: React.FC<{className?: string}> = ({className}) => {
+    return (
+      <div className={cn("w-full max-w-5xl mx-auto my-12 md:my-16", className)}>
+        <div className="h-px bg-gradient-to-r from-transparent via-neutral-600/70 to-transparent"></div>
+      </div>
+    );
+  };
+
+  const VerticalTeamConnector: React.FC<{className?: string, heightClass?: string}> = ({className, heightClass = "h-16 md:h-20"}) => {
+    return (
+      <div className={cn("relative flex justify-center items-center w-12", heightClass, className)}>
+        <div className="w-px h-full bg-gradient-to-b from-neutral-600/0 via-neutral-600/80 to-neutral-600/0"></div>
+        <Sparkles className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-5 h-5 text-sky-500/70 opacity-75" />
+      </div>
+    );
+  };
+  // >>> FIM DAS DEFINIÇÕES DOS COMPONENTES AUXILIARES REINTRODUZIDOS <<<
 
   return (
     <>
@@ -657,7 +539,7 @@ const ServicosHorasPage: React.FC = () => {
             <DurationToggle label="Pacotes Base" tier="monthly" activeTier={durationTier} onClick={() => setDurationTier('monthly')} />
             <DurationToggle label="Volume Trimestral" tier="tri_monthly" activeTier={durationTier} onClick={() => setDurationTier('tri_monthly')} discount="10% OFF" />
             <DurationToggle label="Volume Anual" tier="annual" activeTier={durationTier} onClick={() => setDurationTier('annual')} discount="20% OFF" />
-        </motion.div>
+          </motion.div>
         </motion.section>
 
 
@@ -880,14 +762,19 @@ const ServicosHorasPage: React.FC = () => {
                           className="w-44 sm:w-48 md:w-52 h-full"
                         />
                       ) : (
-                        <AIProfileCard 
-                          name={member.name}
-                          role={member.role?.split('&')[0].trim() || 'IA Specialist'}
-                          neonColorName={mapTailwindColorToNeonName(member.color || 'text-neon-cyan')}
-                          className="w-44 sm:w-48 md:w-52 h-full"
-                          isOutline={member.isOutline || false}
-                          imageUrl={member.imageUrl}
-                        />
+                        (() => {
+                          console.log(`DEBUG: Dados para AI Card ${member.name}:`, member);
+                          return (
+                            <AIProfileCard 
+                              name={member.name}
+                              role={member.role?.split('&')[0].trim() || 'IA Specialist'}
+                              neonColorName={mapTailwindColorToNeonName(member.color || 'text-neon-cyan')}
+                              className="w-44 sm:w-48 md:w-52 h-full"
+                              isOutline={member.isOutline || false}
+                              imageUrl={member.image}
+                            />
+                          );
+                        })()
                       )}
                     </motion.div>
                   ))}
@@ -985,29 +872,6 @@ const ServicosHorasPage: React.FC = () => {
                         {item.benefit}
                       </motion.p>
                     </motion.div>
-
-                    {/* --- CONECTORES VISUAIS DO FLUXO --- */} 
-                    {/* Seta Horizontal Direita (LG: após item 0,1,3,4) */}
-                    { (index % 3 !== 2 && index < totalFlowItems - 1) && (
-                      <ArrowRight className="hidden lg:block absolute top-1/2 right-[-1.75rem] xl:right-[-2.25rem] transform -translate-y-1/2 text-neutral-500 w-6 h-6 group-hover:text-neon-cyan/70 transition-colors duration-300" />
-                    )}
-                    {/* Seta Horizontal Direita (MD: após item 0,2,4) */}
-                    { (index % 2 !== 1 && index < totalFlowItems - 1) && (
-                      <ArrowRight className="hidden md:block lg:hidden absolute top-1/2 right-[-1.75rem] transform -translate-y-1/2 text-neutral-500 w-6 h-6 group-hover:text-neon-cyan/70 transition-colors duration-300" />
-                    )}
-
-                    {/* Seta Vertical Baixo (LG: após item 2 - fim da primeira linha de 3) */}
-                    { (index % 3 === 2 && index < totalFlowItems - 1) && (
-                      <ArrowDown className="hidden lg:block absolute bottom-[-2.25rem] xl:bottom-[-2.75rem] left-1/2 transform -translate-x-1/2 text-neutral-500 w-6 h-6 group-hover:text-neon-cyan/70 transition-colors duration-300" />
-                    )}
-                    {/* Seta Vertical Baixo (MD: após item 1, 3 - fim das linhas de 2) */}
-                    { (index % 2 === 1 && index < totalFlowItems - 1) && (
-                      <ArrowDown className="hidden md:block lg:hidden absolute bottom-[-2.25rem] left-1/2 transform -translate-x-1/2 text-neutral-500 w-6 h-6 group-hover:text-neon-cyan/70 transition-colors duration-300" />
-                    )}
-                    {/* Seta Vertical Baixo (SM: após cada item, exceto o último) */}
-                    { (index < totalFlowItems - 1) && (
-                      <ArrowDown className="block md:hidden absolute bottom-[-2.25rem] left-1/2 transform -translate-x-1/2 text-neutral-500 w-6 h-6 group-hover:text-neon-cyan/70 transition-colors duration-300" />
-                    )}
                   </div>
                 );
               })}
@@ -1091,22 +955,19 @@ const ServicosHorasPage: React.FC = () => {
         </section>
         {/* FIM DA NOVA SEÇÃO Arsenal de Marketing & Fluxo AILOOP */}
 
-        {/* Seção 6: Benefícios */}
-        <section id="beneficios-ailoop" className="w-full bg-neutral-900/40 py-16 sm:py-24 relative z-10">
-          <div className="max-w-6xl mx-auto px-4">
-            <motion.div initial="initial" whileInView="animate" viewport={{ once: true, amount: 0.2 }} transition={{ staggerChildren: 0.2 }} className="text-center mb-12 md:mb-16" >
-              <motion.h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-neon-cyan to-neon-purple" variants={fadeInUp} > A Vantagem AILOOP: Marketing Inteligente, Sem Amarras </motion.h2>
-              <motion.p className="font-sans text-lg sm:text-xl text-neutral-300 max-w-2xl mx-auto" variants={fadeInUp} > Descubra por que nosso modelo de banco de horas é a evolução que seu negócio precisa. </motion.p>
-          </motion.div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"> {benefits.map((benefit, index) => ( <motion.div key={index} className="bg-brand-dark border border-neutral-700/80 rounded-xl p-6 flex flex-col items-start text-left shadow-xl hover:shadow-ailoop-blue/25 transition-all duration-300 transform hover:scale-[1.02] hover:border-ailoop-blue/70" variants={fadeInUp} initial="initial" whileInView="animate" viewport={{ once: true, amount: 0.3 }} transition={{delay: index * 0.1}} > <div className={cn("p-3.5 mb-5 rounded-lg bg-gradient-to-br inline-block shadow-md", benefit.color.replace("text-","from-").replace("-400","/70").replace("-500","/70").replace("-cyan","-cyan/70").replace("-purple","-purple/70").replace("-blue","-blue/70"), benefit.color.replace("text-","to-").replace("-400","/40").replace("-500","/40").replace("-cyan","-cyan/40").replace("-purple","-purple/40").replace("-blue","-blue/40"))}> <benefit.icon className={cn("w-7 h-7", benefit.color)} /> </div> <h4 className={cn("font-serif text-xl font-semibold mb-2", benefit.color)}>{benefit.title}</h4> <p className="font-sans text-sm text-neutral-300 leading-relaxed">{benefit.description}</p> </motion.div> ))} </div>
-          </div>
-      </section>
-
         {/* Seção 7: USP */}
         <ComparativeAdvantageSection /> {/* NOVA SEÇÃO SUBSTITUINDO A ANTIGA USP */}
         
         {/* Seção 9: CTA Final */}
         <motion.section id="cta-final" className="relative z-10 w-full py-20 sm:py-32 px-4 sm:px-6 lg:px-8 text-center bg-gradient-to-t from-ailoop-blue/15 via-brand-dark to-brand-dark mt-10" initial="initial" whileInView="animate" viewport={{ once: true, amount: 0.3 }} variants={{ animate: { transition: { staggerChildren: 0.2 } } }} > <motion.h2 className="font-serif text-4xl sm:text-5xl md:text-6xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-neon-cyan to-neon-purple" variants={fadeInUp} > Pronto Para Ter o Futuro do Marketing ao Seu Alcance? </motion.h2> <motion.p className="font-sans text-lg sm:text-xl text-neutral-300 max-w-2xl mx-auto mb-12" variants={fadeInUp} > Escolha seu pacote de horas AILOOP e comece a construir resultados extraordinários com flexibilidade total. Nossa equipe de ponta (humanos + IA) está pronta para impulsionar seu sucesso. </motion.p> <motion.div className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-center justify-center" variants={fadeInUp} > <motion.button className="font-sans px-10 py-5 bg-gradient-to-r from-neon-cyan via-sky-500 to-neon-purple text-brand-dark font-semibold rounded-lg text-lg sm:text-xl hover:from-neon-purple hover:via-sky-500 hover:to-neon-cyan transition-all duration-300 ease-in-out shadow-[0_0_20px_theme(colors.neon-cyan/0.5),_0_0_40px_theme(colors.neon-purple/0.3)] hover:shadow-[0_0_30px_theme(colors.neon-cyan/0.7),_0_0_60px_theme(colors.neon-purple/0.5)] transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-neon-cyan focus:ring-offset-2 focus:ring-offset-brand-dark" whileHover={{ scale: 1.05, transition: { type: "spring", stiffness: 300, damping: 15 } }} whileTap={{ scale: 0.95 }} onClick={() => document.getElementById('planos-horas')?.scrollIntoView({ behavior: 'smooth' })} > Ver Pacotes de Horas </motion.button> <motion.a href="#contact" className="font-sans px-10 py-5 border-2 border-neon-purple text-neon-purple font-semibold rounded-lg text-lg sm:text-xl hover:bg-neon-purple/20 hover:text-white transition-all duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-neon-purple focus:ring-offset-2 focus:ring-offset-brand-dark" whileHover={{ scale: 1.05, transition: { type: "spring", stiffness: 300, damping: 15 } }} whileTap={{ scale: 0.95 }} > Fale com Fremen </motion.a> </motion.div> </motion.section>
+
+        {/* NOVA SEÇÃO DE VANTAGENS AILOOP INSERIDA AQUI */}
+        <AiloopAdvantageSection />
+
+        {/* Seção 4: Sua Equipe AILOOP Dedicada */}
+        <section id="equipe-ailoop" className="w-full bg-brand-darker py-20 sm:py-28 px-4 font-inter relative z-10">
+          {/* ... conteúdo da equipe ... */}
+        </section>
     </div>
       <Footer />
     </>

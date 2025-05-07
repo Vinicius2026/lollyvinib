@@ -28,13 +28,28 @@ const ModelViewer = ({ position = [0, 0, 0], direction = 1 }: { position: [numbe
 export const ShowcaseSection = () => {
   return (
     <motion.section
-      className="py-20 text-brand-white relative overflow-hidden"
+      className="pb-20 text-brand-white relative overflow-hidden"
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.3 }}
       transition={{ duration: 0.8 }}
     >
-      <div className="container mx-auto px-4 grid md:grid-cols-2 gap-16 items-center relative z-10">
+      {/* Efeito de mesclagem no topo */}
+      <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-[#08080A] to-transparent z-20 pointer-events-none" />
+
+      {/* Aviso de dashboard */}
+      <div className="text-center pt-4 pb-4 relative z-30">
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="inline-block backdrop-blur-sm border-2 border-purple-400 text-purple-300 text-xs font-semibold uppercase tracking-wider px-4 py-2 rounded-full shadow-lg shadow-purple-500/40"
+        >
+          AGÊNCIA IA ON DEMAND
+        </motion.div>
+      </div>
+
+      <div className="container mx-auto px-4 grid md:grid-cols-2 gap-16 items-center relative z-10 pt-16">
         <div className="h-96 md:h-[500px] w-full relative rounded-2xl overflow-hidden shadow-xl ring-1 ring-white/10 bg-gradient-to-b from-[#0a0a0f] to-[#0e0e1a]">
           <Canvas camera={{ position: [0, 1.5, 9], fov: 50 }} gl={{ alpha: true }}>
             <color attach="background" args={['#0e0e1a']} />

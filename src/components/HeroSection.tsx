@@ -31,7 +31,7 @@ const HeroSection: React.FC = () => {
 
       {/* Container Typewriter (Mantido Centralizado) */}
       <motion.div
-        className="w-full max-w-4xl mx-auto mb-12 md:mb-16 z-10"
+        className="w-full max-w-4xl mx-auto mt-8 mb-12 md:mb-16 z-10"
         variants={fadeInUp}
         initial="hidden"
         whileInView="visible"

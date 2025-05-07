@@ -28,25 +28,70 @@ const Index: React.FC = () => {
           <TechPanel />
         </motion.div>
         
-        <div className="relative py-16 md:py-24 overflow-hidden">
-          <motion.div 
-            className="relative"
-            variants={fadeInUp} 
-            initial="hidden" 
-            animate="visible" 
-            transition={{ duration: 0.6, delay: 0.4 }}
-          >
-            <AnimatePresence mode="wait">
-              <InteractiveQuiz />
-            </AnimatePresence>
-          </motion.div>
+        <motion.div 
+          className="relative py-16 md:py-24 overflow-hidden px-4"
+          variants={fadeInUp} 
+          initial="hidden" 
+          animate="visible" 
+          transition={{ duration: 0.6, delay: 0.4 }}
+        >
+          <div className="flex flex-col md:flex-row items-center justify-center gap-12 md:gap-20">
+            <motion.div 
+              className="w-full md:w-1/2 flex justify-center md:justify-end"
+              variants={fadeInUp} 
+              initial="hidden" 
+              animate="visible" 
+              transition={{ duration: 0.6, delay: 0.45 }}
+            >
+              <motion.div
+                className="relative rounded-lg"
+                animate={{
+                  y: ["0px", "-8px", "0px"],
+                }}
+                transition={{
+                  y: {
+                    duration: 3.5,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  },
+                }}
+              >
+                <img 
+                  src="/image_grande/collection-stack-ailoop-brasil-bab-nike.png" 
+                  alt="Collection Stack Ailoop Brasil Bab Nike" 
+                  className="max-w-lg h-auto object-contain rounded-lg opacity-75"
+                />
+                <motion.div
+                  className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-40 h-12 bg-orange-500/60 rounded-full filter blur-xl"
+                  animate={{
+                    opacity: [0.1, 0.5, 0.1],
+                    scale: [0.85, 1, 0.85],
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                />
+              </motion.div>
+            </motion.div>
+
+            <motion.div 
+              className="w-full md:w-1/2 flex justify-center md:justify-start"
+              variants={fadeInUp} initial="hidden" animate="visible" transition={{ duration: 0.6, delay: 0.5 }}
+            >
+              <AnimatePresence mode="wait">
+                <InteractiveQuiz />
+              </AnimatePresence>
+            </motion.div>
+          </div>
 
           <motion.div
-            className="mt-12 text-center"
+            className="mt-12 md:mt-16 text-center"
             variants={fadeInUp}
             initial="hidden"
             animate="visible"
-            transition={{ duration: 0.6, delay: 0.5 }}
+            transition={{ duration: 0.6, delay: 0.55 }}
           >
             <button
               type="button"
@@ -55,7 +100,7 @@ const Index: React.FC = () => {
               VER AGENTE REAL CLINICA DENTARIA (WHATSAPP)
             </button>
           </motion.div>
-        </div>
+        </motion.div>
 
         <motion.div variants={fadeInUp} initial="hidden" animate="visible" transition={{ duration: 0.6, delay: 0.6 }}>
           <WhyUsSection />

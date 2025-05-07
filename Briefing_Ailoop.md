@@ -403,8 +403,9 @@ Podemos começar criando um componente `AnimatedButton` que encapsula um botão 
 
 ### Log de Otimizações de Performance (Iniciado YYYY-MM-DD - Data da Interação Atual)
 
-*   **Problema Relatado:** Identificada lentidão e travamentos possivelmente associados a efeitos de brilho (glow/shadow) em cards e outros elementos, impactando a fluidez da navegação.
-*   **Otimizações Implementadas:**
+*   ✅ **Problema Resolvido (YYYY-MM-DD - Data da Interação Atual):** Lentidão e travamentos anteriormente identificados, possivelmente associados a efeitos de brilho (glow/shadow), foram resolvidos.
+    *   **Nota:** A investigação concluiu que a causa era interna e foi solucionada/anulada (referência: "solução nula time externo").
+*   **Otimizações Implementadas Anteriormente:**
     *   **`ShowcaseSection.tsx`:**
         *   ✅ Ajustados parâmetros do efeito `Bloom` (pós-processamento 3D): `intensity` reduzida de `0.6` para `0.45` e `luminanceThreshold` aumentado de `0.3` para `0.4` para menor custo de renderização.
         *   ✅ Removida/Comentada linha `useGLTF.preload('/models/cyberpunk_character.glb');` que parecia não corresponder ao modelo efetivamente carregado (`cyberpunk_cats.glb`) na seção, evitando um possível preload desnecessário.

@@ -92,10 +92,10 @@ const Navbar: React.FC = () => {
                     transition={{ duration: 0.2, ease: 'easeOut' }}
                     className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-48 bg-black/80 backdrop-blur-md rounded-md shadow-2xl border border-neutral-700/60 overflow-hidden"
                   >
-                    <Link to="/servicos-fixos" className={submenuItemClasses} onClick={() => setIsServicesMenuOpen(false)}>
+                    <Link to="/servicos-fixos" className={cn(submenuItemClasses, "uppercase")} onClick={() => setIsServicesMenuOpen(false)}>
                       Preços Fixos
                     </Link>
-                    <Link to="/servicos-horas" className={submenuItemClasses} onClick={() => setIsServicesMenuOpen(false)}>
+                    <Link to="/servicos-horas" className={cn(submenuItemClasses, "uppercase")} onClick={() => setIsServicesMenuOpen(false)}>
                       Preços Hrs
                     </Link>
                   </motion.div>
@@ -106,6 +106,7 @@ const Navbar: React.FC = () => {
             <button onClick={scrollToContact} className={navLinkClasses}>
               CONTATO
             </button>
+            <span className={cn(navLinkClasses, "cursor-default")}>SCHOOL</span>
             <Link to="/blog" className={navLinkClasses} onClick={() => setIsServicesMenuOpen(false)}>
               <BookOpen className="w-4 h-4 opacity-80"/>
               BLOG
@@ -150,10 +151,10 @@ const Navbar: React.FC = () => {
           >
             <div className="container mx-auto px-4 pt-4 pb-6 flex flex-col space-y-3 items-center">
               <p className="text-ailoop-neon-blue text-xs font-semibold uppercase tracking-wider mb-1 pt-2">Serviços</p>
-              <Link to="/servicos-fixos" className={navLinkClasses} onClick={handleMobileMenuToggle}>
+              <Link to="/servicos-fixos" className={cn(navLinkClasses, "uppercase")} onClick={handleMobileMenuToggle}>
                 Preços Fixos
               </Link>
-              <Link to="/servicos-horas" className={navLinkClasses} onClick={handleMobileMenuToggle}>
+              <Link to="/servicos-horas" className={cn(navLinkClasses, "uppercase")} onClick={handleMobileMenuToggle}>
                 Preços Hrs
               </Link>
               <div className="w-1/2 h-px bg-neutral-700 my-2"></div>
@@ -161,6 +162,7 @@ const Navbar: React.FC = () => {
               <button onClick={scrollToContact} className={navLinkClasses}>
                 CONTATO
               </button>
+              <span className={cn(navLinkClasses, "cursor-default")}>SCHOOL</span>
               <Link to="/blog" className={navLinkClasses} onClick={handleMobileMenuToggle}>
                 <BookOpen className="w-4 h-4 opacity-80"/>
                 BLOG

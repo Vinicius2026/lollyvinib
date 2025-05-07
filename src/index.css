@@ -803,6 +803,50 @@
       transform: translateX(-50%);
     }
   }
+
+  /* Animações de pulsação para os brilhos de fundo */
+  @keyframes pulse-slow {
+    0%, 100% { opacity: 0.4; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(1.03); }
+  }
+  .animate-pulse-slow {
+    animation: pulse-slow 8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  @keyframes pulse-slower {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.02); }
+  }
+  .animate-pulse-slower {
+    animation: pulse-slower 10s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  /* Animação para a borda do placeholder */
+  @keyframes pulse-border {
+    0%, 100% { opacity: 0.3; filter: blur(0.75rem); } /* blur-xl */
+    50% { opacity: 0.65; filter: blur(1rem); }      /* blur-xl ou blur-2xl */
+  }
+  .animate-pulse-border {
+    animation: pulse-border 3s cubic-bezier(0.4, 0, 0.6, 1) infinite alternate;
+  }
+
+  /* Animação para o gradiente do círculo visual */
+  @keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  /* (Você aplicará a animação 'gradientShift' via style inline no elemento do círculo se quiser usar esta)
+     A propriedade background-size também precisaria ser maior que 100% para o shift ser visível. Ex:
+     background-size: 200% 200%;
+     No entanto, o gradiente atual no círculo visual usa `from-purple-600 via-red-500 to-orange-500`,
+     que já é bastante dinâmico. Uma animação de gradiente pode ser sutil aqui.
+     Para o círculo interno do placeholder:
+  */
+  .animate-gradient-shift {
+    background-size: 150% 150%; /* Para a animação de gradiente funcionar bem */
+    animation: gradientShift 10s ease infinite alternate;
+  }
 }
 
 /* Classe para a barra flutuante com pontas */

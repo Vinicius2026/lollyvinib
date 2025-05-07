@@ -76,6 +76,12 @@ const Footer: React.FC = () => {
                   Cuidamos do Rio de Janeiro
                 </span>
               </li>
+              <li>
+                <span className="flex items-center cursor-default text-neutral-400 hover:text-neutral-200 transition-colors duration-200">
+                  <ChevronRight className="w-3 h-3 mr-1.5 text-neutral-500 flex-shrink-0" />
+                  SCHOOL
+                </span>
+              </li>
             </ul>
           </div>
 

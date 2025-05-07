@@ -17,26 +17,7 @@ const ServicesPage: React.FC = () => {
           transition={{ duration: 0.5, delay: 0.1 }}
           className="text-center"
         >
-          <motion.h1 
-            className="mt-12 md:mt-16 text-5xl md:text-6xl font-bold mb-6 text-white py-2"
-            initial={{ textShadow: "0 0 4px rgba(200,200,255,0.2), 0 0 8px rgba(180,180,230,0.1)" }}
-            animate={{
-              textShadow: [
-                "0 0 5px rgba(220,220,255,0.3), 0 0 10px rgba(200,200,240,0.2), 0 0 15px rgba(180,180,220,0.1)",
-                "0 0 8px rgba(230,230,255,0.4), 0 0 15px rgba(210,210,245,0.3), 0 0 25px rgba(190,190,230,0.2)",
-                "0 0 5px rgba(220,220,255,0.3), 0 0 10px rgba(200,200,240,0.2), 0 0 15px rgba(180,180,220,0.1)",
-              ]
-            }}
-            transition={{
-              duration: 3.5,
-              repeat: Infinity,
-              repeatType: "mirror", // Para fazer a animação ir e voltar suavemente
-              ease: "easeInOut"
-            }}
-          >
-            SERVIÇOS PREÇO FIXO
-          </motion.h1>
-          <div className="w-full flex justify-center my-16 md:my-24 mb-12 md:mb-16">
+          {/* <div className="w-full flex justify-center my-16 md:my-24 mb-12 md:mb-16">
             <motion.div
               className="relative w-32 h-32 md:w-40 md:h-40"
               animate={{
@@ -77,7 +58,7 @@ const ServicesPage: React.FC = () => {
                 transition={{ duration: 2.5, repeat: Infinity, repeatType: "mirror" }}
               />
             </motion.div>
-          </div>
+          </div> */}
         </motion.div>
 
         <motion.div

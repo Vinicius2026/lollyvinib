@@ -242,26 +242,7 @@ A estrutura principal do projeto dentro do diretório `src` é organizada da seg
 - [ ] Implementar lazy loading para imagens e componentes pesados (reforçar prioridade)
 - [ ] Melhorar tempo de carregamento inicial
 - [ ] Considerar uso estratégico da propriedade CSS `will-change` para elementos frequentemente animados.
-- [~] Otimizar animações de brilho (`box-shadow`, `drop-shadow`, `filter: drop-shadow`, `text-shadow`) em diversos componentes (parcialmente implementado, ver log abaixo).
-
-### Log de Otimizações de Performance (Iniciado YYYY-MM-DD - Data da Interação Atual)
-
-*   **Problema Relatado:** Identificada lentidão e travamentos possivelmente associados a efeitos de brilho (glow/shadow) em cards e outros elementos, impactando a fluidez da navegação.
-*   **Otimizações Implementadas:**
-    *   **`ShowcaseSection.tsx`:**
-        *   ✅ Ajustados parâmetros do efeito `Bloom` (pós-processamento 3D): `intensity` reduzida de `0.6` para `0.45` e `luminanceThreshold` aumentado de `0.3` para `0.4` para menor custo de renderização.
-        *   ✅ Removida/Comentada linha `useGLTF.preload('/models/cyberpunk_character.glb');` que parecia não corresponder ao modelo efetivamente carregado (`cyberpunk_cats.glb`) na seção, evitando um possível preload desnecessário.
-    *   **`WhyUsSection.tsx`:**
-        *   ✅ Otimizado o `box-shadow` (classe `hoverShadowClass`) aplicado no hover dos cards de features. A intensidade (blur, spread, opacidade) foi reduzida para: `hover:shadow-[0_0_15px_2px_theme(colors.NEON_COLOR/0.25)]` (onde NEON_COLOR é a cor dinâmica da feature).
-        *   ⚠️ **Imagem Flux:** A imagem "Flux" com brilho azul neon (`drop-shadow`) animado (pulsante), mencionada em atualizações anteriores para esta seção, não foi encontrada no código atual de `WhyUsSection.tsx` durante a revisão para otimização. Sua otimização está pendente até localização do código.
-    *   **`ServicesSection.tsx`:**
-        *   **Card "Gestão One Stack" (Estrelas):**
-            *   ✅ Suavizada a animação do `filter: drop-shadow` pulsante das estrelas amarelas. O pico da animação do brilho foi reduzido (ex: de `drop-shadow(0 0 8px rgba(255, 215, 0, 1))` para `drop-shadow(0 0 6px rgba(255, 215, 0, 0.7))`) e a duração da transição levemente aumentada para `2.2s`. O brilho inicial também foi suavizado.
-        *   **Card "Gestão One Stack" (Dropdown de Preço):**
-            *   ✅ Otimizado o `text-shadow` (classe `shadowClass`) aplicado nas opções de preço (40k, 80k) no dropdown. O brilho e o `hover` do brilho foram suavizados (ex: de `[text-shadow:0_0_3px_rgba(...,0.6)] hover:[text-shadow:0_0_5px_rgba(...,0.8)]` para `[text-shadow:0_0_2px_rgba(...,0.5)] hover:[text-shadow:0_0_4px_rgba(...,0.7)]`).
-*   **Próximas Ações de Otimização (além das já listadas):**
-    *   Revisar e aplicar `React.memo`, `useCallback`, `useMemo` onde necessário.
-    *   Verificar todos os usos de `box-shadow`, `drop-shadow`, e `filter` para animações contínuas e avaliar alternativas mais performáticas se necessário (ex: animar opacidade de pseudo-elementos com o brilho). 
+- [~] Otimizar animações de brilho (`box-shadow`, `drop-shadow`, `filter: drop-shadow`) em diversos componentes (parcialmente implementado, ver log abaixo).
 
 ### 2. Melhorias de Acessibilidade
 - [ ] Adicionar suporte a `prefers-reduced-motion`
@@ -353,6 +334,15 @@ Podemos começar criando um componente `AnimatedButton` que encapsula um botão 
     *   Título principal de `TechPanel.tsx` alterado para "ZAP IA VOZ + TEXTO" e subtítulo atualizado.
     *   Ícone dos cards em `TechPanel.tsx` unificado para `FaCube` (requer `npm install react-icons` ou `yarn add react-icons` se ainda não instalado).
     *   Todos os efeitos de partículas de fundo foram removidos de `TechPanel.tsx` devido à dificuldade de visualização/implementação.
+*   **Atualização de Conteúdo e Estilo da Seção de Diferenciais (`ZapIaShowcase.tsx` e `FeatureCard.tsx`) (YYYY-MM-DD - Data da Interação Atual):**
+    *   O componente `ZapIaShowcase.tsx` (utilizado dentro de `TechPanel.tsx`) teve seu `featureData` atualizado com novos textos para os 5 diferenciais da Ailoop, conforme solicitado. O título principal "ZAP IA TEXTO + VOZ" foi mantido.
+    *   O componente `FeatureCard.tsx` foi reestilizado para remover tons de cinza e azul, alinhando-se ao tema neon/escuro do projeto:
+        *   Fundo alterado para `bg-[#1A1A1A]`.
+        *   Borda alterada para `border-neon-purple/50`.
+        *   Cor do ícone alterada para `text-neon-purple`.
+        *   Cor do texto da descrição alterada para `text-brand-white/80`.
+        *   Sombra no hover (efeito `whileHover`) atualizada para `boxShadow: "0px 10px 20px theme(colors.neon-purple/0.3)"`.
+        *   O layout da grade de exibição dos cards em `ZapIaShowcase.tsx` (2 colunas com o último item centralizado e maior) foi mantido.
 *   **Próximos Passos Imediatos (Definidos em YYYY-MM-DD):**
     *   Aplicar animação de brilho laranja sincronizada aos títulos dos cards em `TechPanel.tsx`.
     *   Aplicar animação de máquina de escrever (typewriter) ao título principal "ZAP IA VOZ + TEXTO" em `TechPanel.tsx`.
@@ -397,6 +387,19 @@ Podemos começar criando um componente `AnimatedButton` que encapsula um botão 
         *   Corrigida a animação de entrada dos painéis de opção (botões) para garantir que se tornem visíveis após a animação do container pai.
         *   Adicionada a propriedade `description` à segunda pergunta do quiz com o texto: "Selecione todas as opções que se aplicam. (Multiplaescolha)".
         *   Resolvido conflito de tipo com `MotionStyle` nas variantes de animação (`panelVariants`) ao remover a sub-propriedade `transition` das definições de `hover`, `selected` e `unselected`, permitindo que a Framer Motion gerencie as transições corretamente. 
+
+*   **Atualização de Conteúdo e Estilo dos Diferenciais (2024-07-29):**
+    *   Em `src/components/ZapIaShowcase.tsx` (parte do `TechPanel.tsx`):
+        *   Textos dos 5 cards de diferenciais atualizados conforme nova cópia fornecida.
+        *   Título principal "ZAP IA TEXTO + VOZ" mantido.
+    *   Em `src/components/FeatureCard.tsx`:
+        *   Estilo revisado para remover tons de cinza/azul e adotar tema neon/escuro.
+        *   Fundo: `bg-[#1A1A1A]`.
+        *   Borda: `border-neon-purple/50`.
+        *   Ícone: `text-neon-purple`.
+        *   Descrição: `text-brand-white/80`.
+        *   Sombra no hover: `boxShadow: "0px 10px 20px theme(colors.neon-purple/0.3)"`.
+        *   Layout da grade dos cards em `ZapIaShowcase.tsx` (2 colunas, último item centralizado) foi preservado.
 
 ### Log de Otimizações de Performance (Iniciado YYYY-MM-DD - Data da Interação Atual)
 

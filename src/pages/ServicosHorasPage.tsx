@@ -5,7 +5,10 @@ import {
   Handshake, BarChart3, ShoppingCart, Hourglass, Users2, Eye, ShieldCheck, Sparkles, Settings2, 
   Search, Mic, Bot, LineChart, Megaphone, FileText, Filter, Palette, Shield, TrendingDown, 
   LockOpen, CheckSquare, RotateCcw, Lightbulb, MessageSquareText, ThumbsUp, Rocket, 
-  BadgePercent, CalendarDays, MessageCircle
+  BadgePercent, CalendarDays, MessageCircle,
+  PackagePlus, MessageSquare, UserCheck, PlayCircle,
+  ArrowDown,
+  Target, SlidersHorizontal, BrainCircuit // <-- NOVOS ÍCONES PARA USPs
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import Navbar from '@/components/Navbar'; 
@@ -298,17 +301,17 @@ const ServicosHorasPage: React.FC = () => {
 
   const humanTeam = {
     ceo: [
-      { name: "EDCRED", role: "CEO & Founder", icon: ShieldCheck, color: "text-ailoop-blue", avatar: "https://i.pravatar.cc/150?u=edcred" },
+      { name: "EDCRED", role: "CEO & Founder", icon: ShieldCheck, color: "text-ailoop-blue", avatar: "/image_team/edcred.png" },
     ],
     directors: [
-      { name: "VINICIUS BENI", role: "Estratégista Sênior", icon: Brain, avatar: "https://i.pravatar.cc/150?u=viniciusbeni" },
-      { name: "BRUNO PADRIN", role: "Engine MKT", icon: Settings2, avatar: "https://i.pravatar.cc/150?u=brunopadrin" },
-      { name: "RENAN S.", role: "Administração Geral", icon: Users, avatar: "https://i.pravatar.cc/150?u=renans" },
+      { name: "VINICIUS BENI", role: "Estratégista Sênior", icon: Brain, avatar: "/image_team/vinicius-beni.png" },
+      { name: "BRUNO PADRIN", role: "Engine MKT", icon: Settings2, avatar: "/image_team/bruno-padrin.png" },
+      { name: "RENAN S.", role: "Administração Geral", icon: Users, avatar: "/image_team/renan-s.png" },
     ],
     specialists: [
       { name: "RAFAELA MARLINE", role: "DEV", icon: Zap, avatar: "https://i.pravatar.cc/150?u=rafaelamarline" },
       { name: "RODRIGO BRADESON", role: "Gestor de Tráfego Sênior", icon: TrendingUp, avatar: "https://i.pravatar.cc/150?u=rodrigobradeson" },
-      { name: "JADIEL CAMPOS", role: "Copywriter", icon: Mic, avatar: "https://i.pravatar.cc/150?u=jadielcampos" },
+      { name: "JADIEL CAMPOS", role: "Copywriter", icon: Mic, avatar: "/image_team/jadiel-c.png" },
       { name: "DANIEL MARTINEZ", role: "Funil All-in-One", icon: Filter, avatar: "https://i.pravatar.cc/150?u=danielmartinez" },
     ]
   };
@@ -471,35 +474,37 @@ const ServicosHorasPage: React.FC = () => {
     activeTier: 'monthly' | 'tri_monthly' | 'annual';
     onClick: () => void;
     discount?: string;
-  }> = ({ label, tier, activeTier, onClick, discount }) => (
-    <motion.button
-      onClick={onClick}
-      className={cn(
-        "px-4 sm:px-5 py-2 sm:py-2.5 rounded-lg text-xs sm:text-sm font-medium transition-all duration-300 ease-out relative overflow-hidden transform",
-        activeTier === tier
-          ? "bg-white text-brand-dark shadow-md scale-105" // Estilo Ativo da NinjaPromo
-          : "bg-neutral-700/60 text-neutral-300 hover:bg-neutral-600/80 hover:text-white"
-      )}
-      whileHover={{ y: activeTier !== tier ? -2 : 0 }}
-      whileTap={{ scale: 0.98 }}
-    >
-      {label}
-      {discount && ( // Exibe o desconto sempre, mas com estilo diferente para o ativo
-         <span className={cn(
-             "ml-1.5 text-xs font-semibold",
-             activeTier === tier ? "text-green-700" : "text-green-400"
-         )}>
-             {discount}
-         </span>
-      )}
-       {activeTier === tier && ( // Indicador de aba ativa (barra inferior)
-          <motion.div 
-            className="absolute inset-0 bottom-0 h-0.5 bg-gradient-to-r from-neon-cyan via-ailoop-blue to-neon-purple"
-            layoutId="activeToggleIndicatorServicos" // layoutId único para este grupo de toggles
-          />
+  }> = ({ label, tier, activeTier, onClick, discount }) => {
+    return (
+      <motion.button
+        onClick={onClick}
+        className={cn(
+          "px-4 sm:px-5 py-2 sm:py-2.5 rounded-lg text-xs sm:text-sm font-medium transition-all duration-300 ease-out relative overflow-hidden transform",
+          activeTier === tier
+            ? "bg-white text-brand-dark shadow-md scale-105"
+            : "bg-neutral-700/60 text-neutral-300 hover:bg-neutral-600/80 hover:text-white"
         )}
-    </motion.button>
-  );
+        whileHover={{ y: activeTier !== tier ? -2 : 0 }}
+        whileTap={{ scale: 0.98 }}
+      >
+        {label}
+        {discount && (
+           <span className={cn(
+               "ml-1.5 text-xs font-semibold",
+               activeTier === tier ? "text-green-700" : "text-green-400"
+           )}>
+               {discount}
+           </span>
+        )}
+         {activeTier === tier && (
+            <motion.div 
+              className="absolute inset-0 bottom-0 h-0.5 bg-gradient-to-r from-neon-cyan via-ailoop-blue to-neon-purple"
+              layoutId="activeToggleIndicatorServicos"
+            />
+          )}
+      </motion.button>
+    );
+  };
 
   // Função para mapear classes de cor Tailwind para neonColorName do AIProfileCard
   const mapTailwindColorToNeonName = (tailwindColorClass: string): 'blue' | 'cyan' | 'purple' | 'green' | 'orange' | 'yellow' | 'red' | 'pink' => {
@@ -515,33 +520,83 @@ const ServicosHorasPage: React.FC = () => {
   };
 
   // Placeholder para a Linha Divisória Impactante
-  const ImpactSectionDivider: React.FC<{className?: string}> = ({className}) => (
-    <motion.div 
-      className={cn(
-        "h-0.5 w-2/3 max-w-md my-12 md:my-16 bg-gradient-to-r from-neutral-800 via-neutral-600 to-neutral-800 mx-auto", // Estilo base
-        "shadow-[0_0_8px_1px_rgba(150,150,150,0.3)]", // Brilho sutil
-        className
-      )}
-      variants={fadeInUp} initial="initial" whileInView="animate" viewport={{ once: true, amount: 0.1 }}
-    ></motion.div>
-  );
-
-  // Linha Conectora Vertical com Terminais Estilizados
-  const VerticalTeamConnector: React.FC<{className?: string, heightClass?: string}> = ({className, heightClass = "h-16 md:h-20"}) => (
-    <div className={cn("relative flex justify-center", heightClass, className)}> 
-      {/* Terminal Superior */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-2 h-2 bg-neutral-500 rounded-full shadow-md"></div>
+  const ImpactSectionDivider: React.FC<{className?: string}> = ({className}) => {
+    return (
       <motion.div 
         className={cn(
-          "w-px h-full mx-auto bg-gradient-to-b from-neutral-600 via-neutral-400 to-neutral-600 relative",
-          "shadow-[0_0_6px_0.5px_rgba(200,200,200,0.3)]",
+          "h-0.5 w-2/3 max-w-md my-12 md:my-16 bg-gradient-to-r from-neutral-800 via-neutral-600 to-neutral-800 mx-auto", // Estilo base
+          "shadow-[0_0_8px_1px_rgba(150,150,150,0.3)]", // Brilho sutil
+          className
         )}
         variants={fadeInUp} initial="initial" whileInView="animate" viewport={{ once: true, amount: 0.1 }}
       ></motion.div>
-      {/* Terminal Inferior */}
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-2 h-2 bg-neutral-500 rounded-full shadow-md"></div>
-    </div>
-  );
+    );
+  };
+
+  // Linha Conectora Vertical com Terminais Estilizados
+  const VerticalTeamConnector: React.FC<{className?: string, heightClass?: string}> = ({className, heightClass = "h-16 md:h-20"}) => {
+    return (
+      <div className={cn("relative flex justify-center", heightClass, className)}> 
+        {/* Terminal Superior */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-2 h-2 bg-neutral-500 rounded-full shadow-md"></div>
+        <motion.div 
+          className={cn(
+            "w-px h-full mx-auto bg-gradient-to-b from-neutral-600 via-neutral-400 to-neutral-600 relative",
+            "shadow-[0_0_6px_0.5px_rgba(200,200,200,0.3)]",
+          )}
+          variants={fadeInUp} initial="initial" whileInView="animate" viewport={{ once: true, amount: 0.1 }}
+        ></motion.div>
+        {/* Terminal Inferior */}
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-2 h-2 bg-neutral-500 rounded-full shadow-md"></div>
+      </div>
+    );
+  };
+
+  const flowItems = [
+    { 
+      step: "1",
+      title: "Adquira Seus Créditos AILOOP", 
+      description: "Pacotes de horas que viram créditos flexíveis. Válidos por 6 meses, prontos para ativar.",
+      benefit: "Liberdade para usar quando e como precisar.",
+      icon: "PackagePlus"
+    },
+    { 
+      step: "2",
+      title: "Sua Demanda, Direto no WhatsApp",
+      description: "Envie sua necessidade por texto ou áudio. Sem formulários, sem burocracia.",
+      benefit: "Comunicação ágil no seu app favorito.",
+      icon: "MessageSquare"
+    },
+    { 
+      step: "3",
+      title: "IA Fremen Entra em Ação",
+      description: "Nossa IA processa seu pedido e monta instantaneamente sua equipe dedicada de especialistas humanos e IAs.",
+      benefit: "Análise rápida e time ideal para cada projeto.",
+      icon: "Bot"
+    },
+    { 
+      step: "4",
+      title: "Validação Humana & Orçamento Ágil",
+      description: "Um Estrategista AILOOP revisa, otimiza a proposta da IA e envia o orçamento em horas. (Meta: até 20 min).",
+      benefit: "Inteligência Artificial com supervisão expert. Transparência total.",
+      icon: "UserCheck"
+    },
+    { 
+      step: "5",
+      title: "Sua Aprovação, Nossa Execução",
+      description: "Confirme o orçamento. Nossa sinergia Humano-IA inicia o trabalho em tempo recorde. O timer só conta com acionamento humano.",
+      benefit: "Controle total e pagamento apenas por tempo produtivo.",
+      icon: "PlayCircle"
+    },
+    { 
+      step: "6",
+      title: "Entregas de Impacto & Insights IA",
+      description: "Receba entregas de alta qualidade e acompanhe o progresso com relatórios e alertas inteligentes gerados por IA.",
+      benefit: "Resultados mensuráveis e otimização contínua.",
+      icon: "TrendingUp"
+    },
+  ];
+  const totalFlowItems = flowItems.length;
 
   return (
     <>
@@ -744,7 +799,7 @@ const ServicosHorasPage: React.FC = () => {
             <motion.p className="font-sans text-lg sm:text-xl text-neutral-300 max-w-2xl mx-auto" variants={fadeInUp} > Em poucos passos, você transforma investimento em resultados tangíveis com o banco de horas AILOOP. </motion.p>
           </motion.div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 lg:gap-4">
-            {howItWorksSteps.map((step, index) => ( <motion.div key={index} className="bg-neutral-800/50 border border-neutral-700/60 rounded-xl p-6 text-center flex flex-col items-center shadow-lg hover:shadow-neon-purple/20 transition-all duration-300 transform hover:-translate-y-1.5" variants={fadeInUp} initial="initial" whileInView="animate" viewport={{ once: true, amount: 0.3 }} transition={{delay: index * 0.1}} > <div className={cn("mb-5 p-4 bg-gradient-to-br rounded-full shadow-inner shadow-black/50 inline-block", step.color.replace('text-', 'from-').replace('-400', '/70').replace('-500', '/70').replace('-cyan', '-cyan/70').replace('-purple', '-purple/70').replace('-blue', '-blue/70'), step.color.replace('text-','to-').replace('-400','/40').replace('-500','/40').replace('-cyan','-cyan/40').replace('-purple','-purple/40').replace('-blue','-blue/40'))}> <step.icon className={cn("w-8 h-8", step.color, "opacity-90")} /> </div> <h4 className={cn("font-serif text-lg font-semibold mb-2", step.color)}>{step.title}</h4> <p className="font-sans text-sm text-neutral-400 leading-relaxed">{step.description}</p> </motion.div> ))}
+            {howItWorksSteps.map((step, index) => ( <motion.div key={index} className="bg-neutral-800/50 border border-neutral-700/60 rounded-xl p-6 flex flex-col items-start text-left shadow-lg hover:shadow-neon-purple/20 transition-all duration-300 transform hover:-translate-y-1.5" variants={fadeInUp} initial="initial" whileInView="animate" viewport={{ once: true, amount: 0.3 }} transition={{delay: index * 0.1}} > <div className={cn("mb-5 p-4 bg-gradient-to-br rounded-full shadow-inner shadow-black/50 inline-block", step.color.replace('text-', 'from-').replace('-400', '/70').replace('-500', '/70').replace('-cyan', '-cyan/70').replace('-purple', '-purple/70').replace('-blue', '-blue/70'), step.color.replace('text-','to-').replace('-400','/40').replace('-500','/40').replace('-cyan','-cyan/40').replace('-purple','-purple/40').replace('-blue','-blue/40'))}> <step.icon className={cn("w-8 h-8", step.color, "opacity-90")} /> </div> <h4 className={cn("font-serif text-lg font-semibold mb-2", step.color)}>{step.title}</h4> <p className="font-sans text-sm text-neutral-400 leading-relaxed">{step.description}</p> </motion.div> ))}
           </div>
         </section>
 
@@ -839,71 +894,202 @@ const ServicosHorasPage: React.FC = () => {
                 </motion.div>
 
                 {/* Conector APÓS cada bloco, exceto o último */}
-                {blockIndex < teamBlocksLayout.length - 1 && <VerticalTeamConnector className="mt-10 md:mt-12" />}
+                {blockIndex < teamBlocksLayout.length - 1 && (
+                  <VerticalTeamConnector 
+                    className={cn(
+                      blockIndex === 0 ? "mt-4 md:mt-6" : "mt-10 md:mt-12" // Margem superior reduzida após o bloco do CEO
+                    )} 
+                  />
+                )}
               </React.Fragment>
             ))}
           </div>
         </div>
         {/* FIM DA NOVA ESTRUTURA DA EQUIPE */}
 
-        {/* Seção 5: Serviços Disponíveis */}
-        <section id="servicos-disponiveis" className="w-full max-w-6xl xl:max-w-7xl mx-auto py-20 sm:py-28 px-4 relative z-10 font-inter">
+        {/* NOVA SEÇÃO: Arsenal de Marketing & Fluxo AILOOP - SUBSTITUINDO a antiga seção "servicos-disponiveis" */}
+        <section id="ailoop-flow-arsenal" className="w-full bg-brand-dark py-20 sm:py-28 px-4 relative z-10 font-inter">
+          {/* 1. Gancho: Headline, Tagline e Introdução */}
           <motion.div 
-            className="text-center mb-14 md:mb-20"
+            className="text-center mb-16 md:mb-24"
             initial="initial"
             whileInView="animate"
             viewport={{ once: true, amount: 0.2 }}
-            variants={sectionFadeInUp}
+            variants={sectionFadeInUp} // Reutilizando variante existente para consistência inicial
           >
-            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-neon-cyan to-neon-purple">
+            <h2 className="font-serif text-4xl sm:text-5xl md:text-6xl font-bold mb-5 text-transparent bg-clip-text bg-gradient-to-r from-neon-cyan to-neon-purple">
               Seu Arsenal de Marketing Sob Demanda
             </h2>
-            <p className="text-lg sm:text-xl text-neutral-300 max-w-3xl mx-auto">
-              Ative o poder da AILOOP com um conjunto de serviços especializados, prontos para impulsionar sua estratégia quando você precisar.
-            </p>
+            <motion.p 
+              className="font-sans text-xl sm:text-2xl text-neutral-100 mb-8 max-w-3xl mx-auto"
+              variants={fadeInUp} // Reutilizando variante
+            >
+              Inteligência Artificial e Expertise Humana, ativadas por você, minuto a minuto.
+            </motion.p>
+            <motion.p 
+              className="font-sans text-lg sm:text-xl text-neutral-300 max-w-3xl mx-auto"
+              variants={fadeInUp} // Reutilizando variante
+            >
+              Desbloqueie o arsenal completo da AILOOP: serviços de marketing especializados, prontos para sua estratégia quando você precisar. Adquira pacotes de horas que se convertem em créditos flexíveis por 6 meses. Use como quiser, pague apenas o tempo produtivo. Total liberdade, zero desperdício.
+            </motion.p>
           </motion.div>
 
-          <motion.div 
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
-            variants={cardGridVariants}
+          {/* 2. Core Concept: The "AILOOP Flow" - Como Funciona */}
+          <motion.div
+            className="relative mb-20 md:mb-28"
             initial="initial"
             whileInView="animate"
+            variants={{ animate: { transition: { staggerChildren: 0.3 } } }}
             viewport={{ once: true, amount: 0.1 }}
           >
-            {standardServices.map((service, index) => (
-              <ServiceCard
-                key={index}
-                icon={service.icon}
-                title={service.title}
-                description={service.description}
-                neonColorName={service.neonColorName as ServiceCardProps['neonColorName']}
-                index={index}
-              />
-            ))}
+            {/* Placeholder para a linha/visual de conexão do fluxo - a ser detalhado */}
+            {/* <div className="absolute top-1/2 left-0 w-full h-px bg-neutral-700 -translate-y-1/2 z-0"></div> */}
+
+            <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12 lg:gap-y-16">
+              {flowItems.map((item, index) => {
+                const IconComponent = {
+                  PackagePlus,
+                  MessageSquare,
+                  Bot,
+                  UserCheck,
+                  PlayCircle,
+                  TrendingUp
+                }[item.icon as string] || Package;
+
+                return (
+                  <div key={item.step + '-container'} className="relative">
+                    <motion.div 
+                      key={item.step}
+                      className="bg-neutral-900 p-6 rounded-xl border border-neutral-700/70 shadow-xl flex flex-col items-start text-left relative overflow-hidden transition-all duration-300 ease-out hover:border-neon-cyan/80 hover:shadow-[0_0_25px_3px_theme(colors.neon-cyan/20)] hover:scale-[1.03] group h-full"
+                      variants={cardFadeInUp} 
+                      initial="initial"
+                      whileInView="animate"
+                      viewport={{ once: true, amount: 0.3 }}
+                      transition={{ delay: index * 0.15, duration: 0.5, ease: "easeOut" }}
+                    >
+                      <div className="mb-4 p-3 bg-neutral-800 rounded-lg inline-block transition-colors duration-300 group-hover:bg-neutral-700/80">
+                        <IconComponent className="w-8 h-8 text-neon-cyan transition-transform duration-300 group-hover:scale-110" />
+                      </div>
+                      <h3 className="font-serif text-xl sm:text-2xl font-semibold text-neon-cyan mb-2">
+                        {item.title}
+                      </h3>
+                      <p className="text-neutral-300 text-sm mb-3 leading-relaxed flex-grow">
+                        {item.description}
+                      </p>
+                      <motion.p 
+                        className="text-xs text-sky-400/80 italic"
+                        initial={{ opacity: 0, y: 10 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ delay: index * 0.15 + 0.4, duration: 0.4 }}
+                      >
+                        {item.benefit}
+                      </motion.p>
+                    </motion.div>
+
+                    {/* --- CONECTORES VISUAIS DO FLUXO --- */} 
+                    {/* Seta Horizontal Direita (LG: após item 0,1,3,4) */}
+                    { (index % 3 !== 2 && index < totalFlowItems - 1) && (
+                      <ArrowRight className="hidden lg:block absolute top-1/2 right-[-1.75rem] xl:right-[-2.25rem] transform -translate-y-1/2 text-neutral-500 w-6 h-6 group-hover:text-neon-cyan/70 transition-colors duration-300" />
+                    )}
+                    {/* Seta Horizontal Direita (MD: após item 0,2,4) */}
+                    { (index % 2 !== 1 && index < totalFlowItems - 1) && (
+                      <ArrowRight className="hidden md:block lg:hidden absolute top-1/2 right-[-1.75rem] transform -translate-y-1/2 text-neutral-500 w-6 h-6 group-hover:text-neon-cyan/70 transition-colors duration-300" />
+                    )}
+
+                    {/* Seta Vertical Baixo (LG: após item 2 - fim da primeira linha de 3) */}
+                    { (index % 3 === 2 && index < totalFlowItems - 1) && (
+                      <ArrowDown className="hidden lg:block absolute bottom-[-2.25rem] xl:bottom-[-2.75rem] left-1/2 transform -translate-x-1/2 text-neutral-500 w-6 h-6 group-hover:text-neon-cyan/70 transition-colors duration-300" />
+                    )}
+                    {/* Seta Vertical Baixo (MD: após item 1, 3 - fim das linhas de 2) */}
+                    { (index % 2 === 1 && index < totalFlowItems - 1) && (
+                      <ArrowDown className="hidden md:block lg:hidden absolute bottom-[-2.25rem] left-1/2 transform -translate-x-1/2 text-neutral-500 w-6 h-6 group-hover:text-neon-cyan/70 transition-colors duration-300" />
+                    )}
+                    {/* Seta Vertical Baixo (SM: após cada item, exceto o último) */}
+                    { (index < totalFlowItems - 1) && (
+                      <ArrowDown className="block md:hidden absolute bottom-[-2.25rem] left-1/2 transform -translate-x-1/2 text-neutral-500 w-6 h-6 group-hover:text-neon-cyan/70 transition-colors duration-300" />
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </motion.div>
+          
+          {/* 3. Vantagens Chave / USPs */}
+          <motion.div 
+            className="my-20 md:my-28 max-w-5xl mx-auto"
+            initial="initial"
+            whileInView="animate"
+            variants={sectionFadeInUp} 
+            viewport={{ once: true, amount: 0.1 }}
+          >
+            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold mb-12 md:mb-16 text-center text-transparent bg-clip-text bg-gradient-to-r from-neon-purple to-pink-500">
+              A Diferença AILOOP: Inteligência e Flexibilidade a Seu Favor
+            </h2>
+            
+            <motion.div 
+              className="grid grid-cols-1 md:grid-cols-2 gap-8"
+              variants={{ animate: { transition: { staggerChildren: 0.15 } } }} 
+              initial="initial"
+              whileInView="animate"
+              viewport={{ once: true, amount: 0.1 }}
+            >
+              {[
+                {
+                  iconName: "Target",
+                  title: "Precisão Milimétrica, Custo-Benefício Imbatível",
+                  text: "Invista apenas nas horas que você realmente precisa. Nossa IA otimiza cada etapa, especialistas humanos validam, e seu orçamento rende o máximo. Zero desperdício, impacto total."
+                },
+                {
+                  iconName: "Rocket",
+                  title: "Agilidade Exponencial, Qualidade Boutique",
+                  text: "Um ecossistema de IAs e especialistas dedicados co-criando em tempo real. Entregas ultra-rápidas com o padrão de excelência AILOOP, sem freelancers."
+                },
+                {
+                  iconName: "SlidersHorizontal",
+                  title: "Seu Ritmo, Suas Regras, Total Transparência",
+                  text: "Créditos válidos por 6 meses, use como e quando quiser. Solicite reajustes, aprove etapas e acompanhe cada minuto. Sua estratégia adaptada em tempo real."
+                },
+                {
+                  iconName: "BrainCircuit",
+                  title: "Inteligência Coletiva: IA Potencializa, Humano Lidera",
+                  text: "Nossas IAs não substituem, elas amplificam o talento humano. Um complexo sistema de IA aprende e colabora, sempre sob a supervisão e estratégia de nossos especialistas."
+                }
+              ].map((usp) => {
+                const IconComponent = {
+                  Target,
+                  Rocket,
+                  SlidersHorizontal,
+                  BrainCircuit
+                }[usp.iconName as string];
+
+                // Garante que sempre retornamos um elemento JSX ou null.
+                if (!IconComponent) return null; 
+
+                return (
+                  <motion.div 
+                    key={usp.title} 
+                    className="bg-neutral-900 p-6 sm:p-8 rounded-xl border border-neutral-700/70 shadow-lg flex flex-col items-start text-left transition-all duration-300 ease-out hover:border-neon-purple/80 hover:shadow-[0_0_20px_3px_theme(colors.neon-purple/15)] h-full"
+                    // variants={cardFadeInUp} // Removido temporariamente para depuração
+                  >
+                    <div className="mb-5 p-3 bg-neutral-800 rounded-lg inline-block transition-colors duration-300">
+                      <IconComponent className="w-8 h-8 text-neon-purple" />
+                    </div>
+                    <h3 className="font-serif text-xl sm:text-2xl font-semibold text-neon-purple mb-3">
+                      {usp.title}
+                    </h3>
+                    <p className="text-neutral-300 text-sm leading-relaxed">
+                      {usp.text}
+                    </p>
+                  </motion.div>
+                );
+              })}
+            </motion.div>
           </motion.div>
 
-          {/* Nova Seção para Cards Especiais */}
-          {specialServices.length > 0 && (
-            <motion.div 
-              className="mt-16 md:mt-20 flex flex-col items-center space-y-8 px-4"
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.1 }}
-              transition={{ duration: 0.7, ease: "easeOut", staggerChildren: 0.2 }}
-            >
-              {specialServices.map((service, index) => (
-                <SpecialServiceCard
-                  key={`special-${index}`}
-                  icon={service.icon}
-                  title={service.title}
-                  description={service.description}
-                  neonColorName={service.neonColorName as ServiceCardProps['neonColorName']}
-                  index={index}
-                />
-              ))}
-            </motion.div>
-          )}
+          {/* 4. Arsenal em Ação / Serviços - A ser implementado */}
+
         </section>
+        {/* FIM DA NOVA SEÇÃO Arsenal de Marketing & Fluxo AILOOP */}
 
         {/* Seção 6: Benefícios */}
         <section id="beneficios-ailoop" className="w-full bg-neutral-900/40 py-16 sm:py-24 relative z-10">

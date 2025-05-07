@@ -54,7 +54,7 @@ export default function TechPanel() {
   const typewriterDelay = 0.5; // Exemplo de delay fixo ou ajuste conforme necessidade
 
   return (
-    <div className="w-full bg-black text-white relative">
+    <div className="w-full bg-white text-neutral-800 relative">
       {/* A classe py-20 md:py-28 foi movida para dentro do ZapIaShowcase */}
       {/* O max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 também foi movido para ZapIaShowcase para consistência */}
       

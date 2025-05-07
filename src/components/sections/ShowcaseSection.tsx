@@ -110,7 +110,7 @@ export const ShowcaseSection = () => {
           </p>
           <Button
             variant="outline"
-            className="mt-6 bg-white/5 backdrop-blur-sm border border-white/10 text-white hover:bg-white/15 group text-base transition-colors duration-300"
+            className="mt-6 bg-white/5 backdrop-blur-sm border border-white/10 text-white hover:bg-black/30 hover:border-white/20 group text-base transition-colors duration-300"
           >
             Todos os Serviços
             <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />

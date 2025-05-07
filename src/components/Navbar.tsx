@@ -43,8 +43,8 @@ const Navbar: React.FC = () => {
     setIsServicesMenuOpen(false);
   };
 
-  const navLinkClasses = "text-neutral-300 hover:text-white transition-colors duration-200 font-light tracking-wide text-sm flex items-center gap-1.5 cursor-pointer";
-  const buttonBaseClasses = "px-4 py-1.5 rounded-lg text-sm font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-black/50 backdrop-blur-lg";
+  const navLinkClasses = "text-neutral-300 hover:text-white transition-colors duration-200 font-light tracking-wide text-[11px] flex items-center gap-1.5 cursor-pointer";
+  const buttonBaseClasses = "px-1 py-1 rounded-lg text-[11px] font-light transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-black/50 backdrop-blur-lg";
   const loginButtonClasses = cn(
     buttonBaseClasses,
     "bg-white/10 border border-white/20 text-neutral-200 shadow-inner shadow-white/5",
@@ -52,7 +52,6 @@ const Navbar: React.FC = () => {
   );
   const planButtonClasses = cn(
     buttonBaseClasses,
-    "font-semibold",
     "bg-ailoop-neon-blue text-white",
     "border border-ailoop-neon-blue",
     "shadow-lg shadow-ailoop-neon-blue/50",
@@ -61,7 +60,7 @@ const Navbar: React.FC = () => {
     "focus:ring-ailoop-neon-blue"
   );
 
-  const submenuItemClasses = "block w-full px-4 py-2.5 text-sm text-neutral-300 hover:bg-neutral-700/70 hover:text-white transition-colors duration-150";
+  const submenuItemClasses = "block w-full px-4 py-2.5 text-[10px] text-neutral-300 hover:bg-neutral-700/70 hover:text-white transition-colors duration-150";
 
   return (
     <nav className={cn(

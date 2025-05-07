@@ -420,3 +420,175 @@ Podemos começar criando um componente `AnimatedButton` que encapsula um botão 
 *   **Próximas Ações de Otimização (além das já listadas):**
     *   Revisar e aplicar `React.memo`, `useCallback`, `useMemo` onde necessário.
     *   Verificar todos os usos de `box-shadow`, `drop-shadow`, e `filter` para animações contínuas e avaliar alternativas mais performáticas se necessário (ex: animar opacidade de pseudo-elementos com o brilho). 
+
+## Redesign da Seção Principal (Visão 2025)
+
+Esta seção detalha o plano de redesign para a principal seção de interação do website (referenciada pela imagem com o personagem de costas e o painel de quiz), conforme as diretrizes fornecidas em 2024-07-30.
+
+### Resumo das Ações Recentes (Relacionadas à Seção do Personagem/Quiz)
+
+Antes da definição formal deste novo redesign, algumas alterações foram implementadas na seção que continha o personagem e o quiz (`Index.tsx` e componentes relacionados):
+
+*   ✅ **Fundo Animado:**
+    *   Removido o componente de fundo `CrystalDataHorizonBackground`.
+    *   Implementado um novo fundo com efeito de partículas animadas (`ParticleBackground.tsx` e `ParticleBackground.css`).
+    *   Ajustada a sobreposição (z-index) da imagem do personagem e do componente `InteractiveQuiz` para que ficassem à frente do novo fundo de partículas.
+*   ✅ **Estilo da Imagem Principal:**
+    *   Removido o efeito de brilho laranja que existia abaixo da imagem do personagem (`collection-stack-ailoop-brasil-bab-nike.png`) em `Index.tsx`.
+*   ✅ **Outras Seções (Contexto Geral):**
+    *   Realizadas modificações de estilo em botões e textos em outras seções, como `ShowcaseSection.tsx` (botão "Todos os Serviços") e `ZapIaShowcase.tsx` (títulos e botão "COMPRAR IMPLEMENTAÇÃO" alterado para "LER MAIS..."), aplicando efeitos de "vidro preto", alertas informativos estilizados e textos com aparência metálica.
+
+### Guia de Implementação para o Redesign (Visão 2025)
+
+#### 1. Estrutura Geral do Layout
+
+*   **Container Principal da Seção:**
+    *   **HTML:** `<section class="redesign-section">...</section>`
+    *   **CSS:**
+        *   `background-color`: Tom escuro base (ex: Cinza chumbo profundo `#1A1D24`, Azul petróleo escuro `#0B132B`, ou Roxo espacial `#2A1B3D`).
+        *   `min-height: 100vh`.
+        *   `display: flex; align-items: center; justify-content: center;`
+        *   `padding: 4rem 2rem;`
+        *   `overflow: hidden;`
+
+*   **Wrapper de Conteúdo Interno:**
+    *   **HTML:** `<div class="content-wrapper">...</div>`
+    *   **CSS (Desktop - Layout de Duas Colunas):**
+        *   `display: grid; grid-template-columns: 3fr 2fr;` (Ajustar proporção: 60% personagem, 40% conteúdo).
+        *   `gap: 3rem;`
+        *   `max-width: 1400px; width: 100%;`
+    *   **CSS (Mobile - Layout Empilhado):**
+        *   `@media (max-width: 1024px)`: `grid-template-columns: 1fr;`
+
+#### 2. Área do Personagem (Coluna Esquerda)
+
+*   **HTML:**
+    ```html
+    <div class="character-area">
+        <div class="character-scene">
+            <!-- Elementos do cenário: racks, luzes, painéis -->
+            <div class="server-rack rack-1"></div>
+            <div class="server-rack rack-2"></div>
+            <div class="led-light light-1"></div>
+            <div class="holographic-panel panel-1"></div>
+            <!-- ... -->
+        </div>
+        <img src="path/to/personagem-popstar-ail.png" alt="AILOOP Persona" class="character-image" />
+    </div>
+    ```
+*   **CSS:**
+    *   `.character-area`: `position: relative; display: flex; justify-content: center; align-items: flex-end; height: 100%;`
+    *   `.character-image`: `max-width: 80%; height: auto; object-fit: contain; z-index: 10;`
+        *   A imagem do personagem deve seguir as diretrizes: dreads loiros/claros, tatuagens, estilo pop star/rapper, pose despojada e confiante. Roupa esportiva de luxo com marca "AIL" minimalista e arte abstrata na camiseta representando a marca.
+    *   `.character-scene`: `position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden;`
+        *   **Racks de Servidores:** Divs com gradientes escuros, bordas sutis, pequenas luzes animadas.
+        *   **Luzes de LED Pulsantes:** Pequenos divs/pseudo-elementos com `border-radius: 50%;` cor de acento e animação de pulso (`opacity`, `box-shadow`).
+            ```css
+            @keyframes pulse { 0%, 100% { opacity: 0.7; box-shadow: 0 0 5px var(--accent-color); } 50% { opacity: 1; box-shadow: 0 0 15px var(--accent-color); } }
+            .led-light { animation: pulse 2s infinite ease-in-out; --accent-color: #00FFFF; /* Exemplo Ciano */ }
+            ```
+        *   **Painéis Holográficos Sutis:** Divs com baixa `opacity`, `background-color` de acento translúcido, animação sutil de `transform` ou `opacity`.
+        *   **Cabos de Fibra Ótica Luminosos:** SVGs animados ou divs finos com bordas neon.
+        *   **Profundidade de Campo:** Elementos de fundo com leve `filter: blur(1px)` ou `opacity` reduzida.
+
+#### 3. Área de Conteúdo/Interação (Coluna Direita)
+
+*   **HTML:**
+    ```html
+    <div class="content-interaction-area">
+        <div class="content-panel">
+            <div class="progress-indicator">
+                <span class="dot active"></span><span class="dot"></span><span class="dot"></span>
+            </div>
+            <h2 class="panel-title">Podemos Começar?</h2>
+            <p class="panel-description">
+                Complete e receba uma mensagem no WhatsApp com a Caixa Mágica AILOOP. Quer potencializar seu negócio com IA e está apertado(a)? Complete o Quizz.
+                <br/><br/>
+                Selecione uma das opções, ao clicar você confirma e não poderá alterar sua escolha. Estamos registrando seu IP e será permitido UMA Caixa Mágica por WhatsApp cadastrado.
+            </p>
+            <div class="action-buttons">
+                <button class="btn btn-primary btn-sim">Sim</button>
+                <button class="btn btn-secondary btn-nao">Não</button>
+            </div>
+        </div>
+    </div>
+    ```
+*   **CSS:**
+    *   `.content-interaction-area`: `display: flex; flex-direction: column; justify-content: center;`
+    *   `.content-panel` (Glassmorphism):
+        *   `background-color: rgba(30, 30, 45, 0.6);`
+        *   `backdrop-filter: blur(12px) saturate(150%);`
+        *   `border-radius: 12px; border: 1px solid rgba(120, 120, 150, 0.2);`
+        *   `padding: 2rem 2.5rem; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);`
+    *   `.progress-indicator`: `display: flex; justify-content: center; margin-bottom: 1.5rem;`
+        *   `.dot`: `width: 10px; height: 10px; border-radius: 50%; background-color: rgba(120, 120, 150, 0.3); margin: 0 5px; transition: background-color 0.3s ease;`
+        *   `.dot.active`: `background-color: #FF00FF; /* Magenta Neon */`
+    *   `.panel-title`: `font-size: 2rem; color: #E0E0E0; text-align: center; margin-bottom: 1rem;` (Fonte: Montserrat Bold, Inter SemiBold).
+    *   `.panel-description`: `font-size: 0.95rem; color: #B0B0C0; line-height: 1.7; text-align: center; margin-bottom: 2rem;` (Fonte: Inter Regular).
+    *   `.action-buttons`: `display: grid; grid-template-columns: 1fr; gap: 1rem;`
+    *   `.btn`: `padding: 0.75rem 1.5rem; border-radius: 8px; font-weight: 600; transition: all 0.3s ease; cursor: pointer; border: none; text-transform: uppercase; letter-spacing: 0.5px;`
+    *   `.btn-primary` (Sim):
+        *   `background-color: #00FFFF; /* Ciano Elétrico */ color: #0A0A14;`
+        *   `box-shadow: 0 4px 15px rgba(0, 255, 255, 0.3);`
+        *   `&:hover`: `transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0, 255, 255, 0.4);`
+    *   `.btn-secondary` (Não):
+        *   `background-color: rgba(120, 120, 150, 0.2); color: #E0E0E0; border: 1px solid rgba(120, 120, 150, 0.4);`
+        *   `&:hover`: `background-color: rgba(120, 120, 150, 0.3); border-color: rgba(120, 120, 150, 0.6);`
+
+#### 4. Paleta de Cores (Exemplos Hex)
+
+*   **Base Escura:** `#1A1D24` (Cinza Chumbo), `#0B132B` (Azul Petróleo), `#2A1B3D` (Roxo Espacial).
+*   **Acentos:** `#00FFFF` (Ciano), `#FF00FF` (Magenta), `#FF9900` (Laranja), `#ADFF2F` (Verde Limão).
+*   **Neutros:** `#FFFFFF`, `#F0F0F5` (Brancos), `#B0B0C0`, `#C5C6C7` (Cinzas Claros).
+
+#### 5. Tipografia
+
+*   **Títulos:** Montserrat, Orbitron, Inter (variações Bold/SemiBold).
+*   **Corpo:** Inter (Regular, Medium).
+*   **Botões:** Inter (SemiBold, Bold).
+
+#### 6. Animações e Microinterações (Framer Motion)
+
+*   **Entrada da Seção:** Elementos principais com `fadeInUp` ou `scaleIn`.
+*   **Cenário:** Luzes pulsantes (CSS Keyframes), painéis holográficos com animações sutis de `opacity`/`transform`.
+*   **Botões:** Efeitos de `whileHover` e `whileTap` da Framer Motion para interações mais ricas.
+
+#### 7. Responsividade
+
+*   Layout de duas colunas em desktop, empilhando para uma coluna em mobile.
+*   Ajustes em fontes, paddings, margins. Imagem do personagem com `max-height` em mobile.
+
+#### 8. Considerações Adicionais
+
+*   Omitir botão "VER AGENTE REAL CLÍNICA DENTÁRIA (WHATSAPP)".
+*   Usar imagem de personagem em alta resolução ("qualidade de câmera Sony profissional").
+*   Manter minimalismo funcional e coesão visual.
+
+### Próximos Passos para Implementação do Redesign (Visão 2025)
+
+1.  **Estrutura HTML e CSS Base:**
+    *   Criar o container principal da seção e o wrapper de conteúdo interno.
+    *   Implementar o layout de duas colunas para desktop e o empilhamento para mobile usando CSS Grid/Flexbox.
+2.  **Desenvolvimento da Área do Personagem:**
+    *   Integrar a imagem placeholder do personagem (ou a imagem final, se disponível).
+    *   Estilizar a imagem conforme as diretrizes (tamanho, posicionamento).
+    *   Construir os elementos do cenário tecnológico (racks, luzes, painéis) com CSS, aplicando os estilos de base e animações de pulso/sutis.
+3.  **Desenvolvimento da Área de Conteúdo/Interação:**
+    *   Criar o `.content-panel` com o efeito de glassmorphism.
+    *   Implementar os indicadores de progresso (pontos).
+    *   Adicionar e estilizar o título principal e o texto descritivo.
+    *   Criar e estilizar os botões "Sim" e "Não" conforme o design (cores, hover, etc.).
+4.  **Aplicação de Estilos Globais e Detalhes:**
+    *   Aplicar a paleta de cores e a tipografia definidas em todo o redesign.
+    *   Refinar espaçamentos e proporções para equilíbrio visual.
+5.  **Integração de Animações (Framer Motion):**
+    *   Adicionar animações de entrada para a seção e seus componentes principais.
+    *   Implementar microinterações (hover/tap) nos botões.
+    *   Animar elementos do cenário (painéis holográficos, etc.) de forma sutil.
+6.  **Testes e Refinamentos:**
+    *   Testar a responsividade em diferentes tamanhos de tela e dispositivos.
+    *   Verificar a performance das animações.
+    *   Ajustar detalhes visuais e interações com base no feedback e na experiência do usuário.
+7.  **Iteração sobre o Personagem e Cenário:**
+    *   Assim que a imagem final do personagem estiver disponível, integrá-la.
+    *   Refinar os detalhes do cenário tecnológico para complementar o personagem e o tema. 

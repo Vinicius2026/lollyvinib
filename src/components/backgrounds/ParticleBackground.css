@@ -1,0 +1,59 @@
+.particle-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0; /* Ficar atrás de outros conteúdos */
+  overflow: hidden; /* Para que as partículas não causem scroll */
+}
+
+.particle {
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.2); /* Cor branca com transparência */
+  border-radius: 50%;
+  /* Tamanho: um ponto "." tem aproximadamente 1px-2px dependendo da fonte e zoom.
+     400% maior que 1.5px (média) é 6px. */
+  width: 6px;
+  height: 6px;
+  animation: move-particles 20s linear infinite;
+  opacity: 0;
+}
+
+/* Distribuir as partículas e variar suas animações */
+.particle:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; animation-duration: 18s; }
+.particle:nth-child(2) { top: 50%; left: 80%; animation-delay: -1.5s; animation-duration: 22s; }
+.particle:nth-child(3) { top: 70%; left: 30%; animation-delay: -3s; animation-duration: 17s; }
+.particle:nth-child(4) { top: 30%; left: 60%; animation-delay: -4.5s; animation-duration: 25s; }
+.particle:nth-child(5) { top: 80%; left: 5%; animation-delay: -6s; animation-duration: 19s; }
+.particle:nth-child(6) { top: 10%; left: 90%; animation-delay: -7.5s; animation-duration: 23s; }
+.particle:nth-child(7) { top: 40%; left: 40%; animation-delay: -9s; animation-duration: 16s; }
+.particle:nth-child(8) { top: 60%; left: 70%; animation-delay: -10.5s; animation-duration: 24s; }
+.particle:nth-child(9) { top: 90%; left: 20%; animation-delay: -12s; animation-duration: 20s; }
+.particle:nth-child(10) { top: 5%; left: 50%; animation-delay: -13.5s; animation-duration: 21s; }
+.particle:nth-child(11) { top: 25%; left: 75%; animation-delay: -15s; animation-duration: 18s; transform: scale(0.8); background-color: rgba(255, 255, 255, 0.15); }
+.particle:nth-child(12) { top: 65%; left: 15%; animation-delay: -16.5s; animation-duration: 22s; transform: scale(1.2); background-color: rgba(255, 255, 255, 0.25); }
+.particle:nth-child(13) { top: 15%; left: 35%; animation-delay: -18s; animation-duration: 17s; transform: scale(0.9); background-color: rgba(255, 255, 255, 0.18); }
+.particle:nth-child(14) { top: 75%; left: 55%; animation-delay: -19.5s; animation-duration: 25s; transform: scale(1.1); background-color: rgba(255, 255, 255, 0.22); }
+.particle:nth-child(15) { top: 35%; left: 85%; animation-delay: -21s; animation-duration: 19s; transform: scale(0.7); background-color: rgba(255, 255, 255, 0.12); }
+
+
+@keyframes move-particles {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.7; /* Aumentar um pouco a opacidade no início */
+  }
+  80% {
+    opacity: 0.7;
+  }
+  100% {
+    /* Movimento diagonal para baixo e para a direita como exemplo */
+    /* Para variar o movimento, precisaríamos de animações diferentes
+       ou JavaScript para randomizar as posições finais. */
+    transform: translate(100px, 100px) scale(0.5);
+    opacity: 0;
+  }
+} 

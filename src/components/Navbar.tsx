@@ -52,8 +52,13 @@ const Navbar: React.FC = () => {
   );
   const planButtonClasses = cn(
     buttonBaseClasses,
-    "bg-gradient-to-r from-ailoop-blue/30 to-ailoop-neon-blue/30 border border-white/10 text-white shadow-inner shadow-white/5",
-    "hover:from-ailoop-blue/40 hover:to-ailoop-neon-blue/40 hover:border-white/20 focus:ring-ailoop-blue/50"
+    "font-semibold",
+    "bg-ailoop-neon-blue text-white",
+    "border border-ailoop-neon-blue",
+    "shadow-lg shadow-ailoop-neon-blue/50",
+    "hover:brightness-110",
+    "hover:shadow-xl hover:shadow-ailoop-neon-blue/70",
+    "focus:ring-ailoop-neon-blue"
   );
 
   const submenuItemClasses = "block w-full px-4 py-2.5 text-sm text-neutral-300 hover:bg-neutral-700/70 hover:text-white transition-colors duration-150";

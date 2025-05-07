@@ -25,7 +25,7 @@ const HeroSection: React.FC = () => {
     <section 
       id="hero" 
       // Padding bottom reduzido ainda mais
-      className="relative flex flex-col items-center justify-center px-4 pt-20 pb-16 md:pb-20 text-center overflow-hidden bg-brand-dark min-h-screen"
+      className="relative flex flex-col items-center justify-center px-4 pt-20 pb-16 md:pb-20 text-center overflow-hidden bg-brand-dark"
     >
       <DarkCloudParticles />
 
@@ -71,27 +71,15 @@ const HeroSection: React.FC = () => {
         </p>
         
         {/* Lista de Serviços Original */}
-        <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 pt-2">
+        <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 pt-2 mb-12">
           {servicesList.map((service) => (
             <span key={service} className="text-md text-white/60 font-sans font-light"> {/* Estilo original da lista */}
               {service}
             </span>
           ))}
         </div>
-
-        {/* Novo Texto da História */}
-        <motion.p
-          className="text-white font-serif italic text-lg md:text-xl max-w-2xl text-center my-6" // Adicionado my-6 para margem vertical
-          variants={fadeInUp} // Reutilizando a animação fadeInUp
-          initial="hidden"
-          whileInView="visible" // Para animar quando entra na visão
-          viewport={{ once: true, amount: 0.3 }} // Configuração do viewport
-          transition={{ delay: 0.5, duration: 0.6 }} // Delay para aparecer após a lista
-        >
-          Nosso site conta com uma Inteligencia Aritificial de amplo contexto que melhora todos os dias nossas tecnologias. Estudamos a cada minuto o que está dando certo para todos.
-        </motion.p>
         
-        {/* Botões Originais */}
+        {/* Botões Originais - Texto da história virá DEPOIS deles */}
         <div className="flex flex-wrap gap-4 justify-center pt-8">
           <Button 
             variant="outline"
@@ -110,6 +98,19 @@ const HeroSection: React.FC = () => {
             <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
           </Button>
         </div>
+
+        {/* Texto da História - MOVIDO PARA CÁ */}
+        <motion.p
+          className="text-white/40 font-serif italic text-base md:text-lg max-w-2xl text-justify mt-8" // Mais transparente e menor ainda
+          variants={fadeInUp} // Reutilizando a animação fadeInUp
+          initial="hidden"
+          whileInView="visible" // Para animar quando entra na visão
+          viewport={{ once: true, amount: 0.3 }} // Configuração do viewport
+          transition={{ delay: 0.2, duration: 0.6 }} // Delay ajustado pois agora está mais abaixo
+        >
+          Nosso site conta com uma Inteligencia Aritificial de amplo contexto que melhora todos os dias nossas tecnologias. Estudamos a cada minuto o que está dando certo para todos.
+        </motion.p>
+
       </motion.div>
     </section>
   );

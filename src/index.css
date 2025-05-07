@@ -784,6 +784,25 @@
   .shadow-glow-orange {
     box-shadow: 0 0 15px rgba(255, 138, 0, 0.3);
   }
+
+  .animate-logo-scroll {
+    /* Ajuste a duração (ex: 40s) para controlar a velocidade do scroll */
+    animation: logo-scroll 40s linear infinite;
+    /* Garante que o conteúdo não quebre linha, embora flex já deva cuidar disso */
+    white-space: nowrap;
+  }
+
+  @keyframes logo-scroll {
+    0% {
+      transform: translateX(0%);
+    }
+    100% {
+      /* Move o contêiner exatamente pela largura da primeira imagem + seu padding.
+         Como temos duas imagens idênticas com padding, o deslocamento é de -50% da largura total do contêiner flex.
+      */
+      transform: translateX(-50%);
+    }
+  }
 }
 
 /* Classe para a barra flutuante com pontas */

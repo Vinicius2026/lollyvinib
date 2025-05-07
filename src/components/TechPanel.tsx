@@ -108,11 +108,11 @@ const TechCard: React.FC<CardProps> = ({ card, index }) => {
   };
 
   const positions = [
-    { top: '5%',  left: '5%',  width: '45%' }, 
-    { top: '15%', left: '50%', width: '45%' }, 
-    { top: '35%', left: '5%',  width: '45%' }, 
-    { top: '45%', left: '50%', width: '45%' }, 
-    { top: '65%', left: '27.5%', width: '45%' }, 
+    { top: '5%',  left: '5%',  width: '45%' },
+    { top: '5%', left: '50%', width: '45%' }, 
+    { top: '28%', left: '5%',  width: '45%' }, 
+    { top: '28%', left: '50%', width: '45%' }, 
+    { top: '51%', left: '27.5%', width: '45%' }, 
   ];
   const cardStyle = positions[index % positions.length] || { top: `${index * 25}%`, left: '5%', width: '90%' };
 
@@ -127,13 +127,13 @@ const TechCard: React.FC<CardProps> = ({ card, index }) => {
         top: cardStyle.top,
         left: cardStyle.left,
         width: cardStyle.width,
-        minHeight: '220px', // Aumentado de 180px para 220px
+        minHeight: '220px',
       }}
       className="dashboard-item bg-zinc-900/80 backdrop-blur-md text-gray-200 rounded-xl p-6 shadow-2xl relative overflow-visible"
     >
       <div className="relative z-10">
         <div className="flex items-center gap-4 mb-4">
-          <FaCube className={`${iconColor} text-3xl`} /> 
+          <FaCube className={`${iconColor} text-3xl`} />
           <h3 className="text-2xl font-semibold text-white">
             <span className="orange-glow-text">{card.title}</span>
           </h3>
@@ -157,23 +157,15 @@ export default function TechPanel() {
           viewport={{ once: true }}
           className="text-center mb-20 md:mb-28"
         >
-          <div className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-white">
-            <Typewriter
-              options={{
-                strings: ['ZAP IA TEXTO + VOZ 99% HUMANIZADA'],
-                autoStart: true,
-                loop: true,
-                delay: 70,
-                deleteSpeed: 50,
-              }}
-            />
+          <div className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-white drop-shadow-[0_0_10px_rgba(0,255,255,0.7)]">
+            ZAP IA TEXTO + <span className="bg-cyan-400/30 text-white px-1 rounded-sm">VOZ 99% HUMANIZADA</span>
           </div>
           <p className="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto">
             Caso ainda tenha dúvida se vai deixar a IA responder seus clientes, não pense, teste e verá a tecnologia que vai aumentar suas vendas e agendamentos.
           </p>
         </motion.div>
 
-        <div className="relative h-[120vh] md:h-[100vh] lg:h-[90vh]">
+        <div className="relative h-[80vh] md:h-[70vh] lg:h-[65vh]">
           {cardData.map((card, idx) => (
             <TechCard key={card.id} card={card} index={idx} />
           ))}
@@ -191,6 +183,21 @@ export default function TechPanel() {
             <TypewriterText startAnimation={typewriterStarted} />
           </div>
         </motion.div>
+      </div>
+
+      <div className="w-full bg-white py-16 mt-16 overflow-hidden">
+        <div className="flex animate-logo-scroll">
+          <img
+            src="/image_grande/slider.png"
+            alt="Logos de Tecnologias e Parcerias"
+            className="h-auto flex-shrink-0 pr-8 md:pr-12 lg:pr-16"
+          />
+          <img
+            src="/image_grande/slider.png"
+            alt=""
+            className="h-auto flex-shrink-0 pr-8 md:pr-12 lg:pr-16"
+          />
+        </div>
       </div>
     </div>
   );

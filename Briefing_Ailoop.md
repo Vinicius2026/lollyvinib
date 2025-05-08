@@ -401,6 +401,16 @@ Podemos começar criando um componente `AnimatedButton` que encapsula um botão 
         *   Sombra no hover: `boxShadow: "0px 10px 20px theme(colors.neon-purple/0.3)"`.
         *   Layout da grade dos cards em `ZapIaShowcase.tsx` (2 colunas, último item centralizado) foi preservado.
 
+*   **Ajustes na Seção de Showcase (`ShowcaseSection.tsx`) (YYYY-MM-DD - Data da Interação Atual):**
+    *   ✅ Padding vertical da seção aumentado de `py-24` para `py-32` para maior respiro visual.
+    *   ✅ Efeito de nébula (`CosmicNebulaEffect`) atrás da imagem principal ajustado para melhor contenção e estética:
+        *   Dimensões do contêiner do canvas da nébula foram reduzidas (estilo inline `width` e `height` de `120%` para `100%`).
+        *   Posteriormente, as `volumeDimensions` do `CosmicNebulaEffect` foram reduzidas de `new THREE.Vector3(7, 7, 5)` para `new THREE.Vector3(5, 5, 3.5)` e depois para `new THREE.Vector3(2.5, 2.5, 1.75)` para concentrar mais as partículas.
+        *   Padding lateral do container principal da seção (`div.container`) alterado de `px-4` para `px-5`.
+        *   Cor base (`baseColor`) da nébula alterada de `#8A2BE2` (Azul Violeta) para `#00FF7F` (SpringGreen), e depois para `#013220` (verde bem escuro) para um visual mais sofisticado e integrado ao fundo.
+        *   Contagem de partículas (`particleCount`) reduzida de `1000` para `700` e tamanho base (`baseSize`) reduzido de `5` para `3.5` para um efeito menos denso.
+        *   ✅ Imagem principal da seção alterada de `/image_grande/icon-za-medio-1.png` para `/image_grande/icon-za-medio-2.png`.
+
 ### Log de Otimizações de Performance (Iniciado YYYY-MM-DD - Data da Interação Atual)
 
 *   ✅ **Problema Resolvido (YYYY-MM-DD - Data da Interação Atual):** Lentidão e travamentos anteriormente identificados, possivelmente associados a efeitos de brilho (glow/shadow), foram resolvidos.

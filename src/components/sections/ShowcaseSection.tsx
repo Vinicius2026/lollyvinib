@@ -29,7 +29,7 @@ const ModelViewer = ({ position = [0, 0, 0], direction = 1 }: { position: [numbe
 export const ShowcaseSection = () => {
   return (
     <motion.section
-      className="py-24 text-brand-white relative overflow-hidden"
+      className="py-32 text-brand-white relative overflow-hidden"
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       viewport={{ once: true, amount: 0.2 }}
@@ -51,28 +51,28 @@ export const ShowcaseSection = () => {
       </div>
 
       {/* Container principal com o grid de 2 colunas */}
-      <div className="container mx-auto px-4 grid md:grid-cols-2 gap-8 md:gap-16 items-center relative z-10 pt-12 md:pt-16">
+      <div className="container mx-auto px-5 grid md:grid-cols-2 gap-8 md:gap-16 items-center relative z-10 pt-12 md:pt-16">
         
         {/* Coluna da Esquerda: Contém a imagem e a nébula atrás */}
         <div className="h-80 md:h-96 w-full relative flex items-center justify-center">
           
           {/* Div para posicionar o Canvas da Nébula - Fica atrás (z-0) */}
-          <div style={{ position: 'absolute', top: '50%', left: '50%', width: '120%', height: '120%', transform: 'translate(-50%, -50%)', zIndex: 0 }}>
+          <div style={{ position: 'absolute', top: '50%', left: '50%', width: '100%', height: '100%', transform: 'translate(-50%, -50%)', zIndex: 0 }}>
             <Canvas camera={{ position: [0, 0, 6], fov: 65 }} style={{ background: 'transparent' }}>
               {/* Configuração da nébula compacta */}
               <CosmicNebulaEffect
-                particleCount={1000}
-                baseColor="#8A2BE2" // Azul Violeta
-                baseSize={5}
+                particleCount={700}
+                baseColor="#013220"
+                baseSize={3.5}
                 shapeVolume='box'
-                volumeDimensions={new THREE.Vector3(7, 7, 5)}
+                volumeDimensions={new THREE.Vector3(2.5, 2.5, 1.75)}
               />
             </Canvas>
           </div>
 
           {/* Imagem - Fica na frente (z-10) */}
           <motion.img
-            src="/image_grande/icon-za-medio-1.png"
+            src="/image_grande/icon-za-medio-2.png"
             alt="Zap IA AILoop"
             className="max-h-[70%] max-w-[70%] md:max-h-[80%] md:max-w-[80%] object-contain relative z-10"
             initial={{ opacity: 0, scale: 0.5 }}
@@ -90,25 +90,25 @@ export const ShowcaseSection = () => {
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          <h2 className="text-4xl md:text-5xl font-display font-bold text-neon-purple">
-            IA não substitui sua decisão. Ela amplia sua visão.
-          </h2>
-          <p className="text-lg text-white/80 font-sans">
-            Tomar decisões com base apenas na experiência é coisa do passado.
-          </p>
-          <p className="text-lg text-white/80 font-sans">
-            A AILOOP revela possibilities com inteligência algorítmica e percepção aumentada.
-          </p>
-          <p className="text-lg text-white/90 italic font-medium">
-            A melhor decisão começa com o melhor dado.
-          </p>
-          <Button
-            variant="outline"
-            className="mt-6 bg-white/5 backdrop-blur-sm border border-white/10 text-white hover:bg-black/30 hover:border-white/20 group text-base transition-colors duration-300"
-          >
-            Todos os Serviços
-            <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-          </Button>
+          <div>
+            <h2 className="text-4xl md:text-5xl font-display font-bold text-neon-purple">
+              IA não substitui sua decisão.
+            </h2>
+            <p className="text-xl md:text-2xl font-display text-neon-purple/80 mt-1 md:mt-2">
+              Ela amplia sua visão.
+            </p>
+          </div>
+          <div className="space-y-4 max-w-lg"> {/* Adicionado max-w-lg para conter a largura da descrição */}
+            <p className="text-lg text-white/80 font-sans">
+              Tomar decisões com base apenas na experiência é coisa do passado.
+            </p>
+            <p className="text-lg text-white/80 font-sans">
+              A AILOOP revela possibilities com inteligência algorítmica e percepção aumentada.
+            </p>
+            <p className="text-lg text-white/90 italic font-medium">
+              A melhor decisão começa com o melhor dado.
+            </p>
+          </div>
         </motion.div> {/* Fim da Coluna da Direita */}
 
       </div> {/* Fim do Container Grid */}

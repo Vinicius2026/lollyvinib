@@ -25,13 +25,13 @@ const HeroSection: React.FC = () => {
     <section 
       id="hero" 
       // Padding bottom reduzido ainda mais
-      className="relative flex flex-col items-center justify-center px-4 pt-20 pb-16 md:pb-20 text-center overflow-hidden bg-brand-dark"
+      className="relative flex flex-col items-center justify-center px-8 pt-20 pb-16 md:pb-20 text-center overflow-hidden bg-brand-dark"
     >
       <DarkCloudParticles />
 
       {/* Container Typewriter (Mantido Centralizado) */}
       <motion.div
-        className="w-full max-w-4xl mx-auto mt-8 mb-12 md:mb-16 z-10"
+        className="w-full max-w-5xl mx-auto mt-8 mb-12 md:mb-16 z-10"
         variants={fadeInUp}
         initial="hidden"
         whileInView="visible"
@@ -53,7 +53,7 @@ const HeroSection: React.FC = () => {
       
       {/* Container Principal Centralizado */}
       <motion.div 
-        className="container mx-auto relative z-10 max-w-4xl flex flex-col items-center space-y-8" 
+        className="container mx-auto relative z-10 max-w-5xl flex flex-col items-center space-y-8" 
         variants={fadeInUp} 
         initial="hidden"
         whileInView="visible"

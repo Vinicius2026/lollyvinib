@@ -51,15 +51,15 @@ const containerVariants = {
 const ZapIaShowcase: React.FC = () => {
   return (
     <section className="py-20 md:py-28 bg-white">
-      <div className="container mx-auto px-4 text-center max-w-6xl"> {/* Aumentado max-w para acomodar melhor */} 
+      <div className="container mx-auto px-8 text-center max-w-3xl"> {/* max-w-5xl para max-w-3xl */} 
         {/* Título Principal da Seção - Estilo similar à referência "Engage with..." */}
         <motion.h1
           initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: "circOut" }}
-          className="text-4xl md:text-5xl lg:text-6xl font-orbitron font-bold text-neutral-900 mb-16 md:mb-20 uppercase tracking-tight"
+          className="text-2xl md:text-3xl lg:text-4xl font-orbitron font-bold text-neutral-900 mb-16 md:mb-20 uppercase tracking-tight" // Tamanho da fonte reduzido
         >
-          Fremen IA Texto & Voz
+          Fremen IA <br /> Texto & Voz {/* Texto alterado para duas linhas */}
         </motion.h1>
 
         {/* Layout para os dois cards lado a lado */}
@@ -68,7 +68,7 @@ const ZapIaShowcase: React.FC = () => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
-          className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 lg:gap-16"
+          className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 lg:gap-10" // Espaçamento do gap reduzido
         >
           {featuresToDisplay.map((feature, index) => (
             <FeatureCard
